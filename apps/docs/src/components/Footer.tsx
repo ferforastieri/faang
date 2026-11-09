@@ -63,7 +63,7 @@ export default function Footer() {
 
           {/* Copyright */}
           <p className="text-sm text-muted-foreground">
-            © {currentYear} Valk UI
+            © {currentYear} Valk UI · deploy-check-2026-11-09-2315
           </p>
         </div>
       </div>
