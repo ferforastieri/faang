@@ -54,7 +54,7 @@ O CLI interativo permite:
 
 ## 📖 Documentação
 
-Acesse a documentação completa em: [https://valkui.vercel.app/](https://valkui.vercel.app/)
+Acesse a documentação completa em: [https://faang.vira.ia.br/](https://faang.vira.ia.br/)
 
 Ou execute localmente:
 
@@ -166,12 +166,12 @@ Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICE
 
 ## 🙏 Agradecimentos
 
-- [Tailwind CSS](https://valkui.vercel.app/) - Framework CSS utilitário
-- [shadcn/ui](https://valkui.vercel.app/) - Inspiração para a estrutura
+- [Tailwind CSS](https://tailwindcss.com/) - Framework CSS utilitário
+- [shadcn/ui](https://ui.shadcn.com/) - Inspiração para a estrutura
 
 ## 📧 Contato
 
-- **Website**: [https://valkui.vercel.app/](https://valkui.vercel.app/)
+- **Website**: [https://faang.vira.ia.br/](https://faang.vira.ia.br/)
 - **Issues**: [GitHub Issues](https://github.com/ferforastieri/valk-ui/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/ferforastieri/valk-ui/discussions)
 

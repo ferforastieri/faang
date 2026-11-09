@@ -18,7 +18,7 @@ interface LayoutProps {
   children: React.ReactNode
 }
 
-const SITE_URL = 'https://valkui.vercel.app'
+const SITE_URL = 'https://faang.vira.ia.br'
 
 const routeMeta: Record<string, { title: string; description: string }> = {
   '/': {

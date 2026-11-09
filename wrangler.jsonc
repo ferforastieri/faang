@@ -1,0 +1,11 @@
+{
+  "name": "faang-site",
+  "compatibility_date": "2026-11-09",
+  "assets": {
+    "directory": "apps/docs/dist",
+    "not_found_handling": "single-page-application"
+  },
+  "routes": [
+    { "pattern": "faang.vira.ia.br/*", "zone_name": "vira.ia.br" }
+  ]
+}

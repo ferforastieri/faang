@@ -194,7 +194,7 @@ And import the CSS in your main file:
 ## 📖 Complete Documentation
 
 For complete documentation with examples, visit:
-- [Online Documentation](https://valkui.vercel.app/)
+- [Online Documentation](https://faang.vira.ia.br/)
 - [GitHub Repository](https://github.com/ferforastieri/valk-ui)
 
 ## 🤝 Contributing
@@ -213,7 +213,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- [Tailwind CSS](https://valkui.vercel.app/) - Utility-first CSS framework
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
 
 ## 📧 Support
 
