@@ -4,7 +4,7 @@
   "description": "Add Faang components to your project.",
   "type": "module",
   "bin": {
-    "faang": "./index.mjs"
+    "faang": "index.mjs"
   },
   "files": [
     "index.mjs",
@@ -18,7 +18,7 @@
   "homepage": "https://faang.vira.ia.br",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ferforastieri/faang.git",
+    "url": "git+https://github.com/ferforastieri/faang.git",
     "directory": "cli"
   },
   "keywords": [
