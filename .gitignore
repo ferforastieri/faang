@@ -13,6 +13,8 @@ dist
 *.tsbuildinfo
 next-env.d.ts
 
+*.tgz
+
 # Keys stay out of git. .env.example documents what goes in .env.local, and
 # .dev.vars is the same file for `wrangler dev` / `opennextjs-cloudflare preview`.
 .env*
