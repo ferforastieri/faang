@@ -22,7 +22,6 @@ import {
   type DashboardNavItem,
 } from "@/components/application/dashboard/dashboard-sidebar";
 import { NotificationBell } from "@/components/application/app-shell/notification-bell";
-import { ProOfferCard } from "@/components/application/app-shell/pro-offer-card";
 import { Avatar } from "@/components/base/avatar/avatar";
 import { Breadcrumb, BreadcrumbItem } from "@/components/base/breadcrumb/breadcrumb";
 import { Button } from "@/components/base/buttons/button";
@@ -44,11 +43,7 @@ export const STARTER_SITE_PREFIX = "/templates/chat-starter";
 // Re-exported so the catalogue ships with the shell; the starter's pages are
 // copied into the public repo by path and can only import what a registry
 // item carries.
-export {
-  CatalogTierFilter,
-  ComponentsCatalog,
-  type CatalogTier,
-} from "@/components/application/app-shell/components-catalog";
+export { ComponentsCatalog } from "@/components/application/app-shell/components-catalog";
 
 /** "" in a deployed starter, the site prefix on faang.com. */
 export function useStarterBase(): string {
@@ -60,7 +55,7 @@ export function useStarterBase(): string {
 
 export function starterNav(base: string): DashboardNavItem[] {
   return [
-    { key: "chat", label: "Chat", icon: RiChatAiLine, href: base || "/" },
+    { key: "chat", label: "Chat", icon: RiChatAiLine, href: `${base}/chat` },
     { key: "dashboard", label: "Dashboard", icon: RiDashboardLine, href: `${base}/dashboard` },
     { key: "components", label: "Components and Blocks", icon: RiLayoutGridLine, href: `${base}/components` },
     // Auth screens, as examples: full-page, so nothing is selected while on them.
@@ -191,7 +186,6 @@ export function AppShell({
           <div className="flex w-full flex-col gap-4 pb-4">{children}</div>
         </div>
       </main>
-      <ProOfferCard />
     </div>
   ));
 }

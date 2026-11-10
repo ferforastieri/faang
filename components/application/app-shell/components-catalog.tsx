@@ -9,73 +9,32 @@ import {
   FREE_COMPONENT_PREVIEWS,
   FREE_PREVIEW_OPTIONS,
   TEMPLATE_CARD,
-  TemplateFrame,
 } from "@/components/application/docs/component-previews-free";
 import type { PreviewHref } from "@/components/application/docs/component-preview-hrefs";
-import {
-  SegmentedControl,
-  SegmentedControlItem,
-} from "@/components/base/segmented-control/segmented-control";
-import { PREVIEW_IMAGE_SLUGS } from "@/components/application/docs/preview-images";
 import { ShowcaseCard } from "@/components/application/docs/showcase-card";
 import { cx } from "@/utils/cx";
 
 const SITE = "https://www.faang.com";
 
-export type CatalogTier = "all" | "free" | "pro";
-
-/** The Free / Pro pills over the catalogue; the page owns the state and hands it to both. */
-export function CatalogTierFilter({
-  tier,
-  onChange,
-}: {
-  tier: CatalogTier;
-  onChange: (tier: CatalogTier) => void;
-}) {
-  const localize = useTemplateCopy();
-  return localize((
-    <SegmentedControl
-      aria-label="Show"
-      selectedKeys={[tier]}
-      onSelectionChange={(keys) => {
-        const [key] = keys;
-        if (key !== undefined) onChange(String(key) as CatalogTier);
-      }}
-    >
-      <SegmentedControlItem id="all">All</SegmentedControlItem>
-      <SegmentedControlItem id="free">Free</SegmentedControlItem>
-      <SegmentedControlItem id="pro">Pro</SegmentedControlItem>
-    </SegmentedControl>
-  ));
-}
-
 /**
  * The faang.com components index, as the starter shows it: the same
  * sections, names and descriptions, every card opening its docs page on the
- * site in a new tab. Free components render their live previews, Pro
- * templates frame the site's embed routes, and the other Pro components show
- * pictures captured from the site's index (scripts/capture-previews.mjs):
- * nothing of Pro may enter this repository, so the pictures travel instead
- * of the code. `tier` narrows every section to Free or Pro.
+ * site in a new tab. Each component renders its live preview, because every
+ * component in the catalogue ships in this repository as source.
  */
-export function ComponentsCatalog({ tier = "all" }: { tier?: CatalogTier }) {
+export function ComponentsCatalog() {
   const localize = useTemplateCopy();
-  const shipped = COMPONENT_SECTIONS.flatMap((s) => s.entries).filter((e) => e.status === "shipped");
-  const free = shipped.filter((e) => e.tier === "free").length;
-  const sections = COMPONENT_SECTIONS.map((section) => ({
-    ...section,
-    entries: section.entries.filter((entry) => tier === "all" || entry.tier === tier),
-  })).filter((section) => section.entries.length > 0);
+  const total = COMPONENT_SECTIONS.reduce((sum, section) => sum + section.entries.length, 0);
   return localize((
     // The shell's column is narrowed to 964px for this page (two 472px
     // template cards and a gap), so the heading and every grid share one edge.
     <div className="flex w-full flex-col gap-10">
       <p className="max-w-2xl text-body-regular text-text-secondary">
-        Every component, block, chart and template in Faang, {shipped.length} in all. The{" "}
-        {free} free ones are already in this project as source; each card opens its docs on
-        faang.com, with the install command and the props.
+        Every component, block, chart and template in Faang, {total} in all, and every one of
+        them is already in this project as source. Each card opens its docs on faang.com, with
+        the install command and the props.
       </p>
-      {sections.map((section) => (
+      {COMPONENT_SECTIONS.map((section) => (
         <section key={section.title} id={section.title.toLowerCase()} className="flex flex-col gap-4">
           <div className="flex items-baseline gap-2">
             <h2 className="text-title-2-medium text-text-primary">{section.title}</h2>
@@ -88,12 +47,12 @@ export function ComponentsCatalog({ tier = "all" }: { tier?: CatalogTier }) {
               section.wide ? "xl:grid-cols-[repeat(2,472px)]" : "sm:grid-cols-2 xl:grid-cols-[repeat(3,304px)]",
             )}
           >
-            {section.entries.filter(hasImage).map((entry) => (
+            {section.entries.filter(hasPreview).map((entry) => (
               <PreviewCard key={entry.name} entry={entry} />
             ))}
           </div>
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-            {section.entries.filter((entry) => !hasImage(entry)).map((entry) => (
+            {section.entries.filter((entry) => !hasPreview(entry)).map((entry) => (
               <CatalogCard key={entry.name} entry={entry} />
             ))}
           </div>
@@ -103,96 +62,29 @@ export function ComponentsCatalog({ tier = "all" }: { tier?: CatalogTier }) {
   ));
 }
 
-const slugOf = (entry: Entry) => entry.href.replace("/components/", "");
-const hasImage = (entry: Entry) =>
-  entry.status === "shipped" &&
-  (Boolean(livePreview(entry)) || Boolean(TEMPLATE_EMBEDS[slugOf(entry)]) || PREVIEW_IMAGE_SLUGS.has(slugOf(entry)));
+const hasPreview = (entry: Entry) => Boolean(FREE_COMPONENT_PREVIEWS[entry.href as PreviewHref]);
 
-const livePreview = (entry: Entry) => FREE_COMPONENT_PREVIEWS[entry.href as PreviewHref];
-
-/** Pro templates have embed routes on the site; a card frames the real thing, scaled down. */
-const TEMPLATE_EMBEDS: Record<string, string> = {
-  "ai-chat": "chat",
-  "ai-image-generation": "image",
-  "ai-profile": "profile",
-  "home-dashboard": "analytics",
-  "medical-profile": "healthcare",
-  "marketing-dashboard": "marketing",
-  "finance-dashboard": "finance",
-  "hr-management": "hr",
-};
-
-/**
- * The template's embed route in the site's own template frame: the frame is
- * the 1280x855 desktop canvas (a 390x844 phone below `sm`) scaled to the
- * card, so the embedded page lays out exactly as the live one on the site.
- */
-function TemplateEmbed({ id, title }: { id: string; title: string }) {
-  const localize = useTemplateCopy();
-  return localize((
-    <TemplateFrame>
-      <iframe
-        src={`${SITE}/embed/templates/${id}`}
-        title={`${title} preview`}
-        loading="lazy"
-        tabIndex={-1}
-        aria-hidden
-        className="pointer-events-none size-full border-0"
-      />
-    </TemplateFrame>
-  ));
-}
-
-/**
- * The index's showcase card. Free components render live, exactly as on the
- * site; Pro templates frame the site's embed route scaled down; other Pro
- * components show the captured picture. No Pro code ever comes here.
- */
+/** A shipped component, rendered live in the same frame the site uses. */
 function PreviewCard({ entry }: { entry: Entry }) {
   const localize = useTemplateCopy();
   const Preview = FREE_COMPONENT_PREVIEWS[entry.href as PreviewHref];
-  const slug = slugOf(entry);
-  const embed = TEMPLATE_EMBEDS[slug];
+  if (!Preview) return null;
   return localize((
     <ShowcaseCard
       external
       href={`${SITE}${entry.href}`}
       title={entry.name}
       description={entry.description}
-      {...(Preview ? (FREE_PREVIEW_OPTIONS[entry.href] ?? {}) : {})}
-      {...(embed ? TEMPLATE_CARD : {})}
+      {...(FREE_PREVIEW_OPTIONS[entry.href] ?? {})}
+      {...(entry.href === "/components/chat-starter" ? TEMPLATE_CARD : {})}
     >
-      {Preview ? (
-        <Preview />
-      ) : embed ? (
-        <TemplateEmbed id={embed} title={entry.name} />
-      ) : (
-        <>
-          {/* Plain img on purpose: small fixed-size WebPs served by faang.com;
-              next/image would make every clone configure a remote pattern. */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={`${SITE}/previews/${slug}.webp`} alt="" loading="lazy" className="size-full object-cover object-top dark:hidden" />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={`${SITE}/previews/${slug}-dark.webp`} alt="" loading="lazy" className="hidden size-full object-cover object-top dark:block" />
-        </>
-      )}
+      <Preview />
     </ShowcaseCard>
   ));
 }
 
 function CatalogCard({ entry }: { entry: Entry }) {
   const localize = useTemplateCopy();
-  if (entry.status !== "shipped") {
-    return localize((
-      <div className="flex flex-col gap-1 rounded-2lg border border-dashed border-border-button-default p-4">
-        <div className="flex items-center gap-2">
-          <span className="text-body-medium text-text-tertiary">{entry.name}</span>
-          <Tag>Soon</Tag>
-        </div>
-        <span className="text-body-regular text-text-tertiary">{entry.description}</span>
-      </div>
-    ));
-  }
   return localize((
     <a
       href={`${SITE}${entry.href}`}
@@ -211,7 +103,6 @@ function CatalogCard({ entry }: { entry: Entry }) {
         )}
         <span className="text-body-medium text-text-primary">{entry.name}</span>
         {entry.isNew && <Tag tone="new">New</Tag>}
-        {entry.tier === "pro" && <Tag>Pro</Tag>}
       </div>
       <span className="text-body-regular text-text-secondary">{entry.description}</span>
       <RiArrowRightLine
@@ -242,3 +133,4 @@ function Tag({ tone = "neutral", children }: { tone?: "neutral" | "new"; childre
     </span>
   ));
 }
+

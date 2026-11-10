@@ -20,8 +20,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Chat",
-  description: "A streaming AI chat on your own model key, built with Faang.",
+  title: "Faang — a React design system for agent interfaces",
+  description:
+    "Components, blocks, charts and templates for AI products, as source files in your project. One visual language, light and dark, MIT licensed.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
