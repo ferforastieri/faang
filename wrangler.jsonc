@@ -5,6 +5,8 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "faang",
   "main": ".open-next/worker.js",
+  // Publicado só no domínio próprio; nenhum <worker>.workers.dev.
+  "workers_dev": false,
   "compatibility_date": "2026-11-10",
   // The AI SDK and Next's node paths need the Node built-ins shim.
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
