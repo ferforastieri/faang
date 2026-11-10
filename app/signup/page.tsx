@@ -3,6 +3,7 @@
 import { useStarterBase } from "@/components/application/app-shell/app-shell";
 import { AuthCard } from "@/components/application/auth/auth-card";
 import { AuthMediaCarousel } from "@/components/application/auth/auth-media-carousel";
+import { LogoLockup } from "@/components/foundations/brand/logo";
 
 /** The starter's sign-up screen: the split layout, form beside artwork. */
 export default function SignupPage() {
@@ -17,6 +18,7 @@ export default function SignupPage() {
         providers={["apple", "google", "figma"]}
         title="Create your account"
         description="Enter your email below to create your account"
+        logo={<LogoLockup height={30} />}
         switchHref={`${base}/login`}
         footnote={<>By clicking continue, you agree to our Terms of Service and Privacy Policy.</>}
         media={

@@ -233,7 +233,7 @@ Tokens, type scale, global styles, utilities, and the agent rules.
 | [Directional icons](utils/directional-icon.ts) | Mirrors navigation arrows and sidebar glyphs in RTL while preserving non-directional icons. | `npx faang@latest add directional-icon` |
 | [Directional scrolling](utils/scroll-direction.ts) | Logical horizontal scroll offsets and item alignment for RTL and LTR carousels and tab strips. | `npx faang@latest add scroll-direction` |
 | [Global styles](styles/globals.css) | Tailwind entry css: dark-mode variant, base resets, component animations, and table styling. Imports theme.css and typography.css. | `npx faang@latest add globals` |
-| [Logo](components/foundations/brand/logo.tsx) | Faang brand mark placeholder — swap with your own logo component. | `npx faang@latest add logo` |
+| [Logo](components/foundations/brand/logo.tsx) | Faang's brand mark and horizontal lockup at any size, from the approved artwork in `public/brand/`. Swap the files to rebrand. | `npx faang@latest add logo` |
 | [Template copy](components/foundations/template-copy/template-copy.tsx) | Optional application translations for template labels, sample content, and accessible names, preserving identifiers and input values. | `npx faang@latest add template-copy` |
 | [Theme tokens](https://www.faang.com/components/color) | Color primitives, semantic tokens (text/background/border/foreground/chart), radii, shadows, and button gradient utilities. | `npx faang@latest add theme` |
 | [Typography tokens](https://www.faang.com/components/typography) | The full Figma type scale as composite text-{family}-{weight} Tailwind utilities. | `npx faang@latest add typography` |

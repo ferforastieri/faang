@@ -41,7 +41,7 @@ export function NotificationBell({
           onClick={() => setIsOpen((open) => !open)}
         />
         {unread > 0 && (
-          <span className="pointer-events-none absolute top-0.5 start-[18px] flex size-4 items-center justify-center rounded-full border-[1.5px] border-background-primary-default bg-red-600 group-hover:border-0 group-active:border-0">
+          <span className="pointer-events-none absolute top-0.5 start-[18px] flex size-4 items-center justify-center rounded-full border-[1.5px] border-background-primary-default bg-accent-600 group-hover:border-0 group-active:border-0">
             <span className="w-4 text-center text-[10px] leading-4 font-bold text-white">{unread}</span>
           </span>
         )}

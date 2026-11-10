@@ -128,7 +128,7 @@ function ServerTile({ server }: { server: McpServer }) {
         aria-hidden
         className={cx(
           "absolute -bottom-0.5 -start-0.5 size-2.5 rounded-full ring-2 ring-background-secondary-default",
-          server.status === "connected" ? "bg-green-500" : "bg-red-600",
+          server.status === "connected" ? "bg-green-500" : "bg-danger-500",
         )}
       />
     </span>

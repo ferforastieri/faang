@@ -22,27 +22,67 @@
   --color-neutral-925: #121212;
   --color-blue-400:    #3392ff;
 
+  /* ----- Brand ramp ----------------------------------------------------------
+   * Faang's identity color, sampled from the approved logo in the brand kit:
+   * the mark's face runs #EF0C0C at the top of its gradient to #D00A09 at the
+   * bottom, and those two land on 500 and 600 — the exact pair the primary
+   * button's vertical gradient is built from, so every CTA prints the logo's
+   * own gradient. Steps hold the mark's hue (28.9° in OKLCH) with chroma capped
+   * to what sRGB can render at each lightness.
+   * --------------------------------------------------------------------------*/
+  --color-brand-50:  #fef3f1;
+  --color-brand-100: #ffe3de;
+  --color-brand-200: #ffcbc2;
+  --color-brand-300: #ffa091;
+  --color-brand-400: #fd5747;
+  --color-brand-500: #ef0c0c;
+  --color-brand-600: #d00a09;
+  --color-brand-700: #b7100d;
+  --color-brand-800: #9c140e;
+  --color-brand-900: #831610;
+  --color-brand-950: #440d08;
+
+  /* ----- Danger ramp ---------------------------------------------------------
+   * Destructive and error. The brand is a vivid scarlet, so reusing Tailwind's
+   * red here would leave "Delete" and "Create" as two shades of the same
+   * colour, and error text indistinguishable from a link. This ramp is a
+   * crimson instead — hue 8° against the brand's 28.9°, and much deeper
+   * through the middle — so a destructive control reads as its own colour
+   * beside the CTA. White on 500/600 stays above 8:1.
+   * --------------------------------------------------------------------------*/
+  --color-danger-50:  #fdf2f3;
+  --color-danger-100: #fce0e4;
+  --color-danger-200: #f3c0c8;
+  --color-danger-300: #dc93a0;
+  --color-danger-400: #c45770;
+  --color-danger-500: #a42e4f;
+  --color-danger-600: #871f3e;
+  --color-danger-700: #6d1731;
+  --color-danger-800: #540f24;
+  --color-danger-900: #3e0a19;
+  --color-danger-950: #190408;
+
   /* ----- Accent ramp ---------------------------------------------------------
    * The CTA hue. Interactive/selection surfaces (primary button gradient,
    * ghost + link buttons, checkbox, radio, switch, slider, tabs, sidebar
    * selected, focus ring, date-range selection) reference accent-* instead of
    * a raw hue, so the whole system re-tints by overriding these eleven
    * variables at runtime (see components/application/theme/accent.ts) or in
-   * a customer project after importing this file. Defaults to the blue
-   * primitives above. Content/data blues (charts, status chips, calendar
-   * events, info notifications) deliberately keep referencing blue-*.
+   * a customer project after importing this file. Defaults to the brand ramp
+   * above. Content/data colors (charts, status chips, calendar events, info
+   * notifications) deliberately keep referencing their own hues.
    * --------------------------------------------------------------------------*/
-  --color-accent-50:  var(--color-blue-50);
-  --color-accent-100: var(--color-blue-100);
-  --color-accent-200: var(--color-blue-200);
-  --color-accent-300: var(--color-blue-300);
-  --color-accent-400: var(--color-blue-400);
-  --color-accent-500: var(--color-blue-500);
-  --color-accent-600: var(--color-blue-600);
-  --color-accent-700: var(--color-blue-700);
-  --color-accent-800: var(--color-blue-800);
-  --color-accent-900: var(--color-blue-900);
-  --color-accent-950: var(--color-blue-950);
+  --color-accent-50:  var(--color-brand-50);
+  --color-accent-100: var(--color-brand-100);
+  --color-accent-200: var(--color-brand-200);
+  --color-accent-300: var(--color-brand-300);
+  --color-accent-400: var(--color-brand-400);
+  --color-accent-500: var(--color-brand-500);
+  --color-accent-600: var(--color-brand-600);
+  --color-accent-700: var(--color-brand-700);
+  --color-accent-800: var(--color-brand-800);
+  --color-accent-900: var(--color-brand-900);
+  --color-accent-950: var(--color-brand-950);
 
   /* ----- Typography ----------------------------------------------------------
    * Font sizes, weights, line-heights, and tracking all match Tailwind v4
@@ -166,10 +206,10 @@
   --color-foreground-icon-secondary:     var(--color-neutral-500);
   --color-foreground-icon-tertiary:      var(--color-neutral-400);
   --color-foreground-icon-quaternary:    var(--color-neutral-300);
-  --color-foreground-icon-error:         var(--color-red-600);
+  --color-foreground-icon-error:         var(--color-danger-600);
   --color-foreground-icon-disabled:      var(--color-neutral-300);
   --color-foreground-disabled:           var(--color-neutral-400);
-  --color-foreground-disabled-danger:    var(--color-red-300);
+  --color-foreground-disabled-danger:    var(--color-danger-300);
   --color-input-disabled-foreground:     var(--color-neutral-300);
   --color-icon-button-disabled-foreground: var(--color-neutral-300);
   --color-button-primary-disabled-foreground: var(--color-neutral-400);
@@ -179,10 +219,10 @@
   --color-text-secondary:       var(--color-neutral-500);
   --color-text-tertiary:        var(--color-neutral-400);
   --color-text-disabled:        var(--color-neutral-300);
-  --color-text-disabled-danger: var(--color-red-300);
+  --color-text-disabled-danger: var(--color-danger-300);
   --color-text-placeholder:     var(--color-neutral-400);
-  --color-text-error-primary:   var(--color-red-500);
-  --color-text-destructive: color-mix(in srgb, var(--color-red-700) 80%, var(--color-neutral-600));
+  --color-text-error-primary:   var(--color-danger-500);
+  --color-text-destructive: color-mix(in srgb, var(--color-danger-700) 80%, var(--color-neutral-600));
   --color-input-disabled-text:  var(--color-neutral-300);
   --color-text-white:           var(--color-white);
 
@@ -215,14 +255,14 @@
   --color-background-secondary-hover:   var(--color-neutral-200);
   --color-background-tertiary-default:  var(--color-neutral-200);
   --color-background-tertiary-hover:    var(--color-neutral-300);
-  --color-background-tertiary-error:    var(--color-red-100);
+  --color-background-tertiary-error:    var(--color-danger-100);
   --color-background-recent-hire-role:  var(--color-neutral-100);
   --color-avatar-neutral-background:    var(--color-neutral-300);
   /* Figma background/quaternary/default — first used by the Storage
    * dropzone's upload-icon disc (node 4106:26587). */
   --color-background-quaternary-default: var(--color-neutral-300);
   --color-background-quaternary-hover:   var(--color-neutral-400);
-  --color-background-quaternary-error:   var(--color-red-200);
+  --color-background-quaternary-error:   var(--color-danger-200);
   --color-file-upload-icon-background:   var(--color-neutral-300);
   --color-file-upload-icon-foreground:   var(--color-neutral-400);
   --color-file-upload-icon-foreground-hover: var(--color-neutral-500);
@@ -234,7 +274,7 @@
   --color-border-button-white:     var(--color-white);
   /* The system had no red border. Matches text/error/primary so an invalid
      field's edge and its message are the same red. */
-  --color-border-error-default:    var(--color-red-500);
+  --color-border-error-default:    var(--color-danger-500);
   --color-border-checkbox-default: var(--color-neutral-300);
   --color-border-checkbox-hover:   var(--color-neutral-400);
   --color-border-checkbox-active:  var(--color-neutral-400);
@@ -375,7 +415,7 @@
   --color-calendar-event-emerald-time:       var(--color-emerald-700);
 
   /* Placeholder colors that don't map cleanly to existing text tokens */
-  --color-text-error-placeholder: var(--color-red-400);
+  --color-text-error-placeholder: var(--color-danger-400);
 
   /* Charts (graphs) — shared neutrals + a categorical accent ramp.
    * `track` is the background bar/ring behind a series; `cursor` the hover
@@ -414,10 +454,10 @@
   --gradient-button-primary-active:   linear-gradient(180deg, var(--color-accent-600)    0%, var(--color-accent-700)    100%);
   --gradient-button-primary-disabled: linear-gradient(180deg, var(--color-neutral-200) 0%, var(--color-neutral-300) 100%);
 
-  --gradient-button-danger-default:   linear-gradient(180deg, var(--color-red-500) 0%, var(--color-red-600) 100%);
-  --gradient-button-danger-hover:     linear-gradient(180deg, var(--color-red-400) 0%, var(--color-red-500) 100%);
-  --gradient-button-danger-active:    linear-gradient(180deg, var(--color-red-600) 0%, var(--color-red-700) 100%);
-  --gradient-button-danger-disabled:  linear-gradient(180deg, var(--color-red-100) 0%, var(--color-red-200) 100%);
+  --gradient-button-danger-default:   linear-gradient(180deg, var(--color-danger-500) 0%, var(--color-danger-600) 100%);
+  --gradient-button-danger-hover:     linear-gradient(180deg, var(--color-danger-400) 0%, var(--color-danger-500) 100%);
+  --gradient-button-danger-active:    linear-gradient(180deg, var(--color-danger-600) 0%, var(--color-danger-700) 100%);
+  --gradient-button-danger-disabled:  linear-gradient(180deg, var(--color-danger-100) 0%, var(--color-danger-200) 100%);
 }
 
 .dark {
@@ -425,12 +465,12 @@
   --color-foreground-full:            var(--color-neutral-700);
   --color-foreground-icon-primary:    var(--color-neutral-50);
   --color-foreground-icon-hover:      var(--color-white);
-  --color-foreground-icon-error:      var(--color-red-400);
+  --color-foreground-icon-error:      var(--color-danger-400);
   --color-foreground-icon-tertiary:   var(--color-neutral-600);
   --color-foreground-icon-quaternary: var(--color-neutral-700);
   --color-foreground-icon-disabled:   var(--color-neutral-800);
   --color-foreground-disabled:        var(--color-neutral-700);
-  --color-foreground-disabled-danger: var(--color-red-400);
+  --color-foreground-disabled-danger: var(--color-danger-400);
   --color-input-disabled-foreground:  var(--color-neutral-600);
   --color-icon-button-disabled-foreground: var(--color-neutral-500);
   --color-button-primary-disabled-foreground: var(--color-neutral-500);
@@ -439,8 +479,8 @@
   --color-text-primary:  var(--color-neutral-50);
   --color-text-tertiary: var(--color-neutral-600);
   --color-text-disabled: var(--color-neutral-800);
-  --color-text-error-primary: var(--color-red-400);
-  --color-text-destructive: color-mix(in srgb, var(--color-red-500) 80%, var(--color-neutral-500));
+  --color-text-error-primary: var(--color-danger-300);
+  --color-text-destructive: color-mix(in srgb, var(--color-danger-400) 80%, var(--color-neutral-500));
   --color-input-disabled-text: color-mix(in srgb, var(--color-neutral-500) 40%, transparent);
 
   /* Background */
@@ -471,7 +511,7 @@
   --color-background-secondary-hover:   var(--color-neutral-800);
   --color-background-tertiary-default:  var(--color-neutral-800);
   --color-background-tertiary-hover:    var(--color-neutral-700);
-  --color-background-tertiary-error:    color-mix(in srgb, var(--color-red-950) 60%, transparent);
+  --color-background-tertiary-error:    color-mix(in srgb, var(--color-danger-950) 60%, transparent);
   --color-background-quaternary-default: var(--color-neutral-700);
   --color-background-quaternary-hover:   var(--color-neutral-600);
   --color-background-recent-hire-role:  color-mix(in srgb, var(--color-neutral-900) 60%, transparent);
@@ -557,7 +597,7 @@
   --color-border-button-hover:     var(--color-neutral-500);
   --color-border-button-active:    var(--color-neutral-600);
   --color-border-button-white:     var(--color-zinc-800);
-  --color-border-error-default:    var(--color-red-400);
+  --color-border-error-default:    var(--color-danger-400);
   --color-border-checkbox-default: var(--color-neutral-700);
   --color-border-checkbox-hover:   var(--color-neutral-500);
   --color-border-checkbox-active:  var(--color-neutral-500);
@@ -619,8 +659,8 @@
   );
   --gradient-button-danger-disabled: linear-gradient(
     180deg,
-    var(--color-red-900) 0%,
-    var(--color-red-950) 100%
+    var(--color-danger-900) 0%,
+    var(--color-danger-950) 100%
   );
 
   /* Neutral graph structure; categorical and status colors stay unchanged. */

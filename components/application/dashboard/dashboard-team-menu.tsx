@@ -177,7 +177,7 @@ export function DashboardTeamMenu({
         )}
       >
         <span className="flex min-w-0 items-center gap-2">
-          <Avatar size="md" color="blue" src="/brand/faang_logo_circle.webp" alt="Board team" />
+          <Avatar size="md" color="blue" src="/brand/faang-icon-circle.png" alt="Board team" />
           <Collapsible collapsed={collapsed}>
             <span className="flex min-w-0 flex-col items-start justify-center">
               <span className="text-body-medium whitespace-nowrap text-text-primary">Board team</span>
@@ -208,7 +208,7 @@ export function DashboardTeamMenu({
         <AriaDialog aria-label="Board team menu" className="flex flex-col gap-[7px] outline-none">
           {/* Header */}
           <div className="flex w-full items-center gap-2 px-2 pt-1">
-            <Avatar size="md" color="blue" src="/brand/faang_logo_circle.webp" alt="Board team" />
+            <Avatar size="md" color="blue" src="/brand/faang-icon-circle.png" alt="Board team" />
             <div className="flex min-w-0 flex-col items-start justify-center">
               <span className="text-body-medium whitespace-nowrap text-text-primary">Board team</span>
               <span className="text-body-regular whitespace-nowrap text-text-secondary">hi@faang.com</span>

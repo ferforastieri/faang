@@ -1,85 +1,65 @@
 import Image from "next/image";
 import { cx } from "@/utils/cx";
 
-/** Faang mark. Renders the brand icon at a fixed pixel size (24 / 32 / 40).
- *  `mono` swaps between the light and dark black-and-white assets through the
- *  shared theme class on the document root. */
+/**
+ * Both marks ship unoptimized. Next's image optimizer resamples with a Lanczos
+ * kernel, and on a red-on-transparent matte its negative lobes overshoot the
+ * red channel — a one-pixel pale rim that only shows against a dark surface.
+ * The sources are small lossless PNGs, so the browser's own scaling is cleaner
+ * here and costs nothing extra.
+ */
+
+/** Faang's brand mark: the red rounded square with the white cut-out F, taken
+ *  from the approved logo. Square, so it seats cleanly in avatars, rails and
+ *  headers. The artwork carries its own transparent corners, so it keeps the
+ *  mark's squircle on any surface rather than being clipped to a circle. */
 export function Logo({
   size = 32,
-  mono = false,
   className,
+  priority = false,
 }: {
+  /** Rendered edge, in pixels. The source is 256px square. */
   size?: number;
-  mono?: boolean;
   className?: string;
+  /** Set on marks that paint above the fold. */
+  priority?: boolean;
 }) {
-  if (mono) {
-    return (
-      <>
-        <Image
-          src="/brand/faang_logo_blackandwhite.png"
-          alt="Faang"
-          width={size}
-          height={size}
-          className={cx("theme-logo-light shrink-0", className)}
-          priority
-        />
-        <Image
-          src="/brand/faang_logo_blackandwhite_dark.png"
-          alt="Faang"
-          width={size}
-          height={size}
-          className={cx("theme-logo-dark shrink-0", className)}
-          priority
-        />
-      </>
-    );
-  }
-
   return (
     <Image
-      src="/brand/faang_logo.png"
+      src="/brand/faang-icon.png"
       alt="Faang"
       width={size}
       height={size}
       className={cx("shrink-0", className)}
-      priority
+      priority={priority}
+      unoptimized
     />
   );
 }
 
-/** Theme-aware metallic Faang Pro mark. */
-export function ProLogo({
-  size = 36,
+/** The horizontal lockup — mark plus "Faang" wordmark — for the places where
+ *  the name has room: auth cards, footers, artwork. `height` drives the whole
+ *  thing and the width follows the artwork's 588×204 ratio. */
+export function LogoLockup({
+  height = 32,
   className,
-  decorative = false,
   priority = false,
 }: {
-  size?: number;
+  /** Rendered height, in pixels. Width follows proportionally. */
+  height?: number;
   className?: string;
-  decorative?: boolean;
   priority?: boolean;
 }) {
-  const alt = decorative ? "" : "Faang Pro";
-
   return (
-    <>
-      <Image
-        src="/brand/faang_pro.png"
-        alt={alt}
-        width={size}
-        height={size}
-        className={cx("theme-logo-light shrink-0 object-contain", className)}
-        priority={priority}
-      />
-      <Image
-        src="/brand/faang_pro_dark.png"
-        alt={alt}
-        width={size}
-        height={size}
-        className={cx("theme-logo-dark shrink-0 object-contain", className)}
-        priority={priority}
-      />
-    </>
+    <Image
+      src="/brand/faang-logo.png"
+      alt="Faang"
+      width={588}
+      height={204}
+      className={cx("shrink-0", className)}
+      style={{ height, width: "auto" }}
+      priority={priority}
+      unoptimized
+    />
   );
 }

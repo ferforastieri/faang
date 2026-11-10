@@ -851,7 +851,7 @@ export const FREE_COMPONENT_PREVIEWS: Partial<Record<PreviewHref, () => React.Re
           the alternating offsets keep it from reading as a spreadsheet. */}
       <div className="flex items-center gap-2">
         {[
-          ["bg-blue-300", "bg-blue-400", "bg-blue-500", "bg-blue-600"],
+          ["bg-brand-300", "bg-brand-400", "bg-brand-500", "bg-brand-600"],
           ["bg-violet-300", "bg-violet-400", "bg-violet-500", "bg-violet-600"],
           ["bg-rose-300", "bg-rose-400", "bg-rose-500", "bg-rose-600"],
           ["bg-amber-300", "bg-amber-400", "bg-amber-500", "bg-amber-600"],
