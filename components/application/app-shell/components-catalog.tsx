@@ -9,123 +9,137 @@ import {
   FREE_COMPONENT_PREVIEWS,
   FREE_PREVIEW_OPTIONS,
   TEMPLATE_CARD,
+  TemplateFrame,
 } from "@/components/application/docs/component-previews-free";
 import type { PreviewHref } from "@/components/application/docs/component-preview-hrefs";
-import { ShowcaseCard } from "@/components/application/docs/showcase-card";
 import { docSlug } from "@/utils/slug";
 import { cx } from "@/utils/cx";
 
-
 /**
- * The faang.com components index, as the starter shows it: the same
- * sections, names and descriptions, every card opening its docs page on the
- * site in a new tab. Each component renders its live preview, because every
- * component in the catalogue ships in this repository as source.
+ * The catalogue: a documentation index, not a wall of cards.
+ *
+ * Each entry is a bare preview frame with its caption underneath, laid out on
+ * the same fluid grid the section headings sit on — so the column runs to the
+ * edge of the page instead of leaving a strip of nothing on the right. Rows
+ * without a preview fall into a compact list, which is what they are.
  */
 export function ComponentsCatalog() {
   const localize = useTemplateCopy();
   const total = COMPONENT_SECTIONS.reduce((sum, section) => sum + section.entries.length, 0);
+
   return localize((
-    // The shell's column is narrowed to 964px for this page (two 472px
-    // template cards and a gap), so the heading and every grid share one edge.
-    <div className="flex w-full flex-col gap-10">
+    <div className="flex w-full flex-col gap-16">
       <p className="max-w-2xl text-body-regular text-text-secondary">
-        {`Every component, block, chart and template in Faang, ${total} in all, and every one of them is already in this project as source. Each card opens its docs on faang.com, with the install command and the props.`}
+        {`Every component, block, chart and template in Faang, ${total} in all, and every one of them is already in this project as source. Each item opens its docs, with the install command and the files it writes.`}
       </p>
-      {COMPONENT_SECTIONS.map((section) => (
-        <section key={section.title} id={section.title.toLowerCase()} className="flex flex-col gap-4">
-          <div className="flex items-baseline gap-2">
-            <h2 className="text-title-2-medium text-text-primary">{section.title}</h2>
-            <span className="text-body-medium text-text-tertiary">{section.entries.length}</span>
-            <span className="hidden text-body-regular text-text-tertiary sm:inline">{section.blurb}</span>
-          </div>
-          <div
-            className={cx(
-              "grid w-full grid-cols-1 gap-x-5 gap-y-3 sm:gap-5",
-              section.wide ? "xl:grid-cols-[repeat(2,472px)]" : "sm:grid-cols-2 xl:grid-cols-[repeat(3,304px)]",
-            )}
-          >
-            {section.entries.filter(hasPreview).map((entry) => (
-              <PreviewCard key={entry.name} entry={entry} />
-            ))}
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-            {section.entries.filter((entry) => !hasPreview(entry)).map((entry) => (
-              <CatalogCard key={entry.name} entry={entry} />
-            ))}
-          </div>
-        </section>
-      ))}
+      {COMPONENT_SECTIONS.map((section) => {
+        const previews = section.entries.filter(hasPreview);
+        const plain = section.entries.filter((entry) => !hasPreview(entry));
+        return (
+          <section key={section.title} id={section.title.toLowerCase()} className="flex flex-col gap-6">
+            <div className="flex items-baseline gap-2 border-b border-separator-border pb-3">
+              <h2 className="text-title-2-medium text-text-primary">{section.title}</h2>
+              <span className="text-body-medium text-text-tertiary">{section.entries.length}</span>
+              <span className="hidden text-body-regular text-text-tertiary sm:inline">{section.blurb}</span>
+            </div>
+
+            {previews.length > 0 ? (
+              <div className="grid w-full grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 xl:grid-cols-3">
+                {previews.map((entry) => (
+                  <PreviewTile key={entry.name} entry={entry} wide={section.wide} />
+                ))}
+              </div>
+            ) : null}
+
+            {plain.length > 0 ? (
+              <ul className="grid gap-x-8 sm:grid-cols-2 xl:grid-cols-3">
+                {plain.map((entry) => (
+                  <li key={entry.name}>
+                    <CatalogRow entry={entry} />
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </section>
+        );
+      })}
     </div>
   ));
 }
 
 const hasPreview = (entry: Entry) => Boolean(FREE_COMPONENT_PREVIEWS[entry.href as PreviewHref]);
 
-/** A shipped component, rendered live in the same frame the site uses. */
-function PreviewCard({ entry }: { entry: Entry }) {
+function PreviewTile({ entry, wide = false }: { entry: Entry; wide?: boolean }) {
   const localize = useTemplateCopy();
   const Preview = FREE_COMPONENT_PREVIEWS[entry.href as PreviewHref];
   if (!Preview) return null;
+  const template = entry.href === "/components/chat-starter";
   return localize((
-    <ShowcaseCard
-      href={`/docs/${docSlug(entry.href)}`}
-      title={entry.name}
-      description={entry.description}
-      {...(FREE_PREVIEW_OPTIONS[entry.href] ?? {})}
-      {...(entry.href === "/components/chat-starter" ? TEMPLATE_CARD : {})}
-    >
-      <Preview />
-    </ShowcaseCard>
+    <div className="group flex flex-col gap-3">
+      {/* The preview is a picture of the component: its own links would nest
+          inside this tile's link, and would navigate to routes of a sample app
+          that does not exist here. */}
+      <div
+        aria-hidden
+        className={cx(
+          "pointer-events-none relative overflow-hidden rounded-2xl border border-border-button-default bg-background-secondary-default",
+          "transition-colors duration-150 ease group-hover:border-border-button-hover",
+          template ? "h-[260px]" : "h-[220px]",
+        )}
+      >
+        <Preview />
+        <div className="absolute inset-x-0 bottom-0 h-14 bg-linear-to-b from-transparent to-background-secondary-default" />
+      </div>
+      <a href={`/docs/${docSlug(entry.href)}`} className="flex items-start justify-between gap-3">
+        <span className="flex min-w-0 flex-col gap-0.5">
+          <span className="flex items-center gap-2 text-body-medium text-text-primary">
+            {entry.name}
+            {entry.isNew ? <Tag>New</Tag> : null}
+          </span>
+          <span className="line-clamp-2 text-body-2-regular text-pretty text-text-secondary">
+            {entry.description}
+          </span>
+        </span>
+        <RiArrowRightLine
+          aria-hidden
+          className="mt-1 size-4 shrink-0 text-foreground-icon-quaternary transition-colors duration-150 ease group-hover:text-foreground-icon-primary"
+        />
+      </a>
+    </div>
   ));
 }
 
-function CatalogCard({ entry }: { entry: Entry }) {
+/** No preview to show: a documented row is more honest than an empty frame. */
+function CatalogRow({ entry }: { entry: Entry }) {
   const localize = useTemplateCopy();
+  const template = entry.href === "/components/chat-starter";
   return localize((
     <a
       href={`/docs/${docSlug(entry.href)}`}
-      className={cx(
-        "group relative flex flex-col gap-1 rounded-2lg border border-border-button-default bg-background-primary-default p-4",
-        "transition-[background-color,box-shadow] duration-150 ease",
-        "hover:bg-background-primary-hover hover:shadow-xs",
-        "outline-none focus-visible:ring-2 focus-visible:ring-border-focus-ring focus-visible:ring-offset-2",
-      )}
+      className="group flex items-start justify-between gap-4 border-b border-separator-border py-3"
     >
-      <div className="flex items-center gap-2">
-        {entry.icon && (
-          <entry.icon className="size-[18px] shrink-0 text-foreground-icon-secondary" aria-hidden />
-        )}
-        <span className="text-body-medium text-text-primary">{entry.name}</span>
-        {entry.isNew && <Tag tone="new">New</Tag>}
-      </div>
-      <span className="text-body-regular text-text-secondary">{entry.description}</span>
+      <span className="flex min-w-0 items-baseline gap-2">
+        {entry.icon ? (
+          <entry.icon className="size-4 shrink-0 text-foreground-icon-secondary" aria-hidden />
+        ) : null}
+        <span className="text-body-medium whitespace-nowrap text-text-primary">{entry.name}</span>
+        <span className="truncate text-body-2-regular text-text-tertiary">{entry.description}</span>
+      </span>
       <RiArrowRightLine
         aria-hidden
-        className={cx(
-          "absolute top-4 end-4 size-4 text-foreground-icon-secondary",
-          "-translate-x-1 opacity-0 transition-[opacity,translate] duration-150 ease",
-          "group-hover:translate-x-0 group-hover:opacity-100",
-        )}
+        className="mt-1 size-4 shrink-0 text-foreground-icon-quaternary transition-colors duration-150 ease group-hover:text-foreground-icon-primary"
       />
     </a>
   ));
 }
 
-/** The docs index's small uppercase tags, as they are drawn on the site. */
-function Tag({ tone = "neutral", children }: { tone?: "neutral" | "new"; children: string }) {
+function Tag({ children }: { children: string }) {
   const localize = useTemplateCopy();
   return localize((
-    <span
-      className={cx(
-        "inline-flex items-center rounded-sm px-1 py-px text-[10px] leading-4 font-semibold tracking-wide uppercase",
-        tone === "new"
-          ? "bg-badge-new-background text-badge-new-text"
-          : "bg-background-tertiary-default text-text-secondary",
-      )}
-    >
+    <span className="inline-flex items-center rounded-sm bg-badge-new-background px-1 py-px text-[10px] leading-4 font-semibold tracking-wide text-badge-new-text uppercase">
       {children}
     </span>
   ));
 }
 
+export { TemplateFrame, TEMPLATE_CARD };

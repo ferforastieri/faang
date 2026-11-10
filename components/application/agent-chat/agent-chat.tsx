@@ -69,11 +69,15 @@ type Probe = {
 export function AgentChat({
   className,
   contained = false,
+  fill = false,
 }: {
   className?: string;
   /** Docs preview mode: fill the preview frame's height instead of the
    *  viewport, and keep the phone nav drawer inside the frame. */
   contained?: boolean;
+  /** Fill the parent's height instead of the viewport — used when the chat sits
+   *  inside the site frame, between the header and the footer. */
+  fill?: boolean;
 }) {
   const localize = useTemplateCopy();
   const [probe, setProbe] = useState<Probe>({ status: "checking", provider: null, label: null, model: null });
@@ -372,7 +376,7 @@ export function AgentChat({
     <div
       className={cx(
         "relative flex w-full gap-4 overflow-hidden bg-background-full p-3",
-        contained ? "h-[var(--template-preview-height)]" : "h-dvh",
+        contained ? "h-[var(--template-preview-height)]" : fill ? "h-full" : "h-dvh",
         className,
       )}
     >

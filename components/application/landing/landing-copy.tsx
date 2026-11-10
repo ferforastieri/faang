@@ -165,8 +165,8 @@ const PT_BR: Record<string, string> = {
 
 
   // Catalogue page
-  "Every component, block, chart and template in Faang, 44 in all, and every one of them is already in this project as source. Each card opens its docs on faang.com, with the install command and the props.":
-    "Todo componente, bloco, gráfico e template do Faang, 44 no total, e todos eles já estão neste projeto como código. Cada card abre a documentação no faang.com, com o comando de instalação e as props.",
+  "Every component, block, chart and template in Faang, 44 in all, and every one of them is already in this project as source. Each item opens its docs, with the install command and the files it writes.":
+    "Todo componente, bloco, gráfico e template do Faang, 44 no total, e todos já estão neste projeto como código. Cada item abre a documentação, com o comando de instalação e os arquivos que grava.",
   "The tokens everything else is built on.": "Os tokens sobre os quais tudo é construído.",
   "The everyday building blocks.": "Os blocos do dia a dia.",
   "Larger assemblies, ready to drop in.": "Montagens maiores, prontas para usar.",
@@ -263,6 +263,21 @@ const PT_BR: Record<string, string> = {
   "Every item in the registry, with the files it writes, the packages it needs and what it pulls in. Open one for its source and the command that installs it.":
     "Todos os itens do registry, com os arquivos que gravam, os pacotes que precisam e o que puxam junto. Abra um para ver o código e o comando que instala.",
 
+
+  // App shell and chat
+  "What can I help with?": "Como posso ajudar?",
+  "Ask me anything": "Pergunte qualquer coisa",
+  "New chat": "Nova conversa",
+  Recent: "Recentes",
+  "Chats you start show up here.": "As conversas que você começar aparecem aqui.",
+  "Explain what this starter does": "Explique o que este starter faz",
+  "Write a product update in three sentences": "Escreva um update de produto em três frases",
+  "Give me five names for a scheduling app": "Sugira cinco nomes para um app de agenda",
+  "Demo mode: the answers are scripted. Add AI_API_KEY, or deploy on Cloudflare with the AI binding, for a real model.":
+    "Modo demo: as respostas são roteirizadas. Adicione AI_API_KEY, ou publique no Cloudflare com o binding AI, para um modelo de verdade.",
+  "Dashboard": "Dashboard",
+  "Welcome Mertcan": "Bem-vindo, Mertcan",
+
   // Search
   "Quick search": "Busca rápida",
   Landing: "Início",
@@ -322,6 +337,10 @@ const PT_BR_RULES: { pattern: RegExp; replace: (match: RegExpMatchArray) => stri
   {
     pattern: /^(\d+) things you can install$/,
     replace: (m) => `${m[1]} coisas para instalar`,
+  },
+  {
+    pattern: /^This chat runs on (.+)\. History stays in this browser\.$/,
+    replace: (m) => `Este chat roda em ${m[1]}. O histórico fica neste navegador.`,
   },
 ];
 

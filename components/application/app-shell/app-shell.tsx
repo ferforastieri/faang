@@ -90,6 +90,7 @@ export function AppShell({
   children,
   className,
   columnClassName,
+  fill = false,
 }: {
   /** The page's name, shown as the current breadcrumb item. */
   title: string;
@@ -103,6 +104,8 @@ export function AppShell({
   className?: string;
   /** Overrides the 1300px content column, e.g. `max-w-[964px]` for the catalogue's grids. */
   columnClassName?: string;
+  /** Fill the parent's height instead of the viewport, for the site frame. */
+  fill?: boolean;
 }) {
   const localize = useTemplateCopy();
   const [navOpen, setNavOpen] = useState(false);
@@ -112,7 +115,8 @@ export function AppShell({
   return localize((
     <div
       className={cx(
-        "relative flex h-dvh w-full gap-4 overflow-hidden bg-background-full p-3",
+        "relative flex w-full gap-4 overflow-hidden bg-background-full p-3",
+        fill ? "h-full" : "h-dvh",
         className,
       )}
     >
