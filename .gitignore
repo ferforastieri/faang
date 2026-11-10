@@ -1,53 +1,11 @@
-# Dependencies
-node_modules/
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
-
-# Build outputs
-dist/
-build/
+node_modules
+.next
+out
+dist
+.vercel
 *.tsbuildinfo
+next-env.d.ts
 
-# Environment variables
-.env
-.env.local
-.env.*.local
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-.DS_Store
-
-# Logs
-logs/
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Testing
-coverage/
-.nyc_output/
-
-# Temporary files
-tmp/
-temp/
-*.tmp
-
-# OS
-Thumbs.db
-.DS_Store
-
-# Package manager
-.pnp/
-.pnp.js
-
-# TypeScript
-*.tsbuildinfo
-
-# Vite
-.vite/
+# Keys stay out of git. .env.example documents what goes in .env.local.
+.env*
+!.env.example
