@@ -9,9 +9,8 @@ import { Dialog, Input, Modal, ModalOverlay, TextField } from "react-aria-compon
 
 import { ALL_ENTRIES, COMPONENT_SECTIONS } from "@/components/application/docs/components-index";
 import { translateLandingCopy, useLandingLanguage } from "@/components/application/landing/landing-copy";
+import { docSlug } from "@/utils/slug";
 import { cx } from "@/utils/cx";
-
-const SITE = "https://www.faang.com";
 
 /** The catalogue section each component sits in, used as the result's caption. */
 const SECTION_OF = new Map(
@@ -128,8 +127,8 @@ export function QuickSearch({
         id: `c-${entry.href}`,
         label: t(entry.name),
         hint: t(SECTION_OF.get(entry.href) ?? "Components"),
-        href: `${SITE}${entry.href}`,
-        external: true,
+        href: `/docs/${docSlug(entry.href)}`,
+        external: false,
         group: "components",
       }));
 

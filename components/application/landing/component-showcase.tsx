@@ -8,8 +8,7 @@ import { ShowcaseCard } from "@/components/application/docs/showcase-card";
 import { SectionHeading } from "@/components/application/landing/section-heading";
 import { InstallCommand } from "@/components/application/landing/install-command";
 import { ButtonLink } from "@/components/base/buttons/button";
-
-const SITE = "https://www.faang.com";
+import { docSlug } from "@/utils/slug";
 
 /**
  * The wall of live components. Every card is the component itself, not a
@@ -107,8 +106,7 @@ export function ComponentShowcase({ total }: { total: number }) {
               <ShowcaseCard
                 key={item.href}
                 className={lead ? "xl:col-span-2" : undefined}
-                external
-                href={`${SITE}${item.href}`}
+                href={`/docs/${docSlug(item.href)}`}
                 title={item.title}
                 description={item.description}
                 {...(FREE_PREVIEW_OPTIONS[item.href] ?? {})}
@@ -143,8 +141,7 @@ export function TemplateShowcase() {
         </SectionHeading>
 
         <ShowcaseCard
-          external
-          href={`${SITE}/components/chat-starter`}
+          href={`/docs/${docSlug("/components/chat-starter")}`}
           title="Chat starter"
           description="Sidebar, streaming replies, thinking indicator, a composer pill with stop control, and a history rail with local threads."
           {...TEMPLATE_CARD}

@@ -12,9 +12,9 @@ import {
 } from "@/components/application/docs/component-previews-free";
 import type { PreviewHref } from "@/components/application/docs/component-preview-hrefs";
 import { ShowcaseCard } from "@/components/application/docs/showcase-card";
+import { docSlug } from "@/utils/slug";
 import { cx } from "@/utils/cx";
 
-const SITE = "https://www.faang.com";
 
 /**
  * The faang.com components index, as the starter shows it: the same
@@ -69,8 +69,7 @@ function PreviewCard({ entry }: { entry: Entry }) {
   if (!Preview) return null;
   return localize((
     <ShowcaseCard
-      external
-      href={`${SITE}${entry.href}`}
+      href={`/docs/${docSlug(entry.href)}`}
       title={entry.name}
       description={entry.description}
       {...(FREE_PREVIEW_OPTIONS[entry.href] ?? {})}
@@ -85,9 +84,7 @@ function CatalogCard({ entry }: { entry: Entry }) {
   const localize = useTemplateCopy();
   return localize((
     <a
-      href={`${SITE}${entry.href}`}
-      target="_blank"
-      rel="noreferrer"
+      href={`/docs/${docSlug(entry.href)}`}
       className={cx(
         "group relative flex flex-col gap-1 rounded-2lg border border-border-button-default bg-background-primary-default p-4",
         "transition-[background-color,box-shadow] duration-150 ease",

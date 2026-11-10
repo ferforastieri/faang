@@ -15,11 +15,11 @@ import { ButtonLink } from "@/components/base/buttons/button";
 import { IconButton } from "@/components/base/buttons/icon-button";
 import { cx } from "@/utils/cx";
 
-const NAV = [
+const NAV: { label: string; href: string; external?: boolean }[] = [
   { label: "Components", href: "/components" },
   { label: "Dashboard", href: "/dashboard" },
   { label: "Chat", href: "/chat" },
-  { label: "Docs", href: "https://www.faang.com/getting-started", external: true },
+  { label: "Docs", href: "/docs" },
 ];
 
 /**

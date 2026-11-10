@@ -34,6 +34,10 @@ const renderProps = new Set(["children", "cell", "header", "formatter", "tickFor
 
 /** Translate rendered copy while preserving React nodes, collection IDs and callbacks. */
 export function translateTemplateCopy<T>(value: T, translate: TemplateCopyTranslator): T {
+  // One counter for the whole walk: keys only have to be unique among
+  // siblings, and a per-array index collided once arrays were merged.
+  let generated = 0;
+
   function visit(value: unknown, data = false): unknown {
     if (typeof value === "string") return data ? value : translate(value);
     if (Array.isArray(value)) {
@@ -43,7 +47,8 @@ export function translateTemplateCopy<T>(value: T, translate: TemplateCopyTransl
       const result = value.map((item, index) => {
         const visited = visit(item, data);
         if (isValidElement(visited) && visited.key === null) {
-          return cloneElement(visited, { key: `copy-${index}` });
+          generated += 1;
+          return cloneElement(visited, { key: `copy-${generated}` });
         }
         return visited;
       });

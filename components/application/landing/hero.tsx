@@ -116,7 +116,7 @@ export function Hero({ total }: { total: number }) {
         {/* One framed window, tilted out of the grid: the app, not a collage. */}
         <div className="relative mx-auto w-full max-w-[520px] lg:mx-0">
           <div className="relative rounded-[26px] border border-border-button-default bg-background-secondary-default p-2 shadow-2xl">
-            <div className="relative h-[380px] overflow-hidden rounded-[18px] bg-background-full sm:h-[440px]">
+            <div className="pointer-events-none relative h-[380px] overflow-hidden rounded-[18px] bg-background-full sm:h-[440px]">
               {Sidebar ? <Sidebar /> : null}
             </div>
           </div>
@@ -124,7 +124,7 @@ export function Hero({ total }: { total: number }) {
           {Revenue ? (
             <div
               className={cx(
-                "absolute -bottom-8 -start-4 hidden h-[168px] w-[280px] overflow-hidden rounded-2xl border border-border-button-default bg-background-primary-default shadow-xl sm:block lg:-start-10",
+                "pointer-events-none absolute -bottom-8 -start-4 hidden h-[168px] w-[280px] overflow-hidden rounded-2xl border border-border-button-default bg-background-primary-default shadow-xl sm:block lg:-start-10",
               )}
             >
               <Revenue />

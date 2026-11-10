@@ -153,17 +153,21 @@ export interface DashboardNavItem {
 /** Kept as a name for callers that typed their `selected` prop; any key works. */
 export type DashboardNavKey = string;
 
-/** The Pro dashboard's navigation, the default set. */
+/**
+ * The dashboard's default navigation. Only the rows this app actually has carry
+ * an `href`; the rest are decoration, because a link to a page that does not
+ * exist is worse than a row that does not pretend to be one.
+ */
 export const DASHBOARD_NAV: DashboardNavItem[] = [
-  { key: "home", label: "Home", icon: RiHomeLine, href: "/templates/dashboard", badge: 152 },
-  { key: "project-board", label: "Project board", icon: RiKanbanView2, href: "/templates/project-board" },
-  { key: "marketing", label: "Marketing", icon: RiMegaphoneLine, href: "/templates/marketing" },
-  { key: "calendar", label: "Calendar", icon: RiCalendarLine, href: "/templates/calendar" },
-  { key: "finance", label: "Finance", icon: RiBankLine, href: "/templates/finance" },
-  { key: "medical", label: "Medical Report", icon: RiAsterisk, href: "/templates/medical-profile" },
-  { key: "ai-chat", label: "AI Chat", icon: RiChatAiLine, href: "/templates/ai-chat" },
-  { key: "ai-image", label: "AI Image Generation", icon: RiImageAiLine, href: "/templates/ai-image-generation" },
-  { key: "profile", label: "Profile", icon: RiUserSmileLine, href: "/templates/ai-profile" },
+  { key: "home", label: "Home", icon: RiHomeLine, href: "/dashboard", badge: 152 },
+  { key: "project-board", label: "Project board", icon: RiKanbanView2 },
+  { key: "marketing", label: "Marketing", icon: RiMegaphoneLine },
+  { key: "calendar", label: "Calendar", icon: RiCalendarLine },
+  { key: "finance", label: "Finance", icon: RiBankLine },
+  { key: "medical", label: "Medical Report", icon: RiAsterisk },
+  { key: "ai-chat", label: "AI Chat", icon: RiChatAiLine, href: "/chat" },
+  { key: "ai-image", label: "AI Image Generation", icon: RiImageAiLine },
+  { key: "profile", label: "Profile", icon: RiUserSmileLine },
 ];
 
 /**

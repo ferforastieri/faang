@@ -250,6 +250,19 @@ const PT_BR: Record<string, string> = {
   "By clicking continue, you agree to our Terms of Service and Privacy Policy.":
     "Ao continuar, você concorda com os Termos de Serviço e a Política de Privacidade.",
 
+
+  // Docs pages
+  Documentation: "Documentação",
+  "Files it writes": "Arquivos que grava",
+  "Pulls in": "Puxa junto",
+  "None.": "Nenhum.",
+  "Base components": "Componentes base",
+  "Utilities and hooks": "Utilitários e hooks",
+  "Styles": "Estilos",
+  "Files": "Arquivos",
+  "Every item in the registry, with the files it writes, the packages it needs and what it pulls in. Open one for its source and the command that installs it.":
+    "Todos os itens do registry, com os arquivos que gravam, os pacotes que precisam e o que puxam junto. Abra um para ver o código e o comando que instala.",
+
   // Search
   "Quick search": "Busca rápida",
   Landing: "Início",
@@ -305,6 +318,10 @@ const PT_BR_RULES: { pattern: RegExp; replace: (match: RegExpMatchArray) => stri
   {
     pattern: /^Continue with (.+)$/,
     replace: (m) => `Continuar com ${m[1]}`,
+  },
+  {
+    pattern: /^(\d+) things you can install$/,
+    replace: (m) => `${m[1]} coisas para instalar`,
   },
 ];
 

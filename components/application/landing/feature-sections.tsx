@@ -90,7 +90,7 @@ export function FeatureSections() {
                   See it in the chat
                 </ButtonLink>
                 <ButtonLink
-                  href="https://www.faang.com/components/composer-loader"
+                  href="/docs/composer-loader"
                   variant="secondary"
                 >
                   Component docs
