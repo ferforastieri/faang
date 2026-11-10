@@ -13,7 +13,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 
 const ROOT = resolve(import.meta.dirname, "..");
-const SITE = "https://faang.vira.ia.br";
+const SITE = "https://faang.fer.tec.br";
 const index = JSON.parse(readFileSync(join(ROOT, "public/r/index.json"), "utf8"));
 
 /** Descriptions written for the catalogue, keyed by title and by slug. */

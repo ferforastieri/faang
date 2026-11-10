@@ -152,7 +152,7 @@ writeFileSync(
   `${JSON.stringify(
     {
       name: "faang",
-      homepage: "https://faang.vira.ia.br",
+      homepage: "https://faang.fer.tec.br",
       items: index,
     },
     null,

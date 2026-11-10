@@ -1,6 +1,6 @@
 # faang
 
-Add [Faang](https://faang.vira.ia.br) components to your project as source.
+Add [Faang](https://faang.fer.tec.br) components to your project as source.
 
 ```bash
 npx faang@latest list
@@ -15,4 +15,4 @@ host project is missing.
 
 Options: `--cwd <dir>`, `--registry <url>`, `--overwrite`, `--dry-run`, `--json`.
 `FAANG_REGISTRY` sets the registry for CI. Default registry:
-`https://faang.vira.ia.br/r`.
+`https://faang.fer.tec.br/r`.

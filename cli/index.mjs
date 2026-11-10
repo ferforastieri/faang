@@ -15,7 +15,7 @@
 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { dirname, isAbsolute, join, resolve } from "node:path";
 
-const DEFAULT_REGISTRY = process.env.FAANG_REGISTRY ?? "https://faang.vira.ia.br/r";
+const DEFAULT_REGISTRY = process.env.FAANG_REGISTRY ?? "https://faang.fer.tec.br/r";
 const VERSION = "0.1.0";
 
 const HELP = `

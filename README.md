@@ -78,7 +78,7 @@ In the Cloudflare dashboard, with the repo connected to a Worker (Settings → B
 | Build output directory | `.open-next/assets` — only if the field is required; the Worker takes it from `wrangler.jsonc` |
 | Environment variable | `NODE_VERSION=22` |
 
-Nothing else is required: the `AI` binding in `wrangler.jsonc` is the model, and on a Worker it takes precedence over any key you may have set. A custom domain (`faang.vira.ia.br`, for example) is attached in the same Worker's Settings → Domains & Routes, or as a route in the zone (`faang.vira.ia.br/*` → `faang`); neither needs an entry in `wrangler.jsonc`.
+Nothing else is required: the `AI` binding in `wrangler.jsonc` is the model, and on a Worker it takes precedence over any key you may have set. A custom domain (`faang.fer.tec.br`, for example) is attached in the same Worker's Settings → Domains & Routes, or as a route in the zone (`faang.fer.tec.br/*` → `faang`); neither needs an entry in `wrangler.jsonc`.
 
 Pushing to `master` deploys on its own once the Worker is connected to the repository under Settings → Build. Nothing else runs in CI.
 
