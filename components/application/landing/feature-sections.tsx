@@ -80,6 +80,7 @@ export function FeatureSections() {
           </div>
           <div className="order-1 flex flex-col items-start gap-5 lg:order-2">
             <SectionHeading
+              index="03"
               eyebrow="Loading states"
               title="A loading state worth looking at"
               description="The composer loader wraps your input in a light orbiting the rim while the agent works, glass controls included. Pick the colours; it follows the theme."
@@ -104,6 +105,7 @@ export function FeatureSections() {
         <div className="mx-auto grid w-full max-w-[1200px] items-center gap-12 px-4 py-20 sm:px-6 sm:py-28 lg:grid-cols-2 lg:gap-16">
           <div className="flex flex-col items-start gap-5">
             <SectionHeading
+              index="04"
               eyebrow="MCP"
               title="Install it with your agent"
               description="Faang speaks MCP. Connect your agent once and it can browse every component with real usage examples, configure your project and install the source files."
@@ -146,8 +148,9 @@ export function ValueRow() {
   return localize((
     <section className="mx-auto w-full max-w-[1200px] px-4 py-16 sm:px-6">
       <div className={cx("grid gap-8 sm:grid-cols-3 sm:gap-12")}>
-        {values.map((value) => (
+        {values.map((value, position) => (
           <div key={value.title} className="flex flex-col gap-2 border-t border-separator-border pt-5">
+            <span className="font-mono text-caption-1-medium text-accent-600">{`0${position + 1}`}</span>
             <h3 className="text-title-3-semibold text-text-primary">{value.title}</h3>
             <p className="text-body-2-regular text-text-secondary">{value.body}</p>
           </div>

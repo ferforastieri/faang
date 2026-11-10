@@ -53,7 +53,7 @@ export function SiteHeader() {
           : "border-transparent bg-background-full",
       )}
     >
-      <div className="mx-auto flex h-16 w-full max-w-[1200px] items-center justify-between gap-6 px-4 sm:px-6">
+      <div className="mx-auto flex h-16 w-full max-w-[1200px] items-center gap-8 px-4 sm:px-6">
         <Link
           href="/"
           className="rounded-md outline-none focus-visible:ring-2 focus-visible:ring-border-focus-ring"
@@ -62,7 +62,7 @@ export function SiteHeader() {
           <LogoLockup height={26} />
         </Link>
 
-        <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
+        <nav aria-label="Main" className="hidden items-center gap-0.5 md:flex">
           {NAV.map((item) =>
             item.external ? (
               <a
@@ -86,8 +86,8 @@ export function SiteHeader() {
           )}
         </nav>
 
-        <div className="flex items-center gap-1.5">
-          <QuickSearch className="hidden sm:flex" open={searchOpen} onOpenChange={setSearchOpen} />
+        <div className="ms-auto flex items-center gap-1">
+          <QuickSearch appearance="icon" open={searchOpen} onOpenChange={setSearchOpen} />
           <a
             href="https://github.com/ferforastieri/faang"
             target="_blank"
@@ -99,7 +99,7 @@ export function SiteHeader() {
           </a>
           <LanguageSwitcher />
           <ThemeToggle appearance="icon" />
-          <ButtonLink href="/components" size="small" className="ms-1 hidden md:inline-flex">
+          <ButtonLink href="/components" size="small" className="ms-1.5 hidden md:inline-flex">
             Open the library
           </ButtonLink>
           <IconButton

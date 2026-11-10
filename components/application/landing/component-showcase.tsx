@@ -85,6 +85,7 @@ export function ComponentShowcase({ total }: { total: number }) {
       <div className="flex flex-col gap-10">
         <div className="flex flex-col items-start gap-6 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading
+            index="01"
             eyebrow="Install"
             title="A pile of interactive dashboard components"
             description={`Components for agent products, forms, calendars and meeting scheduling — ${total} in all, shipped as source you own.`}
@@ -98,12 +99,14 @@ export function ComponentShowcase({ total }: { total: number }) {
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-          {SHOWCASE.map((item) => {
+          {SHOWCASE.map((item, position) => {
             const Preview = FREE_COMPONENT_PREVIEWS[item.href];
             if (!Preview) return null;
+            const lead = position === 0;
             return (
               <ShowcaseCard
                 key={item.href}
+                className={lead ? "xl:col-span-2" : undefined}
                 external
                 href={`${SITE}${item.href}`}
                 title={item.title}
@@ -129,6 +132,7 @@ export function TemplateShowcase() {
     <section id="templates" className="mx-auto w-full max-w-[1200px] px-4 pb-20 sm:px-6 sm:pb-28">
       <div className="flex flex-col gap-8">
         <SectionHeading
+          index="02"
           eyebrow="Templates"
           title="A whole screen, not just the parts"
           description="The chat starter wires the sidebar, the transcript, the composer and a streaming endpoint together. Bring one model key and it answers."

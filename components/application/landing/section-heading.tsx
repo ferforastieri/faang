@@ -4,6 +4,7 @@ import { cx } from "@/utils/cx";
 
 /** The landing's section opener: a small label, a title, and a lead paragraph. */
 export function SectionHeading({
+  index,
   eyebrow,
   title,
   description,
@@ -11,6 +12,8 @@ export function SectionHeading({
   className,
   children,
 }: {
+  /** Section number, drawn in mono beside the label ("01", "02"...). */
+  index?: string;
   eyebrow?: string;
   title: ReactNode;
   description?: ReactNode;
@@ -29,7 +32,9 @@ export function SectionHeading({
       )}
     >
       {eyebrow ? (
-        <span className="text-caption-1-semibold tracking-[0.08em] text-text-tertiary uppercase">
+        <span className="flex items-center gap-3 font-mono text-caption-1-medium tracking-[0.14em] text-text-tertiary uppercase">
+          {index ? <span className="text-accent-600">{index}</span> : null}
+          <span className="h-px w-6 bg-separator-border" aria-hidden />
           {eyebrow}
         </span>
       ) : null}

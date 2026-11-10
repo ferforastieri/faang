@@ -2,16 +2,10 @@
 
 import { useTemplateCopy } from "@/components/foundations/template-copy/template-copy";
 
-import {
-  RiArrowRightLine,
-  RiBearSmileLine,
-  RiReactjsLine,
-  RiTailwindCssLine,
-} from "@remixicon/react";
+import { RiArrowRightLine, RiBearSmileLine, RiReactjsLine, RiTailwindCssLine } from "@remixicon/react";
 import { useEffect, useState } from "react";
 
 import { FREE_COMPONENT_PREVIEWS } from "@/components/application/docs/component-previews-free";
-import type { PreviewHref } from "@/components/application/docs/component-preview-hrefs";
 import { HeroRays } from "@/components/application/landing/hero-rays/hero-rays";
 import { HERO_RAYS_DEFAULTS, type HeroRaysConfig } from "@/components/application/landing/hero-rays/hero-rays-config";
 import { InstallCommand } from "@/components/application/landing/install-command";
@@ -41,17 +35,20 @@ const STACK = [
   { label: "React Aria", version: "v1.17", Icon: RiBearSmileLine },
 ];
 
-const BAND: PreviewHref[] = [
-  "/components/stat-cards",
-  "/components/data-table",
-  "/components/sidebar",
-  "/components/revenue-chart-card",
-];
-
+/**
+ * A left-hand statement, a right-hand screen. Deliberately not the centred
+ * hero with a wall of cards under it: the copy is a column here, and the
+ * product shows up as one framed window instead of a marquee.
+ */
 export function Hero({ total }: { total: number }) {
   const localize = useTemplateCopy();
   const [reduceMotion, setReduceMotion] = useState(false);
   const theme = useThemeMode();
+
+  useEffect(() => {
+    setReduceMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }, []);
+
   // The canvas paints its own opaque background, so the dark variant has to be
   // swapped in whole — otherwise a white band sits under a dark page.
   const rays: HeroRaysConfig =
@@ -59,91 +56,85 @@ export function Hero({ total }: { total: number }) {
       ? { ...HERO_RAYS, background: HERO_RAYS.backgroundDark, grain: HERO_RAYS.grainDark }
       : HERO_RAYS;
 
-  useEffect(() => {
-    setReduceMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-  }, []);
+  const Sidebar = FREE_COMPONENT_PREVIEWS["/components/sidebar"];
+  const Revenue = FREE_COMPONENT_PREVIEWS["/components/revenue-chart-card"];
 
   return localize((
-    <section className="relative isolate overflow-hidden">
+    <section className="relative isolate overflow-hidden border-b border-separator-border">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[820px] [mask-image:linear-gradient(180deg,#000_35%,transparent_92%)]"
+        className="pointer-events-none absolute inset-y-0 end-0 -z-10 w-full opacity-80 [mask-image:radial-gradient(70%_60%_at_75%_20%,#000,transparent)] lg:w-[62%]"
       >
         <HeroRays config={rays} paused={reduceMotion} className="size-full" />
       </div>
 
-      <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center px-4 pt-14 text-center sm:px-6 sm:pt-20">
-        <span className="inline-flex items-center gap-2 rounded-full border border-border-button-default bg-background-primary-default/80 px-3 py-1 text-body-2-medium text-text-secondary backdrop-blur">
-          <span className="size-1.5 rounded-full bg-accent-500" aria-hidden />
-          {`${total} components, charts and templates. All MIT.`}
-        </span>
+      <div className="mx-auto grid w-full max-w-[1200px] items-center gap-14 px-4 pt-16 pb-16 sm:px-6 sm:pt-24 sm:pb-24 lg:grid-cols-[1.02fr_0.98fr] lg:gap-16">
+        <div className="flex flex-col items-start">
+          <p className="flex items-center gap-3 font-mono text-caption-1-medium tracking-[0.14em] text-text-tertiary uppercase">
+            <span className="h-px w-8 bg-accent-500" aria-hidden />
+            {`${total} components · MIT`}
+          </p>
 
-        <h1 className="mt-6 max-w-[900px] text-display-2-semibold text-balance text-text-primary sm:text-display-1-semibold">
-          React design system{" "}
-          <span className="block text-accent-600">for agent interfaces</span>
-        </h1>
+          <h1 className="mt-6 text-display-3-semibold text-balance text-text-primary sm:text-display-1-semibold">
+            React design system{" "}
+            <span className="block text-accent-600">for agent interfaces</span>
+          </h1>
 
-        <p className="mt-5 max-w-2xl text-title-3-regular text-pretty text-text-secondary">
-          {`Faang is a React design system with ${total} components, charts and templates, plus 400+ design tokens, built in Figma. The parts an AI product needs and the parts every dashboard needs, in one visual language, as source files in your project.`}
-        </p>
+          <p className="mt-6 max-w-xl text-title-3-regular text-pretty text-text-secondary">
+            {`Faang is a React design system with ${total} components, charts and templates, plus 400+ design tokens, built in Figma. The parts an AI product needs and the parts every dashboard needs, in one visual language, as source files in your project.`}
+          </p>
 
-        <div className="mt-8 flex w-full max-w-md flex-col items-center gap-3 sm:flex-row sm:justify-center">
-          <ButtonLink
-            href="/components"
-            size="medium"
-            trailingIcon={RiArrowRightLine}
-            className="w-full sm:w-auto"
-          >
-            Browse the library
-          </ButtonLink>
-          <ButtonLink href="/chat" size="medium" variant="secondary" className="w-full sm:w-auto">
-            See the chat starter
-          </ButtonLink>
-        </div>
+          <div className="mt-8 flex w-full flex-col gap-3 sm:flex-row">
+            <ButtonLink href="/components" size="medium" trailingIcon={RiArrowRightLine}>
+              Browse the library
+            </ButtonLink>
+            <ButtonLink href="/chat" size="medium" variant="secondary">
+              See the chat starter
+            </ButtonLink>
+          </div>
 
-        <div className="mt-6 w-full max-w-md">
-          <InstallCommand command="npx faang@latest add --all" />
-        </div>
+          <div className="mt-6 w-full max-w-md">
+            <InstallCommand command="npx faang@latest add --all" />
+          </div>
 
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-body-2-regular text-text-secondary">
-          {STACK.map(({ label, version, Icon }) => (
-            <span key={label} className="inline-flex items-center gap-1.5">
-              <Icon className="size-4 text-foreground-icon-secondary" aria-hidden />
-              {label}
-              <span className="text-text-tertiary">{version}</span>
+          <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-body-2-regular text-text-secondary">
+            {STACK.map(({ label, version, Icon }) => (
+              <span key={label} className="inline-flex items-center gap-1.5">
+                <Icon className="size-4 text-foreground-icon-secondary" aria-hidden />
+                {label}
+                <span className="text-text-tertiary">{version}</span>
+              </span>
+            ))}
+            <span className="hidden items-center gap-1.5 sm:inline-flex">
+              <span className="size-1 rounded-full bg-text-tertiary" aria-hidden />
+              TanStack Table
+              <span className="text-text-tertiary">v8.21</span>
             </span>
-          ))}
-          <span className="hidden items-center gap-1.5 sm:inline-flex">
-            <span className="size-1 rounded-full bg-text-tertiary" aria-hidden />
-            TanStack Table
-            <span className="text-text-tertiary">v8.21</span>
-          </span>
+          </div>
         </div>
-      </div>
 
-      {/* The band: live components, cropped by the section, the way the site
-          shows a wall of them above the fold. */}
-      <div className="relative mx-auto mt-14 w-full max-w-[1200px] px-4 sm:px-6">
-        <div className="flex h-[360px] w-full items-start justify-center gap-4 overflow-hidden [mask-image:linear-gradient(180deg,#000_70%,transparent)]">
-          {BAND.map((href, index) => {
-            const Preview = FREE_COMPONENT_PREVIEWS[href];
-            if (!Preview) return null;
-            return (
-              <div
-                key={href}
-                className={cx(
-                  "relative h-[420px] shrink-0 overflow-hidden rounded-2xl border border-border-button-default bg-background-secondary-default shadow-lg",
-                  index === 0 || index === 3
-                    ? "hidden w-[330px] lg:block"
-                    : index === 1
-                      ? "hidden w-[330px] sm:block"
-                      : "w-[330px] flex-1 sm:flex-none",
-                )}
-              >
-                <Preview />
-              </div>
-            );
-          })}
+        {/* One framed window, tilted out of the grid: the app, not a collage. */}
+        <div className="relative mx-auto w-full max-w-[520px] lg:mx-0">
+          <div className="relative rounded-[26px] border border-border-button-default bg-background-secondary-default p-2 shadow-2xl">
+            <div className="relative h-[380px] overflow-hidden rounded-[18px] bg-background-full sm:h-[440px]">
+              {Sidebar ? <Sidebar /> : null}
+            </div>
+          </div>
+
+          {Revenue ? (
+            <div
+              className={cx(
+                "absolute -bottom-8 -start-4 hidden h-[168px] w-[280px] overflow-hidden rounded-2xl border border-border-button-default bg-background-primary-default shadow-xl sm:block lg:-start-10",
+              )}
+            >
+              <Revenue />
+            </div>
+          ) : null}
+
+          <div
+            aria-hidden
+            className="absolute -top-3 -end-3 -z-10 size-24 rounded-[28px] border border-border-button-default bg-background-secondary-default"
+          />
         </div>
       </div>
     </section>

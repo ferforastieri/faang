@@ -52,10 +52,13 @@ function fold(value: string) {
  */
 export function QuickSearch({
   className,
+  appearance = "pill",
   open: controlledOpen,
   onOpenChange,
 }: {
   className?: string;
+  /** `pill` carries the label and the shortcut; `icon` is the header's square button. */
+  appearance?: "pill" | "icon";
   /** Lets the header open the same palette from its phone menu. */
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -164,22 +167,29 @@ export function QuickSearch({
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Quick search"
+        title="Quick search"
         className={cx(
-          "flex h-9 items-center gap-2 rounded-full border border-border-button-default bg-background-secondary-default px-3",
-          "text-body-2-regular text-text-tertiary transition-colors duration-150 ease",
-          "hover:border-border-button-hover hover:text-text-secondary",
+          "flex size-9 items-center justify-center rounded-lg",
+          "text-foreground-icon-secondary transition-colors duration-150 ease",
+          "hover:bg-background-secondary-default hover:text-text-primary",
+          appearance === "pill" &&
+            "w-auto gap-2 rounded-full border border-border-button-default bg-background-secondary-default px-3 text-body-2-regular text-text-tertiary hover:border-border-button-hover hover:text-text-secondary",
           "outline-none focus-visible:ring-2 focus-visible:ring-border-focus-ring",
           className,
         )}
       >
-        <RiSearchLine className="size-4 shrink-0" aria-hidden />
-        <span className="hidden lg:inline">Quick search</span>
-        <span
-          aria-hidden
-          className="hidden rounded-md border border-border-button-default bg-background-primary-default px-1.5 py-0.5 font-mono text-[10px] leading-4 text-text-tertiary lg:inline"
-        >
-          {shortcut}
-        </span>
+        <RiSearchLine className="size-[18px] shrink-0" aria-hidden />
+        {appearance === "pill" ? (
+          <>
+            <span className="hidden lg:inline">Quick search</span>
+            <span
+              aria-hidden
+              className="hidden rounded-md border border-border-button-default bg-background-primary-default px-1.5 py-0.5 font-mono text-[10px] leading-4 text-text-tertiary lg:inline"
+            >
+              {shortcut}
+            </span>
+          </>
+        ) : null}
       </button>
 
       <ModalOverlay

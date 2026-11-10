@@ -58,6 +58,7 @@ export function FaqSection() {
     <section id="faq" className="mx-auto w-full max-w-[1200px] px-4 py-20 sm:px-6 sm:py-28">
       <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
         <SectionHeading
+          index="05"
           eyebrow="FAQ"
           title="Everything about installing and shipping"
           description="Licensing, the CLI and what the components run on. Anything else, the GitHub issues answer."
@@ -74,28 +75,28 @@ export function FaqSection() {
   ));
 }
 
-/** The last thing on the page: one command and two ways in. */
+/** The last thing on the page: a band, not a centred card. */
 export function FinalCta() {
   const localize = useTemplateCopy();
   return localize((
-    <section className="mx-auto w-full max-w-[1200px] px-4 pb-24 sm:px-6">
-      <div className="relative overflow-hidden rounded-[32px] border border-border-button-default bg-background-secondary-default px-6 py-16 sm:px-12">
-        <div className="relative mx-auto flex max-w-2xl flex-col items-center gap-6 text-center">
+    <section className="border-t border-separator-border bg-background-secondary-default">
+      <div className="mx-auto grid w-full max-w-[1200px] items-center gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1fr_auto]">
+        <div className="max-w-2xl">
           <h2 className="text-display-3-semibold text-balance text-text-primary">
             Start building agent interfaces
           </h2>
-          <p className="text-title-3-regular text-pretty text-text-secondary">
+          <p className="mt-4 text-title-3-regular text-pretty text-text-secondary">
             A chat starter, the dashboard components and the tokens under both. Install what you
             need with one command — the code is yours.
           </p>
-          <div className="w-full max-w-md">
-            <InstallCommand command="npx faang@latest add --all" />
-          </div>
+        </div>
+        <div className="flex w-full flex-col gap-3 lg:w-[360px]">
+          <InstallCommand command="npx faang@latest add --all" />
           <div className="flex flex-col gap-3 sm:flex-row">
-            <ButtonLink href="/components" size="medium">
+            <ButtonLink href="/components" size="medium" className="sm:flex-1">
               Explore components
             </ButtonLink>
-            <ButtonLink href="/chat" size="medium" variant="secondary">
+            <ButtonLink href="/chat" size="medium" variant="secondary" className="sm:flex-1">
               Open the chat starter
             </ButtonLink>
           </div>
