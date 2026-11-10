@@ -2,10 +2,11 @@
 
 import { useTemplateCopy } from "@/components/foundations/template-copy/template-copy";
 
-import { RiDiscordFill, RiGithubFill, RiTwitterXFill } from "@remixicon/react";
+import { RiGithubFill } from "@remixicon/react";
 import Link from "next/link";
 
 import { LogoLockup } from "@/components/foundations/brand/logo";
+import { LanguageSwitcher } from "@/components/application/landing/landing-copy";
 import { ThemeToggle } from "@/components/application/theme/theme-toggle";
 
 const COLUMNS: { title: string; links: { label: string; href: string; external?: boolean }[] }[] = [
@@ -33,8 +34,6 @@ const COLUMNS: { title: string; links: { label: string; href: string; external?:
     title: "Project",
     links: [
       { label: "GitHub", href: "https://github.com/ferforastieri/faang", external: true },
-      { label: "Discord", href: "https://discord.gg/azcHkw8T6F", external: true },
-      { label: "X", href: "https://x.com/faang", external: true },
       { label: "License", href: "https://github.com/ferforastieri/faang/blob/master/LICENSE", external: true },
     ],
   },
@@ -59,22 +58,20 @@ export function SiteFooter() {
               licensed, light and dark from the same classes.
             </p>
             <div className="flex items-center gap-1">
-              {[
-                { href: "https://github.com/ferforastieri/faang", label: "GitHub", Icon: RiGithubFill },
-                { href: "https://discord.gg/azcHkw8T6F", label: "Discord", Icon: RiDiscordFill },
-                { href: "https://x.com/faang", label: "X", Icon: RiTwitterXFill },
-              ].map(({ href, label, Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={label}
-                  className="flex size-9 items-center justify-center rounded-lg text-foreground-icon-secondary transition-colors duration-150 ease hover:bg-background-secondary-default hover:text-text-primary"
-                >
-                  <Icon className="size-[18px]" aria-hidden />
-                </a>
-              ))}
+              {[{ href: "https://github.com/ferforastieri/faang", label: "GitHub", Icon: RiGithubFill }].map(
+                ({ href, label, Icon }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={label}
+                    className="flex size-9 items-center justify-center rounded-lg text-foreground-icon-secondary transition-colors duration-150 ease hover:bg-background-secondary-default hover:text-text-primary"
+                  >
+                    <Icon className="size-[18px]" aria-hidden />
+                  </a>
+                ),
+              )}
             </div>
           </div>
 
@@ -102,11 +99,11 @@ export function SiteFooter() {
 
         <div className="flex flex-col gap-4 border-t border-separator-border pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-body-2-regular text-text-tertiary">
-            © {new Date().getFullYear()} Faang. MIT licensed.
+            {`© ${new Date().getFullYear()} Faang. MIT licensed.`}
           </p>
-          <div className="flex items-center justify-between gap-4 sm:justify-end">
-            <span className="text-body-2-regular text-text-tertiary">English (US)</span>
-            <ThemeToggle appearance="segmented" size="small" />
+          <div className="flex items-center gap-1">
+            <LanguageSwitcher />
+            <ThemeToggle appearance="icon" />
           </div>
         </div>
       </div>

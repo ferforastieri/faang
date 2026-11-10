@@ -37,7 +37,16 @@ export function translateTemplateCopy<T>(value: T, translate: TemplateCopyTransl
   function visit(value: unknown, data = false): unknown {
     if (typeof value === "string") return data ? value : translate(value);
     if (Array.isArray(value)) {
-      const result = value.map(item => visit(item, data));
+      // Rebuilding a children array turns it into a list as far as React is
+      // concerned, so every element in it needs a key — including the ones
+      // written as static siblings in JSX, which carry none.
+      const result = value.map((item, index) => {
+        const visited = visit(item, data);
+        if (isValidElement(visited) && visited.key === null) {
+          return cloneElement(visited, { key: `copy-${index}` });
+        }
+        return visited;
+      });
       return result.every((item, index) => item === value[index]) ? value : result;
     }
     if (isValidElement<Record<string, unknown>>(value)) {

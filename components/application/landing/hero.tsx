@@ -75,7 +75,7 @@ export function Hero({ total }: { total: number }) {
       <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center px-4 pt-14 text-center sm:px-6 sm:pt-20">
         <span className="inline-flex items-center gap-2 rounded-full border border-border-button-default bg-background-primary-default/80 px-3 py-1 text-body-2-medium text-text-secondary backdrop-blur">
           <span className="size-1.5 rounded-full bg-accent-500" aria-hidden />
-          {total} components, charts and templates. All MIT.
+          {`${total} components, charts and templates. All MIT.`}
         </span>
 
         <h1 className="mt-6 max-w-[900px] text-display-2-semibold text-balance text-text-primary sm:text-display-1-semibold">
@@ -84,9 +84,7 @@ export function Hero({ total }: { total: number }) {
         </h1>
 
         <p className="mt-5 max-w-2xl text-title-3-regular text-pretty text-text-secondary">
-          Faang is a React design system with {total} components, charts and templates, plus 400+
-          design tokens, built in Figma. The parts an AI product needs and the parts every dashboard
-          needs, in one visual language, as source files in your project.
+          {`Faang is a React design system with ${total} components, charts and templates, plus 400+ design tokens, built in Figma. The parts an AI product needs and the parts every dashboard needs, in one visual language, as source files in your project.`}
         </p>
 
         <div className="mt-8 flex w-full max-w-md flex-col items-center gap-3 sm:flex-row sm:justify-center">

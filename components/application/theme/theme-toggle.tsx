@@ -214,7 +214,7 @@ export interface ThemeToggleProps {
    * hero shader's near-white band in both themes and a token that follows the
    * page would invert out of sight in dark mode.
    */
-  appearance?: "sidebar" | "segmented" | "sidebar-segmented" | "glass-segmented";
+  appearance?: "sidebar" | "segmented" | "sidebar-segmented" | "glass-segmented" | "icon";
   className?: string;
   /** Size of segmented controls; small fits inside dropdown rows. */
   size?: "small" | "medium";
@@ -338,7 +338,9 @@ export function ThemeToggle({
     ));
   }
 
-  if (collapsed) {
+  // One button, one icon, flipped on click: the compact control the landing
+  // header and a collapsed sidebar rail both want.
+  if (collapsed || appearance === "icon") {
     const Icon = dark ? RiSunLine : RiMoonLine;
     return localize((
       <button
@@ -360,7 +362,9 @@ export function ThemeToggle({
         className={cx(
           "flex size-9 cursor-pointer items-center justify-center rounded-2lg",
           "text-foreground-icon-secondary transition-colors duration-150 ease",
-          "hover:bg-background-secondary-hover hover:text-foreground-icon-primary",
+          appearance === "icon"
+            ? "hover:bg-background-secondary-default hover:text-text-primary"
+            : "hover:bg-background-secondary-hover hover:text-foreground-icon-primary",
           "outline-none focus-visible:ring-2 focus-visible:ring-border-focus-ring",
           className,
         )}

@@ -60,10 +60,10 @@ export function FaqSection() {
         <SectionHeading
           eyebrow="FAQ"
           title="Everything about installing and shipping"
-          description="Licensing, the CLI and what the components run on. Anything else, the Discord answers the same day."
+          description="Licensing, the CLI and what the components run on. Anything else, the GitHub issues answer."
         >
-          <ButtonLink href="https://discord.gg/azcHkw8T6F" variant="secondary">
-            Ask on Discord
+          <ButtonLink href="https://github.com/ferforastieri/faang/issues" variant="secondary">
+            Ask on GitHub
           </ButtonLink>
         </SectionHeading>
         <div className="w-full">

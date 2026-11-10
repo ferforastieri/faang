@@ -2,17 +2,13 @@
 
 import { useTemplateCopy } from "@/components/foundations/template-copy/template-copy";
 
-import {
-  RiCloseLine,
-  RiDiscordFill,
-  RiGithubFill,
-  RiMenuLine,
-  RiTwitterXFill,
-} from "@remixicon/react";
+import { RiCloseLine, RiGithubFill, RiMenuLine, RiSearchLine } from "@remixicon/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { LanguageSwitcher } from "@/components/application/landing/landing-copy";
+import { QuickSearch } from "@/components/application/landing/quick-search";
 import { LogoLockup } from "@/components/foundations/brand/logo";
 import { ThemeToggle } from "@/components/application/theme/theme-toggle";
 import { ButtonLink } from "@/components/base/buttons/button";
@@ -35,6 +31,7 @@ export function SiteHeader() {
   const localize = useTemplateCopy();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -89,37 +86,19 @@ export function SiteHeader() {
           )}
         </nav>
 
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1.5">
+          <QuickSearch className="hidden sm:flex" open={searchOpen} onOpenChange={setSearchOpen} />
           <a
             href="https://github.com/ferforastieri/faang"
             target="_blank"
             rel="noreferrer"
             aria-label="Faang on GitHub"
-            className="flex size-9 items-center justify-center rounded-lg text-foreground-icon-secondary transition-colors duration-150 ease hover:bg-background-secondary-default hover:text-text-primary"
+            className="hidden size-9 items-center justify-center rounded-lg text-foreground-icon-secondary transition-colors duration-150 ease hover:bg-background-secondary-default hover:text-text-primary sm:flex"
           >
             <RiGithubFill className="size-5" aria-hidden />
           </a>
-          <a
-            href="https://x.com/faang"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Faang on X"
-            className="hidden size-9 items-center justify-center rounded-lg text-foreground-icon-secondary transition-colors duration-150 ease hover:bg-background-secondary-default hover:text-text-primary sm:flex"
-          >
-            <RiTwitterXFill className="size-[18px]" aria-hidden />
-          </a>
-          <a
-            href="https://discord.gg/azcHkw8T6F"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Faang on Discord"
-            className="hidden size-9 items-center justify-center rounded-lg text-foreground-icon-secondary transition-colors duration-150 ease hover:bg-background-secondary-default hover:text-text-primary sm:flex"
-          >
-            <RiDiscordFill className="size-5" aria-hidden />
-          </a>
-          <div className="hidden md:block">
-            <ThemeToggle appearance="segmented" size="small" />
-          </div>
+          <LanguageSwitcher />
+          <ThemeToggle appearance="icon" />
           <ButtonLink href="/components" size="small" className="ms-1 hidden md:inline-flex">
             Open the library
           </ButtonLink>
@@ -145,8 +124,19 @@ export function SiteHeader() {
                 {item.label}
               </Link>
             ))}
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                setSearchOpen(true);
+              }}
+              className="flex items-center gap-2 rounded-lg px-2 py-2.5 text-body-medium text-text-secondary hover:text-text-primary"
+            >
+              <RiSearchLine className="size-[18px]" aria-hidden />
+              Quick search
+            </button>
             <div className="flex items-center justify-between pt-2">
-              <ThemeToggle appearance="segmented" size="small" />
+              <LanguageSwitcher />
               <ButtonLink href="/components" size="small">
                 Open the library
               </ButtonLink>
