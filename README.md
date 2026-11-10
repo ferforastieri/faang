@@ -110,11 +110,20 @@ Then ask in plain words. "Install every Faang component" installs the whole cata
 
 ### With the CLI
 
+The CLI is in [`cli/`](cli) and reads the registry this site serves at `/r` — a
+JSON index plus one file per item, with the npm packages and the other items
+each one needs. Run it from the repository while the package is unpublished:
+
 ```bash
-npx faang@latest list              # every component, one line each
-npx faang@latest add data-table    # one component and what it depends on
-npx faang@latest add --all         # everything in this repository
+node cli/index.mjs list                       # every item, one line each
+node cli/index.mjs add data-table             # the component and its graph
+node cli/index.mjs add button --cwd ../app    # write into another project
+node cli/index.mjs add --all                  # the whole registry
 ```
+
+Published, the same commands read `npx faang@latest add data-table`. Either way
+it prints the one `npm install` line the project is still missing, and it never
+overwrites a file unless you pass `--overwrite`.
 
 
 ## RTL Support
