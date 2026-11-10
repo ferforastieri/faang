@@ -1,0 +1,20 @@
+{
+  // Worker that serves the whole Next.js app (landing, chat, dashboard, the
+  // catalogue and /api/chat). `.open-next/` is produced by
+  // `opennextjs-cloudflare build`; nothing here is a static export.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "faang",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-11-10",
+  // The AI SDK and Next's node paths need the Node built-ins shim.
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  // Static assets (CSS, JS, images) are served straight off the edge; the
+  // Worker only wakes up for routes it has to render.
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  }
+}

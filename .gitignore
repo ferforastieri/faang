@@ -1,11 +1,15 @@
 node_modules
 .next
+.open-next
+.wrangler
 out
 dist
 .vercel
 *.tsbuildinfo
 next-env.d.ts
 
-# Keys stay out of git. .env.example documents what goes in .env.local.
+# Keys stay out of git. .env.example documents what goes in .env.local, and
+# .dev.vars is the same file for `wrangler dev` / `opennextjs-cloudflare preview`.
 .env*
+.dev.vars*
 !.env.example

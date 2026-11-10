@@ -57,6 +57,29 @@ cp .env.example .env.local   # then put your key in AI_API_KEY
 npm run dev
 ```
 
+## Deploy on Cloudflare Workers
+
+This app is a full Next.js server — `/api/chat` streams a model reply — so it deploys as a Worker through OpenNext's adapter, not as a static export. `wrangler.jsonc` and `open-next.config.ts` are already here, and the whole app (landing, chat, dashboard, catalogue and the API route) ships in one Worker.
+
+```bash
+npm run preview    # build for Workers, then serve it locally in workerd
+npm run deploy     # build and publish
+```
+
+In the Cloudflare dashboard, with the repo connected to a Worker (Settings → Build):
+
+| Setting | Value |
+| --- | --- |
+| Build command | `npx opennextjs-cloudflare build` |
+| Deploy command | `npx wrangler deploy` |
+| Root directory | `/` (blank) |
+| Build output directory | `.open-next/assets` — only if the field is required; the Worker takes it from `wrangler.jsonc` |
+| Environment variable | `NODE_VERSION=22` |
+
+Then add the model key under Variables & Secrets — `AI_API_KEY`, marked as a secret — or from a terminal with `npx wrangler secret put AI_API_KEY`. A custom domain (`faang.vira.ia.br`, for example) is attached in the same Worker's Settings → Domains & Routes; it does not need a route in `wrangler.jsonc`.
+
+Two things already handled for you: `next/image` optimization is off, because the Worker has no image optimizer, and every page is static, so there is no ISR cache to back with R2.
+
 ## Install into an existing project
 
 Every component in this repository also installs on its own, as source, into any Next.js project.
