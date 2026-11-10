@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ name: str
 
 export default async function DocItemPage({ params }: { params: Promise<{ name: string }> }) {
   const { name } = await params;
-  const known = readDocsIndex().some((item) => item.name === name);
-  if (!known) notFound();
-  return <DocItemView item={readDocItem(name)} />;
+  const item = readDocItem(name);
+  if (!item) notFound();
+  return <DocItemView item={item} />;
 }

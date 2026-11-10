@@ -6,6 +6,7 @@ node_modules
 public/r
 public/llms.txt
 public/docs.md
+components/application/docs/registry.generated.ts
 out
 dist
 .vercel

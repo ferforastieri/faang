@@ -34,7 +34,17 @@ function walk(dir) {
   return out;
 }
 
-const FILES = [...SOURCE_DIRS.flatMap(walk), ...EXTRA_FILES].filter((file) => existsSync(join(ROOT, file)));
+/** Site-only files: the docs pages and their generated data are not library items. */
+const NOT_INSTALLABLE = [
+  "components/application/docs/registry.generated.ts",
+  "components/application/docs/registry-data.ts",
+  "components/application/docs/docs-index-view.tsx",
+  "components/application/docs/doc-item-view.tsx",
+];
+
+const FILES = [...SOURCE_DIRS.flatMap(walk), ...EXTRA_FILES].filter(
+  (file) => existsSync(join(ROOT, file)) && !NOT_INSTALLABLE.includes(file) && !file.endsWith(".generated.ts"),
+);
 
 /** A stable, unique name per file: the basename, or the parent folder when two collide. */
 function nameFor(file) {
