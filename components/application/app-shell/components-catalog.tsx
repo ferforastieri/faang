@@ -30,9 +30,7 @@ export function ComponentsCatalog() {
     // template cards and a gap), so the heading and every grid share one edge.
     <div className="flex w-full flex-col gap-10">
       <p className="max-w-2xl text-body-regular text-text-secondary">
-        Every component, block, chart and template in Faang, {total} in all, and every one of
-        them is already in this project as source. Each card opens its docs on faang.com, with
-        the install command and the props.
+        {`Every component, block, chart and template in Faang, ${total} in all, and every one of them is already in this project as source. Each card opens its docs on faang.com, with the install command and the props.`}
       </p>
       {COMPONENT_SECTIONS.map((section) => (
         <section key={section.title} id={section.title.toLowerCase()} className="flex flex-col gap-4">

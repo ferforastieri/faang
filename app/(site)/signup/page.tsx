@@ -9,7 +9,7 @@ import { LogoLockup } from "@/components/foundations/brand/logo";
 export default function SignupPage() {
   const base = useStarterBase();
   return (
-    <main className="flex min-h-dvh items-center justify-center bg-background-full p-6">
+    <div className="flex flex-1 items-center justify-center p-6">
       <AuthCard
         mode="signup"
         layout="grid"
@@ -35,6 +35,6 @@ export default function SignupPage() {
           />
         }
       />
-    </main>
+    </div>
   );
 }
