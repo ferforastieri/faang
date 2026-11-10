@@ -309,7 +309,7 @@ function UsageRow({ label, value, percent }: { label: string; value: string; per
 /** Bytes the stored chats occupy. UTF-16 in storage, so two bytes a character. */
 function measureStoredBytes() {
   try {
-    return (window.localStorage.getItem("boardui:agent-chat-threads")?.length ?? 0) * 2;
+    return (window.localStorage.getItem("faang:agent-chat-threads")?.length ?? 0) * 2;
   } catch {
     return 0;
   }

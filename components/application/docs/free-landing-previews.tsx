@@ -120,7 +120,7 @@ export function FileUploadPreview() {
       if (input) {
         const transfer = new DataTransfer();
         transfer.items.add(
-          new File([new Uint8Array(1_800_000)], "boardui-components.pdf", { type: "application/pdf" }),
+          new File([new Uint8Array(1_800_000)], "faang-components.pdf", { type: "application/pdf" }),
         );
         input.files = transfer.files;
         input.dispatchEvent(new Event("change", { bubbles: true }));

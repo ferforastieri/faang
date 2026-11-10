@@ -660,7 +660,7 @@ function InputPreviewCard() {
 
   useEffect(() => {
     if (!hovered) return;
-    const EMAIL = "hello@boardui.com";
+    const EMAIL = "hello@faang.com";
     const QUERY = "data table";
     const timers: number[] = [];
     let delay = 350;
@@ -887,7 +887,7 @@ export const FREE_COMPONENT_PREVIEWS: Partial<Record<PreviewHref, () => React.Re
         <Notification
           status="success"
           title="Deployment finished"
-          description="boardui.com is live on production."
+          description="faang.com is live on production."
           timestamp="2m ago"
         />
       </div>

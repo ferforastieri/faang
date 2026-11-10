@@ -98,7 +98,7 @@ const SERVERS: Record<string, McpServer> = {
 /** Per-scope server lists — switching a pill swaps the section below. */
 const SCOPES: { id: string; label: string; servers: McpServer[] }[] = [
   { id: "home", label: "Home", servers: [SERVERS.astro, SERVERS.figma] },
-  { id: "boardui", label: "boardui", servers: [SERVERS.figma, SERVERS.vercel] },
+  { id: "faang", label: "faang", servers: [SERVERS.figma, SERVERS.vercel] },
   { id: "iospoke", label: "iospoke", servers: [SERVERS.astro] },
   { id: "mideo", label: "mideo", servers: [SERVERS.posthog] },
   { id: "bereal", label: "BeReal Task", servers: [SERVERS.figma] },
@@ -347,7 +347,7 @@ export function SettingsTools() {
           <div className="flex flex-col items-center gap-1 text-center">
             <p className="text-body-medium text-text-primary">No Team MCP Servers</p>
             <p className="max-w-[360px] text-body-2-regular text-text-secondary">
-              Configure MCP servers in the dashboard to make them available in BoardUI on desktop
+              Configure MCP servers in the dashboard to make them available in Faang on desktop
               and in the cloud.
             </p>
           </div>

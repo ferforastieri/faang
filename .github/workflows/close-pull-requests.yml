@@ -17,4 +17,4 @@ jobs:
           GH_REPO: ${{ github.repository }}
           PR: ${{ github.event.pull_request.number }}
         run: |
-          gh pr close "$PR" --comment "Thanks for taking the time. This repository is generated from BoardUI's source and the next export overwrites it, so pull requests cannot be merged here. Please email hi@boardui.com about the change and it will be made at the source. See CONTRIBUTING.md."
+          gh pr close "$PR" --comment "Thanks for taking the time. This repository is generated from Faang's source and the next export overwrites it, so pull requests cannot be merged here. Please email hi@faang.com about the change and it will be made at the source. See CONTRIBUTING.md."

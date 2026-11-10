@@ -16,7 +16,7 @@ import { WeekRangePill } from "@/components/application/medical/week-range-pill"
 import { cx } from "@/utils/cx";
 
 /**
- * Figma source: Board UI → medical profile dashboard → Frame 126 (node
+ * Figma source: Faang → medical profile dashboard → Frame 126 (node
  * 3950:5936). Alert feed: tinted icon circle, title + description, and a
  * soft date pill absolutely pinned to the row's top-right corner.
  *

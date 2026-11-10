@@ -7,7 +7,7 @@ import { cx } from "@/utils/cx";
 import { CheckboxGlyph } from "./checkbox-glyph";
 
 /**
- * Figma source: Board UI → Checkbox items (node 3793:2966).
+ * Figma source: Faang → Checkbox items (node 3793:2966).
  *
  * Selectable card: title + description on the left, checkbox on the right.
  *   card    radius/2lg (10px), 1px border/button/default, pl 16 pr 20 py 12

@@ -35,7 +35,7 @@ import { cx } from "@/utils/cx";
  * and the chat shares its navigation, so the sidebar only ever links to pages
  * the app actually has.
  *
- * On boardui.com the starter lives under /templates/chat-starter; in a
+ * On faang.com the starter lives under /templates/chat-starter; in a
  * deployed copy it is the root. The base is read off the URL rather than
  * configured, so the same files run in both places untouched.
  */
@@ -50,7 +50,7 @@ export {
   type CatalogTier,
 } from "@/components/application/app-shell/components-catalog";
 
-/** "" in a deployed starter, the site prefix on boardui.com. */
+/** "" in a deployed starter, the site prefix on faang.com. */
 export function useStarterBase(): string {
   const pathname = usePathname() ?? "";
   // Preserve an optional language prefix on the hosted preview. Installed
@@ -82,7 +82,7 @@ export function useStarterSelected(): string {
 type IconComponent = ComponentType<{ className?: string; "aria-hidden"?: boolean | "true" | "false" }>;
 
 /**
- * The page standard every BoardUI template follows, free or Pro: content sits
+ * The page standard every Faang template follows, free or Pro: content sits
  * directly on the page background inside a 1300px column, so cards and tables
  * carry their own surfaces; above it a breadcrumb trail (team, member, page)
  * and the page heading. Pages pass what differs and get the rest.

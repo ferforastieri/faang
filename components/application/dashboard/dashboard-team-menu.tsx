@@ -30,12 +30,12 @@ import { ChevronDownSmall } from "@/components/foundations/icons/chevrons";
 import { cx } from "@/utils/cx";
 
 /**
- * Figma source: Board UI → sidebar profile menu (node 3823:3699).
+ * Figma source: Faang → sidebar profile menu (node 3823:3699).
  *
  * Dropdown opened from the sidebar's "Board team" card. Floats to the right of
  * the sidebar: white panel, 1px border/button/default, radius 16, p 10,
  * shadow/dropdown. Header (team avatar + name/email), three grouped sections of
- * sidebar-style rows separated by full-bleed dividers, and a "BoardUI" + version
+ * sidebar-style rows separated by full-bleed dividers, and a "Faang" + version
  * footer. Rows mirror the sidebar nav item pattern (icon + label + optional
  * counter) but use the menu tokens from Figma (text/primary label,
  * background/primary/hover on hover + the selected row).
@@ -177,11 +177,11 @@ export function DashboardTeamMenu({
         )}
       >
         <span className="flex min-w-0 items-center gap-2">
-          <Avatar size="md" color="blue" src="/brand/boardui_logo_circle.webp" alt="Board team" />
+          <Avatar size="md" color="blue" src="/brand/faang_logo_circle.webp" alt="Board team" />
           <Collapsible collapsed={collapsed}>
             <span className="flex min-w-0 flex-col items-start justify-center">
               <span className="text-body-medium whitespace-nowrap text-text-primary">Board team</span>
-              <span className="text-body-regular whitespace-nowrap text-text-secondary">hi@boardui.com</span>
+              <span className="text-body-regular whitespace-nowrap text-text-secondary">hi@faang.com</span>
             </span>
           </Collapsible>
         </span>
@@ -208,10 +208,10 @@ export function DashboardTeamMenu({
         <AriaDialog aria-label="Board team menu" className="flex flex-col gap-[7px] outline-none">
           {/* Header */}
           <div className="flex w-full items-center gap-2 px-2 pt-1">
-            <Avatar size="md" color="blue" src="/brand/boardui_logo_circle.webp" alt="Board team" />
+            <Avatar size="md" color="blue" src="/brand/faang_logo_circle.webp" alt="Board team" />
             <div className="flex min-w-0 flex-col items-start justify-center">
               <span className="text-body-medium whitespace-nowrap text-text-primary">Board team</span>
-              <span className="text-body-regular whitespace-nowrap text-text-secondary">hi@boardui.com</span>
+              <span className="text-body-regular whitespace-nowrap text-text-secondary">hi@faang.com</span>
             </div>
           </div>
 
@@ -235,7 +235,7 @@ export function DashboardTeamMenu({
 
           {/* Footer */}
           <div className="flex w-full items-center justify-between px-2 pt-1 pb-2">
-            <span className="text-body-2-medium whitespace-nowrap text-text-tertiary">BoardUI</span>
+            <span className="text-body-2-medium whitespace-nowrap text-text-tertiary">Faang</span>
             <span className="inline-flex items-center justify-center rounded-sm bg-background-tertiary-default px-1 py-px text-body-2-medium whitespace-nowrap text-text-tertiary">
               v1.0.1
             </span>

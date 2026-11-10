@@ -14,7 +14,7 @@ import { cx } from "@/utils/cx";
 import { useDismissOnOutsidePress } from "@/utils/use-dismiss-on-outside-press";
 
 /**
- * Figma source: Board UI → "Meeting" (node 3881:7618).
+ * Figma source: Faang → "Meeting" (node 3881:7618).
  *
  * A Calendly/Cal.com-style booking panel: host card + meeting summary on the
  * left, a single-month calendar in the middle (reusing `MonthPanel` from

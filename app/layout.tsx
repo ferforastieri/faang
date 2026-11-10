@@ -5,7 +5,7 @@ import { DirectionProvider } from "@/components/foundations/direction/direction"
 
 import "@/styles/globals.css";
 
-// BoardUI's type scale is set in Inter with the optical-size axis, so display
+// Faang's type scale is set in Inter with the optical-size axis, so display
 // sizes render in the display grade and body sizes in the text grade from one
 // variable font. The variable names are what styles/typography.css expects.
 const inter = Inter({
@@ -21,7 +21,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Chat",
-  description: "A streaming AI chat on your own model key, built with BoardUI.",
+  description: "A streaming AI chat on your own model key, built with Faang.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -35,8 +35,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className="flex min-h-full flex-col font-sans">
         {/* Applies the stored theme before first paint, so a dark-mode visitor
             never sees a light flash. The key matches the theme toggle. */}
-        <Script id="boardui-theme" strategy="beforeInteractive">
-          {`(function(){try{var dark=localStorage.getItem("boardui:theme")==="dark";document.documentElement.classList.toggle("dark",dark)}catch(e){document.documentElement.classList.remove("dark")}})();`}
+        <Script id="faang-theme" strategy="beforeInteractive">
+          {`(function(){try{var dark=localStorage.getItem("faang:theme")==="dark";document.documentElement.classList.toggle("dark",dark)}catch(e){document.documentElement.classList.remove("dark")}})();`}
         </Script>
         <DirectionProvider locale="en-US">{children}</DirectionProvider>
       </body>

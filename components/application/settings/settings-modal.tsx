@@ -27,7 +27,7 @@ import { SettingsStorage } from "./settings-storage";
 import { SettingsTools } from "./settings-tools";
 
 /**
- * Figma sources: Board UI → "Settings/Profile" (node 4081:13943) and
+ * Figma sources: Faang → "Settings/Profile" (node 4081:13943) and
  * "Settings/General" (node 4079:13037).
  *
  * The app-wide settings modal, opened from any sidebar's "Settings" item.

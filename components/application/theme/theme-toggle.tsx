@@ -11,12 +11,12 @@ import { cx } from "@/utils/cx";
 
 export type ThemeMode = "light" | "dark";
 
-export const THEME_STORAGE_KEY = "boardui:theme";
-export const THEME_CHANGE_EVENT = "boardui:theme-change";
+export const THEME_STORAGE_KEY = "faang:theme";
+export const THEME_CHANGE_EVENT = "faang:theme-change";
 
 const THEME_TRANSITION_DURATION = 820;
 const THEME_TRANSITION_EASING = "cubic-bezier(0.16, 1, 0.3, 1)";
-const THEME_TRANSITION_STYLE_ID = "boardui-theme-transition-style";
+const THEME_TRANSITION_STYLE_ID = "faang-theme-transition-style";
 
 type ThemeTransitionOrigin = { x: number; y: number };
 
@@ -62,12 +62,12 @@ function installThemeTransitionStyle(
       mask-image: ${mask};
       -webkit-mask-repeat: no-repeat;
       mask-repeat: no-repeat;
-      animation: boardui-theme-mask-reveal ${duration}ms ${THEME_TRANSITION_EASING} both;
+      animation: faang-theme-mask-reveal ${duration}ms ${THEME_TRANSITION_EASING} both;
       transform-origin: ${x}px ${y}px;
       will-change: -webkit-mask-size, -webkit-mask-position, mask-size, mask-position;
     }
 
-    @keyframes boardui-theme-mask-reveal {
+    @keyframes faang-theme-mask-reveal {
       from {
         -webkit-mask-position: ${x}px ${y}px;
         mask-position: ${x}px ${y}px;
@@ -236,7 +236,7 @@ export function ThemeToggle({
   const switchRef = useRef<HTMLLabelElement | null>(null);
   const pointerOriginRef = useRef<ThemeTransitionOrigin | null>(null);
 
-  // Makes the component self-contained in customer projects. BoardUI itself
+  // Makes the component self-contained in customer projects. Faang itself
   // also runs the same lookup before hydration to avoid a first-paint flash.
   useEffect(() => {
     applyTheme(storedTheme(), { persist: false });

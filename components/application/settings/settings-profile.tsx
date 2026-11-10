@@ -17,14 +17,14 @@ import {
 } from "./settings-rows";
 
 /**
- * Figma source: Board UI → "Settings/Profile" (node 4081:13943), the right
+ * Figma source: Faang → "Settings/Profile" (node 4081:13943), the right
  * pane of the settings modal.
  *
  * Two cards, 24px apart:
  *   1. identity   Email / First name / Last name as editable design-system
  *                 Inputs (small, 202px — mail icon on Email), Date of birth
  *                 (white date-picker trigger, 202px)
- *   2. account    BoardUI account → "Manage", Public profile toggle (on),
+ *   2. account    Faang account → "Manage", Public profile toggle (on),
  *                 Device ID (muted, truncated), Log out from all devices.
  */
 
@@ -128,7 +128,7 @@ export function SettingsProfile({ onSaved }: { onSaved?: () => void } = {}) {
       </SettingsCard>
 
       <SettingsCard>
-        <SettingsRow label="BoardUI account">
+        <SettingsRow label="Faang account">
           <Button variant="secondary" size="small" leadingIcon={RiExternalLinkLine}>
             Manage
           </Button>

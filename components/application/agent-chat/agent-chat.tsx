@@ -40,9 +40,9 @@ import { cx } from "@/utils/cx";
  */
 
 const ENDPOINT = "/api/chat";
-const STORAGE_KEY = "boardui:agent-chat-threads";
+const STORAGE_KEY = "faang:agent-chat-threads";
 /** Remembered so a reload of a keyless deploy lands back in the demo, not on the notice. */
-const DEMO_KEY = "boardui:agent-chat-demo";
+const DEMO_KEY = "faang:agent-chat-demo";
 /** Enough history to be useful without letting localStorage grow unbounded. */
 const MAX_THREADS = 30;
 
@@ -340,7 +340,7 @@ export function AgentChat({
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = "boardui-chats.json";
+    link.download = "faang-chats.json";
     // In the document because some browsers ignore click() on a detached
     // anchor, and revoked a tick later rather than immediately: revoking in the
     // same turn can kill the URL before the browser has read the blob, which

@@ -64,7 +64,7 @@ function AnimatedLabel({ label }: { label: string }) {
 }
 
 /**
- * Figma source: Board UI → medical profile dashboard → "Month 1" pill (e.g.
+ * Figma source: Faang → medical profile dashboard → "Month 1" pill (e.g.
  * node 3950:5720 for the "29 Jun - 5 Jul" week variant, node 3950:5897 for
  * the "December" month variant on Most active days) — same 151×32 chrome
  * for both.

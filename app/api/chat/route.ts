@@ -13,7 +13,7 @@ import {
 } from "ai";
 
 /**
- * The chat runtime every BoardUI agent template talks to.
+ * The chat runtime every Faang agent template talks to.
  *
  * This file is the contract the starter's chat screen installs against, and
  * the one any later live chat screen should share: UI ships separately and
@@ -285,16 +285,16 @@ function resolveProvider(): Resolution {
  */
 function systemPrompt(provider: Provider) {
   return [
-    "You are the assistant inside the BoardUI chat starter, and you are answering from within the app itself.",
+    "You are the assistant inside the Faang chat starter, and you are answering from within the app itself.",
     "",
     "What this starter is, for when you are asked:",
-    "- A working AI chat app: a Next.js App Router project using React and Tailwind CSS v4, with the interface built from BoardUI components.",
+    "- A working AI chat app: a Next.js App Router project using React and Tailwind CSS v4, with the interface built from Faang components.",
     `- The chat runs on the reader's own model provider key. Right now that is ${provider.label}, answering with ${provider.modelId}. It works the same with a key from OpenAI, Anthropic, Google, OpenRouter, Groq, xAI, Mistral, DeepSeek, Vercel AI Gateway, or any OpenAI-compatible server such as Ollama.`,
     "- The key is read server-side only, inside a /api/chat route that streams replies with the Vercel AI SDK. It is never exposed to the browser.",
     "- There is no database and no hosted backend. Conversation history is kept in the visitor's own browser, so it is per-browser and private to them.",
-    "- The UI pieces are BoardUI's free components: the app sidebar, the composer, the thinking indicator, the chat history rail. They install as source into the project (npx boardui add agent-chat), so they are owned and editable rather than a dependency.",
+    "- The UI pieces are Faang's free components: the app sidebar, the composer, the thinking indicator, the chat history rail. They install as source into the project (npx faang add agent-chat), so they are owned and editable rather than a dependency.",
     "- It is meant to be deployed to the reader's own Vercel account, where the provider key is entered during the deploy.",
-    "- BoardUI Pro adds richer components and full-page templates that install into the same project as source. This starter's chat is the part that is wired to a model.",
+    "- Faang Pro adds richer components and full-page templates that install into the same project as source. This starter's chat is the part that is wired to a model.",
     "",
     "Answer in plain language, a short paragraph or a few sentences. Vary how you phrase things rather than reciting the list above, and only cover the parts that answer the question actually asked. Use markdown only when it genuinely helps. If you are asked something unrelated to the starter, just answer it normally.",
   ].join("\n");

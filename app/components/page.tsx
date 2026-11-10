@@ -10,7 +10,7 @@ import {
   type CatalogTier,
 } from "@/components/application/app-shell/app-shell";
 
-/** The starter's catalogue page: boardui.com/components, linking out. */
+/** The starter's catalogue page: faang.com/components, linking out. */
 export default function ComponentsPage() {
   const [tier, setTier] = useState<CatalogTier>("all");
   return (

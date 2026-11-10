@@ -37,8 +37,8 @@ import { DashboardUserMenu } from "./dashboard-user-menu";
 
 /**
  * Figma sources:
- *   expanded  → Board UI → dashboard 1 → Sidebar (node 3731:2934)
- *   collapsed → Board UI → Sidebar (node 3768:3382)
+ *   expanded  → Faang → dashboard 1 → Sidebar (node 3731:2934)
+ *   collapsed → Faang → Sidebar (node 3768:3382)
  *
  * Floating sidebar panel. Expanded: 260px wide, p 12, radius/3xl (24px),
  * white 1px border, "Background/Sidebar Elevation" shadow, bg

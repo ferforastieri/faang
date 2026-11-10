@@ -37,7 +37,7 @@ import { ChevronSortDown } from "@/components/foundations/icons/chevrons";
 import { cx } from "@/utils/cx";
 
 /**
- * Figma sources: Board UI → "Upload file" (node 4105:25269, default),
+ * Figma sources: Faang → "Upload file" (node 4105:25269, default),
  * "Upload in progress" (node 4107:27192) and the 100% complete frame
  * (node 4107:30456) — the settings modal's Storage page.
  *
@@ -63,7 +63,7 @@ import { cx } from "@/utils/cx";
  * fading/blurring out, incoming settles in from -10px — nothing snaps.
  * The upload itself is front-end-only (simulated progress, max 8 MB).
  *
- * The table below is the BoardUI table recipe (same chrome as the
+ * The table below is the Faang table recipe (same chrome as the
  * dashboard's customers table): toolbar with live filters/search, sortable
  * columns, row selection, per-row delete + a ⋮ dropdown, pagination.
  */

@@ -22,7 +22,7 @@ import { HintText } from "./hint-text";
 import { cx, sortCx } from "@/utils/cx";
 
 /**
- * Figma source: Board UI → Input (node 3665:1849).
+ * Figma source: Faang → Input (node 3665:1849).
  *
  * Architecture (mirrors the Untitled UI / React Aria pattern):
  *

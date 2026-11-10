@@ -27,7 +27,7 @@ export type ShowcaseCardProps = {
   interactive?: boolean;
   /** Class for the card itself — the docs index uses it to grow template cards. */
   className?: string;
-  /** Open the link in a new tab (the starter links out to boardui.com). */
+  /** Open the link in a new tab (the starter links out to faang.com). */
   external?: boolean;
 };
 

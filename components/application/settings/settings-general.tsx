@@ -14,7 +14,7 @@ import {
 } from "./settings-rows";
 
 /**
- * Figma source: Board UI → "Settings/General" (node 4079:13037), the right
+ * Figma source: Faang → "Settings/General" (node 4079:13037), the right
  * pane of the settings modal. Taller than the 614px modal, so the pane
  * scrolls within the shell.
  *
@@ -125,7 +125,7 @@ export function SettingsGeneral({ planArtSrc }: { planArtSrc?: string }) {
               defaultSelectedKey="inside"
               triggerClassName={SELECT_TRIGGER}
             >
-              <SelectItem id="inside">Inside BoardUI</SelectItem>
+              <SelectItem id="inside">Inside Faang</SelectItem>
               <SelectItem id="browser">In the browser</SelectItem>
             </Select>
           </SettingsRow>
@@ -168,7 +168,7 @@ export function SettingsGeneral({ planArtSrc }: { planArtSrc?: string }) {
           </SettingsRow>
           <SettingsRow
             label="Dispatch alerts"
-            description="Push notification on your phone when BoardUI messages you"
+            description="Push notification on your phone when Faang messages you"
           >
             <Switch
               aria-label="Dispatch alerts"

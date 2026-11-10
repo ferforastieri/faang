@@ -20,7 +20,7 @@ import { PREVIEW_IMAGE_SLUGS } from "@/components/application/docs/preview-image
 import { ShowcaseCard } from "@/components/application/docs/showcase-card";
 import { cx } from "@/utils/cx";
 
-const SITE = "https://www.boardui.com";
+const SITE = "https://www.faang.com";
 
 export type CatalogTier = "all" | "free" | "pro";
 
@@ -50,7 +50,7 @@ export function CatalogTierFilter({
 }
 
 /**
- * The boardui.com components index, as the starter shows it: the same
+ * The faang.com components index, as the starter shows it: the same
  * sections, names and descriptions, every card opening its docs page on the
  * site in a new tab. Free components render their live previews, Pro
  * templates frame the site's embed routes, and the other Pro components show
@@ -71,9 +71,9 @@ export function ComponentsCatalog({ tier = "all" }: { tier?: CatalogTier }) {
     // template cards and a gap), so the heading and every grid share one edge.
     <div className="flex w-full flex-col gap-10">
       <p className="max-w-2xl text-body-regular text-text-secondary">
-        Every component, block, chart and template in BoardUI, {shipped.length} in all. The{" "}
+        Every component, block, chart and template in Faang, {shipped.length} in all. The{" "}
         {free} free ones are already in this project as source; each card opens its docs on
-        boardui.com, with the install command and the props.
+        faang.com, with the install command and the props.
       </p>
       {sections.map((section) => (
         <section key={section.title} id={section.title.toLowerCase()} className="flex flex-col gap-4">
@@ -168,7 +168,7 @@ function PreviewCard({ entry }: { entry: Entry }) {
         <TemplateEmbed id={embed} title={entry.name} />
       ) : (
         <>
-          {/* Plain img on purpose: small fixed-size WebPs served by boardui.com;
+          {/* Plain img on purpose: small fixed-size WebPs served by faang.com;
               next/image would make every clone configure a remote pattern. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={`${SITE}/previews/${slug}.webp`} alt="" loading="lazy" className="size-full object-cover object-top dark:hidden" />

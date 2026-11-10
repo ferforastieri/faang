@@ -84,7 +84,7 @@ export interface AuthCardProps {
   /**
    * Mark above the title — a wordmark, an app icon, anything. Deliberately a
    * node rather than a src, so the card stays brand-agnostic and an installed
-   * copy pulls none of BoardUI's own artwork with it.
+   * copy pulls none of Faang's own artwork with it.
    */
   logo?: ReactNode;
   /** Centre the heading, as the split layout usually wants. */
@@ -119,7 +119,7 @@ const COPY = {
   },
   signup: {
     title: "Create your account",
-    description: "Start building with BoardUI in a couple of minutes.",
+    description: "Start building with Faang in a couple of minutes.",
     cta: "Create account",
     switchLead: "Already have an account?",
     switchAction: "Sign in",

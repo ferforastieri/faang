@@ -10,13 +10,13 @@ import { TEMPLATE_PRO_RAYS } from "@/components/application/templates/pro-prompt
 import { useThemeMode } from "@/components/application/theme/theme-toggle";
 import { ButtonLink } from "@/components/base/buttons/button";
 
-const DISMISSED_KEY = "boardui:pro-offer-dismissed";
-const PRICING_URL = "https://www.boardui.com/#pricing";
+const DISMISSED_KEY = "faang:pro-offer-dismissed";
+const PRICING_URL = "https://www.faang.com/#pricing";
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
 /**
  * The one mention of Pro inside the starter: the same card the Pro templates
- * show on boardui.com, ray field included, with the starter's own words and a
+ * show on faang.com, ray field included, with the starter's own words and a
  * link to pricing in place of the site's dialog. Gone for good once closed.
  * Counts are the catalogue as of September 2026; update them when Pro grows.
  */

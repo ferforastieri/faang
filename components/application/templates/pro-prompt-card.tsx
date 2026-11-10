@@ -23,7 +23,7 @@ export function ProPromptCard({
   onDismiss,
   backdrop,
   backdropHeight = 120,
-  "aria-label": ariaLabel = "BoardUI Pro",
+  "aria-label": ariaLabel = "Faang Pro",
   dismissLabel = "Dismiss",
   className,
 }: {

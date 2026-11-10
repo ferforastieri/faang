@@ -1,5 +1,5 @@
 /**
- * Shared visual recipe for BoardUI menu surfaces.
+ * Shared visual recipe for Faang menu surfaces.
  *
  * Select and Dropdown intentionally keep their distinct React Aria semantics
  * (single-value listbox vs. action menu), while consuming the same panel,

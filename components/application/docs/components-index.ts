@@ -1,7 +1,7 @@
 import { RiFontSize, RiPaletteLine } from "@remixicon/react";
 
 /**
- * The catalogue behind boardui.com/components: every component, block, chart
+ * The catalogue behind faang.com/components: every component, block, chart
  * and template with its docs page. Plain data, so the starter can show the same
  * list (linking out to the site) without carrying any component source.
  */

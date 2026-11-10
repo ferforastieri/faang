@@ -9,7 +9,7 @@ import { Button } from "@/components/base/buttons/button";
 import { cx } from "@/utils/cx";
 
 /**
- * Figma source: Board UI → medical profile dashboard → Frame 125 (node
+ * Figma source: Faang → medical profile dashboard → Frame 125 (node
  * 3950:5657). Patient photo, name, and a stack of label/value rows.
  *
  * Vertical rhythm from Figma's absolute positions: avatar top 24, name top
