@@ -4,15 +4,12 @@ import { useTemplateCopy } from "@/components/foundations/template-copy/template
 
 import { RiArrowLeftLine } from "@remixicon/react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 import { InstallCommand } from "@/components/application/landing/install-command";
 import type { DocSummary } from "@/components/application/docs/docs-index-view";
 
-export type DocDetail = DocSummary & {
-  /** Source of the first file, shown as the component's body. */
-  source: string;
-  sourcePath: string;
-};
+export type DocDetail = DocSummary;
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -26,6 +23,24 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 /** One registry item: what it is, how to install it, what it writes. */
 export function DocItemView({ item }: { item: DocDetail }) {
   const localize = useTemplateCopy();
+  // The source is fetched from the registry's static asset, not bundled: the
+  // whole library inlined here cost 1.1 MB of Worker memory and every request
+  // hit Cloudflare's CPU limit.
+  const [source, setSource] = useState<{ path: string; content: string } | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`/r/${item.name}.json`)
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data: { files?: { path: string; content?: string }[] } | null) => {
+        const first = data?.files?.[0];
+        if (!cancelled && first?.content) setSource({ path: first.path, content: first.content });
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, [item.name]);
 
   return localize((
     <article className="mx-auto flex w-full max-w-[900px] flex-col gap-10 px-4 py-14 sm:px-6 sm:py-20">
@@ -88,10 +103,10 @@ export function DocItemView({ item }: { item: DocDetail }) {
         </Section>
       ) : null}
 
-      <Section title={item.sourcePath}>
+      <Section title={source?.path ?? "Source"}>
         <div className="overflow-hidden rounded-2xl border border-border-button-default bg-background-secondary-default">
           <pre className="max-h-[520px] overflow-auto p-4 font-mono text-body-2-regular leading-6 text-text-secondary">
-            <code>{item.source}</code>
+            <code>{source?.content ?? "…"}</code>
           </pre>
         </div>
       </Section>

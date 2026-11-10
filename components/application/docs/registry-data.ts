@@ -41,5 +41,5 @@ export function readDocsIndex(): DocSummary[] {
 export function readDocItem(name: string) {
   const item = REGISTRY_ITEMS[name];
   if (!item) return null;
-  return { ...summaryOf(item), source: item.source, sourcePath: item.sourcePath };
+  return summaryOf(item);
 }
