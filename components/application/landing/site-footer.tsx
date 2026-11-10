@@ -18,6 +18,8 @@ const LINKS: { label: string; href: string; external?: boolean }[] = [
   { label: "Sign up", href: "/signup" },
   { label: "Getting started", href: "https://www.faang.com/getting-started", external: true },
   { label: "Install", href: "https://www.faang.com/installation", external: true },
+  { label: "llms.txt", href: "/llms.txt", external: true },
+  { label: "docs.md", href: "/docs.md", external: true },
   { label: "MCP server", href: "https://www.faang.com/mcp", external: true },
   { label: "RTL support", href: "https://www.faang.com/rtl", external: true },
   { label: "License", href: "https://github.com/ferforastieri/faang/blob/master/LICENSE", external: true },

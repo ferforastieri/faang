@@ -1,4 +1,5 @@
 import { ALL_ENTRIES } from "@/components/application/docs/components-index";
+import { AgentSection } from "@/components/application/landing/agent-section";
 import { ComponentShowcase, TemplateShowcase } from "@/components/application/landing/component-showcase";
 import { LandingCopyProvider } from "@/components/application/landing/landing-copy";
 import { FaqSection, FinalCta } from "@/components/application/landing/faq-section";
@@ -30,6 +31,7 @@ export default function LandingPage() {
           <TemplateShowcase />
           <FeatureSections />
           <FaqSection />
+          <AgentSection />
           <FinalCta />
         </main>
         <SiteFooter />

@@ -58,6 +58,16 @@ const PT_BR: Record<string, string> = {
     "O composer loader envolve a entrada numa luz que orbita a borda enquanto o agente trabalha, com controles em vidro. Escolha as cores; ele segue o tema.",
   "See it in the chat": "Ver no chat",
   "Component docs": "Docs do componente",
+  "For agents": "Para agentes",
+  "Docs your agent reads first": "Docs que o seu agente lê primeiro",
+  "Three files describe the library in the shape a model can use — no scraping, no guessing which package a component needs.":
+    "Três arquivos descrevem a biblioteca no formato que um modelo entende — sem scraping e sem adivinhar de que pacote cada componente depende.",
+  "The one page an agent reads first: what Faang is, how to install it, the rules for generated code, and every item in one line.":
+    "A primeira página que um agente lê: o que é o Faang, como instalar, as regras para código gerado e todos os itens em uma linha cada.",
+  "The whole library in markdown: each item with its files, its npm packages and everything it pulls in.":
+    "A biblioteca inteira em markdown: cada item com seus arquivos, seus pacotes npm e tudo que ele puxa junto.",
+  "The machine-readable index the CLI reads — one JSON per item, source inline, dependencies declared.":
+    "O índice que o CLI lê — um JSON por item, código embutido e dependências declaradas.",
   Foundations: "Fundamentos",
   Base: "Base",
   Blocks: "Blocos",

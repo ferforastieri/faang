@@ -4,15 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "predev": "node scripts/build-registry.mjs",
+    "predev": "node scripts/build-registry.mjs && node scripts/build-agent-docs.mjs",
     "build": "next build",
-    "prebuild": "node scripts/build-registry.mjs",
+    "prebuild": "node scripts/build-registry.mjs && node scripts/build-agent-docs.mjs",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-    "predeploy": "node scripts/build-registry.mjs",
-    "registry": "node scripts/build-registry.mjs",
+    "predeploy": "node scripts/build-registry.mjs && node scripts/build-agent-docs.mjs",
+    "registry": "node scripts/build-registry.mjs && node scripts/build-agent-docs.mjs",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {

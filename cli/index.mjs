@@ -25,6 +25,7 @@ const HELP = `
     faang list                     every component in the registry
     faang add <name...>            install one or more components
     faang add --all                install the whole registry
+    faang add all                  same thing
     faang add <name> --dry-run     show what would be written
 
   Options
@@ -233,6 +234,10 @@ async function cmdAdd(args) {
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));
+  if (args.names.includes("all")) {
+    args.all = true;
+    args.names = args.names.filter((name) => name !== "all");
+  }
   if (args.version) {
     console.log(VERSION);
     return;
