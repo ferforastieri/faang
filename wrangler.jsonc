@@ -14,6 +14,13 @@
     "directory": ".open-next/assets",
     "binding": "ASSETS"
   },
+  // Cloudflare's own inference, so the chat answers without any model key.
+  // `remote` so `wrangler dev` and the preview hit the real Workers AI too,
+  // the way vira.ia.br is configured.
+  "ai": {
+    "binding": "AI",
+    "remote": true
+  },
   "observability": {
     "enabled": true
   }

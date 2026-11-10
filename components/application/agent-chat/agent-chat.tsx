@@ -466,7 +466,7 @@ export function AgentChat({
                     )}
                   >
                     {messages.length === 0 ? (
-                      <EmptyState onPick={submit} demo={demoActive} />
+                      <EmptyState onPick={submit} demo={demoActive} provider={probe.label} />
                     ) : (
                       messages.map((message, index) => (
                         <AgentMessage
@@ -529,7 +529,16 @@ export function AgentChat({
   ));
 }
 
-function EmptyState({ onPick, demo = false }: { onPick: (text: string) => void; demo?: boolean }) {
+function EmptyState({
+  onPick,
+  demo = false,
+  provider,
+}: {
+  onPick: (text: string) => void;
+  demo?: boolean;
+  /** What answered the probe: "Workers AI" when the deployment carries the binding. */
+  provider?: string | null;
+}) {
   const localize = useTemplateCopy();
   return localize((
     <div className="flex flex-col items-center gap-4 text-center">
@@ -537,8 +546,10 @@ function EmptyState({ onPick, demo = false }: { onPick: (text: string) => void; 
         <h2 className="text-title-2-medium text-text-primary">What can I help with?</h2>
         <p className="text-body-regular text-text-secondary">
           {demo
-            ? "Demo mode: the answers are scripted. Add AI_API_KEY for a real model."
-            : "This chat runs against your own API key. History stays in this browser."}
+            ? "Demo mode: the answers are scripted. Add AI_API_KEY, or deploy on Cloudflare with the AI binding, for a real model."
+            : provider
+              ? `This chat runs on ${provider}. History stays in this browser.`
+              : "This chat runs against your own API key. History stays in this browser."}
         </p>
       </div>
       <div className="flex flex-wrap justify-center gap-2">

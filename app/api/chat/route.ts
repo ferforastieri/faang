@@ -83,8 +83,18 @@ type KnownProviderId =
   | "xai"
   | "mistral"
   | "deepseek";
-/** "custom" is any OpenAI-compatible server named by AI_BASE_URL alone. */
-type ProviderId = KnownProviderId | "custom";
+/** "custom" is any OpenAI-compatible server named by AI_BASE_URL alone.
+ *  "workers-ai" is Cloudflare's own inference: the `AI` binding is the
+ *  credential, so a deployment there needs no key at all. */
+type ProviderId = KnownProviderId | "custom" | "workers-ai";
+
+/** The model Workers AI runs when nothing else is asked for. */
+const WORKERS_AI_MODEL = "@cf/meta/llama-3.1-8b-instruct-fp8-fast";
+
+/** The `AI` binding, narrowed to the one method the provider calls. */
+interface WorkersAIBinding {
+  run(model: string, inputs: unknown, options?: unknown): Promise<unknown>;
+}
 
 interface ProviderSpec {
   label: string;
@@ -171,7 +181,10 @@ type Provider = {
   /** Surfaced to the UI so the composer can show what is answering. */
   label: string;
   modelId: string;
-  model: LanguageModel;
+  /** The AI SDK model, for every provider that has one. */
+  model?: LanguageModel;
+  /** Workers AI is called through its binding, not the AI SDK — see `workersAIResponse`. */
+  binding?: WorkersAIBinding;
 };
 
 /** Either a usable provider or the one sentence explaining why there is none. */
@@ -184,7 +197,12 @@ function env(name: string): string | undefined {
   return value ? value : undefined;
 }
 
-function buildModel(id: ProviderId, apiKey: string, modelId: string, baseURL?: string): LanguageModel {
+function buildModel(
+  id: Exclude<ProviderId, "workers-ai">,
+  apiKey: string,
+  modelId: string,
+  baseURL?: string,
+): LanguageModel {
   switch (id) {
     case "openai":
       return createOpenAI({ apiKey, baseURL })(modelId);
@@ -205,16 +223,51 @@ function buildModel(id: ProviderId, apiKey: string, modelId: string, baseURL?: s
   }
 }
 
-function resolveProvider(): Resolution {
+/**
+ * The Cloudflare binding, when this code is running inside a Worker. Outside
+ * one — `next dev`, a Node server, Vercel — the import throws or the binding
+ * is absent, and the key-based providers below take over.
+ */
+async function workersAIBinding(): Promise<WorkersAIBinding | null> {
+  try {
+    const { getCloudflareContext } = await import("@opennextjs/cloudflare");
+    const { env: bindings } = await getCloudflareContext({ async: true });
+    return (bindings as { AI?: WorkersAIBinding }).AI ?? null;
+  } catch {
+    return null;
+  }
+}
+
+async function resolveProvider(): Promise<Resolution> {
   const single = env("AI_API_KEY");
   const named = env("AI_PROVIDER")?.toLowerCase();
   const baseURL = env("AI_BASE_URL");
   const modelOverride = env("CHAT_MODEL");
 
-  const build = (id: ProviderId, apiKey: string, defaultModel: string, label: string): Resolution => {
+  const build = (
+    id: Exclude<ProviderId, "workers-ai">,
+    apiKey: string,
+    defaultModel: string,
+    label: string,
+  ): Resolution => {
     const modelId = modelOverride ?? defaultModel;
     return { provider: { id, label, modelId, model: buildModel(id, apiKey, modelId, baseURL) } };
   };
+
+  // 0. Cloudflare's own inference. On a Worker this wins over every key: the
+  //    binding costs nothing extra to configure and cannot leak, so a deploy
+  //    that runs there answers out of the box.
+  const ai = await workersAIBinding();
+  if (ai) {
+    return {
+      provider: {
+        id: "workers-ai",
+        label: "Workers AI",
+        modelId: modelOverride ?? WORKERS_AI_MODEL,
+        binding: ai,
+      },
+    };
+  }
 
   // 1. Named outright. The only way to reach a provider whose keys carry no
   //    recognisable prefix, and the tie-breaker when several keys are set.
@@ -300,13 +353,155 @@ function systemPrompt(provider: Provider) {
   ].join("\n");
 }
 
+
+/** UI messages flattened to the plain text Workers AI expects. */
+function plainMessages(
+  messages: { role: string; parts: { type: string; text?: string }[] }[],
+): { role: "user" | "assistant"; content: string }[] {
+  return messages
+    .map((message) => ({
+      role: message.role === "assistant" ? ("assistant" as const) : ("user" as const),
+      content: message.parts
+        .filter((part) => part.type === "text" && typeof part.text === "string")
+        .map((part) => part.text as string)
+        .join("\n")
+        .trim(),
+    }))
+    .filter((message) => message.content.length > 0);
+}
+
+/**
+ * Workers AI, spoken to through its binding the way `vira.ia.br` does: one
+ * `env.AI.run` with `stream: true`, and the SSE frames mapped onto the UI
+ * message stream the chat already reads. No SDK in between, so there is no
+ * second protocol to keep in sync and no key to hand around.
+ *
+ * The binding answers with its own frame shape — a native `response` string,
+ * and for newer models OpenAI-style `choices[].delta.content`. Deltas are
+ * preferred; `response` is only used when there is none, and a frame that
+ * repeats the whole answer so far (some models do) contributes just its tail.
+ */
+function workersAIResponse(
+  provider: Provider & { binding: WorkersAIBinding },
+  system: string,
+  messages: { role: "user" | "assistant"; content: string }[],
+  signal: AbortSignal,
+): Response {
+  const textId = crypto.randomUUID();
+  const encoder = new TextEncoder();
+  const frame = (payload: unknown) => encoder.encode(`data: ${JSON.stringify(payload)}\n\n`);
+
+  const stream = new ReadableStream<Uint8Array>({
+    async start(controller) {
+      let answer = "";
+      const send = (payload: unknown) => {
+        try {
+          controller.enqueue(frame(payload));
+        } catch {
+          /* the reader already closed the stream */
+        }
+      };
+
+      controller.enqueue(frame({ type: "start" }));
+      controller.enqueue(frame({ type: "start-step" }));
+      controller.enqueue(frame({ type: "text-start", id: textId }));
+
+      try {
+        const result = (await provider.binding.run(provider.modelId, {
+          messages: [{ role: "system", content: system }, ...messages],
+          stream: true,
+          max_tokens: 1024,
+          temperature: 0.6,
+        })) as ReadableStream<Uint8Array>;
+
+        const reader = result.getReader();
+        const stop = () => void reader.cancel().catch(() => undefined);
+        signal.addEventListener("abort", stop, { once: true });
+
+        const decoder = new TextDecoder();
+        let buffer = "";
+
+        for (;;) {
+          if (signal.aborted) break;
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+          buffer = lines.pop() ?? "";
+
+          for (const line of lines) {
+            const trimmed = line.trim();
+            if (!trimmed.startsWith("data:")) continue;
+            const payload = trimmed.slice(5).trim();
+            if (!payload || payload === "[DONE]") continue;
+
+            let token = "";
+            try {
+              const parsed = JSON.parse(payload) as {
+                response?: unknown;
+                choices?: { delta?: { content?: unknown } }[];
+              };
+              const choice = parsed.choices?.[0]?.delta?.content;
+              token =
+                typeof choice === "string" && choice
+                  ? choice
+                  : typeof parsed.response === "string"
+                    ? parsed.response
+                    : "";
+            } catch {
+              continue;
+            }
+            if (!token) continue;
+
+            const delta = answer && token.startsWith(answer) ? token.slice(answer.length) : token;
+            answer = answer && token.startsWith(answer) ? token : answer + token;
+            if (delta) send({ type: "text-delta", id: textId, delta });
+          }
+        }
+
+        signal.removeEventListener("abort", stop);
+        send({ type: "text-end", id: textId });
+        send({ type: "finish-step" });
+        send({ type: "finish", finishReason: "stop" });
+        try {
+          controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+        } catch {
+          /* already closed */
+        }
+      } catch (error) {
+        send({
+          type: "error",
+          errorText: error instanceof Error ? error.message : "Workers AI could not answer.",
+        });
+      } finally {
+        try {
+          controller.close();
+        } catch {
+          /* already closed */
+        }
+      }
+    },
+    cancel() {
+      /* the request signal stops the binding's reader */
+    },
+  });
+
+  return new Response(stream, {
+    headers: {
+      "content-type": "text/event-stream; charset=utf-8",
+      "cache-control": "no-cache",
+      "x-vercel-ai-ui-message-stream": "v1",
+    },
+  });
+}
+
 /**
  * Config probe. The UI calls this on mount so a deployment with no key yet can
  * render setup instructions instead of letting someone type a message and hit
  * an error — a fresh deploy's first impression should explain itself.
  */
 export async function GET() {
-  const { provider, reason } = resolveProvider();
+  const { provider, reason } = await resolveProvider();
   return Response.json({
     configured: provider !== null,
     provider: provider?.id ?? null,
@@ -318,7 +513,7 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  const { provider, reason } = resolveProvider();
+  const { provider, reason } = await resolveProvider();
 
   if (!provider) {
     return Response.json({ error: "missing_api_key", message: reason }, { status: 503 });
@@ -349,6 +544,19 @@ export async function POST(req: Request) {
       { error: "invalid_messages", message: validated.error.message },
       { status: 400 },
     );
+  }
+
+  if (provider.binding) {
+    return workersAIResponse(
+      provider as Provider & { binding: WorkersAIBinding },
+      systemPrompt(provider),
+      plainMessages(validated.data),
+      req.signal,
+    );
+  }
+
+  if (!provider.model) {
+    return Response.json({ error: "missing_model", message: reason }, { status: 503 });
   }
 
   const result = streamText({

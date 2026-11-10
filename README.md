@@ -8,7 +8,7 @@
 [![X](https://img.shields.io/badge/X-faang-black?logo=x)](https://x.com/faang)
 [![Discord](https://img.shields.io/badge/Discord-join-5865F2?logo=discord&logoColor=white)](https://discord.gg/azcHkw8T6F)
 
-Faang is a React design system for agentic interfaces: the parts an AI product needs and the parts every dashboard needs, in one visual language, as source files in your project. Everything is here, all of it MIT, and the homepage is a working AI chat on your own model key.
+Faang is a React design system for agentic interfaces: the parts an AI product needs and the parts every dashboard needs, in one visual language, as source files in your project. Everything is here, all of it MIT, and the app ships with a working AI chat — on Cloudflare's own inference when it runs on Workers, or on a model key of your own anywhere else.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FFaang%2Ffaang&env=AI_API_KEY&envDescription=Your+model+provider+key%3A+OpenAI%2C+Anthropic%2C+Google%2C+OpenRouter%2C+or+Vercel+AI+Gateway.+The+provider+is+read+from+the+key+itself.&envLink=https%3A%2F%2Fwww.faang.com%2Fcomponents%2Fchat-starter&project-name=faang-chat-starter&repository-name=faang-chat-starter)
 
@@ -31,9 +31,11 @@ This repository is generated from Faang's source and takes no pull requests. See
 - The app: a landing page at `/`, the chat at `/chat`, a dashboard with its chart cards, the component catalogue, and sign-in and sign-up screens, all built from the components in this repository. Chat history stays in the visitor's browser. No database.
 - `app/api/chat/route.ts`, which reads your key server-side and streams replies. The key never reaches the browser.
 
-## Bring your own key
+## The model
 
-One variable. The provider is read from the key itself:
+On Cloudflare Workers the chat uses **Workers AI** through the `AI` binding — no key, no account beyond the one that already runs the Worker. `wrangler.jsonc` declares the binding and `CHAT_MODEL` picks the model (default `@cf/meta/llama-3.1-8b-instruct-fp8-fast`).
+
+Everywhere else — local, Vercel, a container — one variable is enough, and the provider is read off the key's own prefix:
 
 | Key looks like | Provider | Default model |
 | --- | --- | --- |
@@ -76,9 +78,9 @@ In the Cloudflare dashboard, with the repo connected to a Worker (Settings → B
 | Build output directory | `.open-next/assets` — only if the field is required; the Worker takes it from `wrangler.jsonc` |
 | Environment variable | `NODE_VERSION=22` |
 
-Then add the model key under Variables & Secrets — `AI_API_KEY`, marked as a secret — or from a terminal with `npx wrangler secret put AI_API_KEY`. A custom domain (`faang.vira.ia.br`, for example) is attached in the same Worker's Settings → Domains & Routes; it does not need a route in `wrangler.jsonc`.
+Nothing else is required: the `AI` binding in `wrangler.jsonc` is the model, and on a Worker it takes precedence over any key you may have set. A custom domain (`faang.vira.ia.br`, for example) is attached in the same Worker's Settings → Domains & Routes; it does not need a route in `wrangler.jsonc`.
 
-Two things already handled for you: `next/image` optimization is off, because the Worker has no image optimizer, and every page is static, so there is no ISR cache to back with R2.
+Already handled for you: the `AI` binding gives the chat a model with no key at all, `next/image` optimization is off (the Worker has no image optimizer), and every page is static, so there is no ISR cache to back with R2.
 
 ## Install into an existing project
 
