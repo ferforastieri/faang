@@ -102,7 +102,7 @@ export function AppShell({
   actions?: ReactNode;
   children: ReactNode;
   className?: string;
-  /** Overrides the 1300px content column, e.g. `max-w-[964px]` for the catalogue's grids. */
+  /** Overrides the 1200px content column, e.g. `max-w-[964px]` for the catalogue's grids. */
   columnClassName?: string;
   /** Fill the parent's height instead of the viewport, for the site frame. */
   fill?: boolean;
@@ -144,7 +144,7 @@ export function AppShell({
       )}
 
       <main className="relative flex min-h-0 min-w-0 flex-1 justify-center overflow-x-hidden overflow-y-auto bg-background-full sm:pt-3">
-        <div className={cx("flex w-full max-w-[1300px] flex-col gap-2.5", columnClassName)}>
+        <div className={cx("flex w-full max-w-[1200px] flex-col gap-2.5", columnClassName)}>
           <header className="flex w-full flex-col gap-2">
             <Breadcrumb>
               <BreadcrumbItem href="#">

@@ -22,5 +22,5 @@ export default async function DocItemPage({ params }: { params: Promise<{ name: 
   const { name } = await params;
   const item = readDocItem(name);
   if (!item) notFound();
-  return <DocItemView item={item} />;
+  return <DocItemView item={item} items={readDocsIndex()} />;
 }

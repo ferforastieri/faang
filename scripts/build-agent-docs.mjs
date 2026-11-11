@@ -211,3 +211,34 @@ writeFileSync(
     `export const REGISTRY_ITEMS: Record<string, RegistryItem> = ${JSON.stringify(detail)};\n`,
 );
 console.log(`agent docs: registry.generated.ts (${Object.keys(detail).length} items)`);
+
+// --- design tokens ------------------------------------------------------------
+// The colour ramps and the type scale, read from the stylesheets so the docs
+// pages show what the code actually ships instead of a hand-kept copy.
+const themeCss = readFileSync(join(ROOT, "styles/theme.css"), "utf8");
+const typographyCss = readFileSync(join(ROOT, "styles/typography.css"), "utf8");
+
+const rampOf = (name) =>
+  [...themeCss.matchAll(new RegExp(`--color-${name}-(\\d{1,3}):\\s*(#[0-9a-fA-F]{6})`, "g"))]
+    .map((match) => ({ step: Number(match[1]), hex: match[2].toLowerCase() }))
+    .sort((a, b) => a.step - b.step);
+
+const ramps = { brand: rampOf("brand"), danger: rampOf("danger") };
+
+const typeScale = [...typographyCss.matchAll(
+  /--text-([a-z0-9-]+):\s*([\d.]+rem);\s*\n\s*--text-[a-z0-9-]+--line-height:\s*([\d.]+rem);\s*\n\s*--text-[a-z0-9-]+--letter-spacing:\s*([^;]+);\s*\n\s*--text-[a-z0-9-]+--font-weight:\s*(\d+);/g,
+)].map((match) => ({
+  name: match[1],
+  size: match[2],
+  lineHeight: match[3],
+  tracking: match[4].trim(),
+  weight: Number(match[5]),
+}));
+
+writeFileSync(
+  join(ROOT, "components/application/docs/registry.generated.ts"),
+  readFileSync(join(ROOT, "components/application/docs/registry.generated.ts"), "utf8") +
+    `\nexport const TOKENS: { ramps: Record<string, { step: number; hex: string }[]>; typeScale: { name: string; size: string; lineHeight: string; tracking: string; weight: number }[] } = ${JSON.stringify({ ramps, typeScale })};\n`,
+);
+
+console.log(`agent docs: tokens (${ramps.brand.length} brand, ${ramps.danger.length} danger, ${typeScale.length} type styles)`);

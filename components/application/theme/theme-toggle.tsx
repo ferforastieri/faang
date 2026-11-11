@@ -86,12 +86,13 @@ function installThemeTransitionStyle(
   return style;
 }
 
+/** Dark is the default; only an explicit "light" choice steps out of it. */
 function storedTheme(): ThemeMode {
-  if (typeof window === "undefined") return "light";
+  if (typeof window === "undefined") return "dark";
   try {
-    return window.localStorage.getItem(THEME_STORAGE_KEY) === "dark" ? "dark" : "light";
+    return window.localStorage.getItem(THEME_STORAGE_KEY) === "light" ? "light" : "dark";
   } catch {
-    return "light";
+    return "dark";
   }
 }
 
