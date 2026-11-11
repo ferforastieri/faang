@@ -86,14 +86,10 @@ function installThemeTransitionStyle(
   return style;
 }
 
-/** Dark is the default; only an explicit "light" choice steps out of it. */
+/** Dark is where every load starts; the control only changes this session. */
 function storedTheme(): ThemeMode {
-  if (typeof window === "undefined") return "dark";
-  try {
-    return window.localStorage.getItem(THEME_STORAGE_KEY) === "light" ? "light" : "dark";
-  } catch {
-    return "dark";
-  }
+  if (typeof document === "undefined") return "dark";
+  return document.documentElement.classList.contains("dark") ? "dark" : "light";
 }
 
 export function applyTheme(theme: ThemeMode, { persist = true }: { persist?: boolean } = {}) {
@@ -203,7 +199,7 @@ function subscribe(onStoreChange: () => void) {
 }
 
 export function useThemeMode(): ThemeMode {
-  return useSyncExternalStore(subscribe, currentTheme, () => "light");
+  return useSyncExternalStore(subscribe, currentTheme, () => "dark");
 }
 
 export interface ThemeToggleProps {

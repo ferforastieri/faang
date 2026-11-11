@@ -34,11 +34,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       suppressHydrationWarning
     >
       <body className="flex min-h-full flex-col font-sans">
-        {/* Applies the stored theme before first paint, so nobody sees the
-            wrong one flash. Dark is the default: only an explicit "light"
-            choice turns it off. The key matches the theme toggle. */}
+        {/* Every page starts dark, before the first paint. The toggle can
+            switch the current session to light, but a reload starts dark. */}
         <Script id="faang-theme" strategy="beforeInteractive">
-          {`(function(){try{var dark=localStorage.getItem("faang:theme")!=="light";document.documentElement.classList.toggle("dark",dark)}catch(e){document.documentElement.classList.add("dark")}})();`}
+          {`document.documentElement.classList.add("dark");`}
         </Script>
         <DirectionProvider locale="en-US">{children}</DirectionProvider>
       </body>

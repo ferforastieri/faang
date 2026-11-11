@@ -147,7 +147,7 @@ export function ValueRow() {
   ];
   return localize((
     <section className="mx-auto w-full max-w-[1200px] px-4 py-16 sm:px-6">
-      <div className="rounded-3xl border border-border-button-default bg-background-secondary-default p-6 sm:p-8">
+      <div className="rounded-3xl border border-border-button-default bg-background-secondary-default p-6 shadow-card sm:p-8">
         <div className="grid gap-8 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-separator-border">
           {values.map((value, position) => (
             <div
