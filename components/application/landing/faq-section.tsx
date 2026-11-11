@@ -2,7 +2,6 @@
 
 import { useTemplateCopy } from "@/components/foundations/template-copy/template-copy";
 
-import { Accordion } from "@/components/base/accordion/accordion";
 import { InstallCommand } from "@/components/application/landing/install-command";
 import { SectionHeading } from "@/components/application/landing/section-heading";
 import { ButtonLink } from "@/components/base/buttons/button";
@@ -55,8 +54,8 @@ const FAQ = [
 export function FaqSection() {
   const localize = useTemplateCopy();
   return localize((
-    <section id="faq" className="mx-auto w-full max-w-[1200px] px-4 py-20 sm:px-6 sm:py-28">
-      <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+    <section id="faq" className="mx-auto w-full max-w-[1200px] px-4 py-20 sm:px-6 sm:py-24">
+      <div className="flex flex-col gap-10">
         <SectionHeading
           index="05"
           eyebrow="FAQ"
@@ -67,8 +66,25 @@ export function FaqSection() {
             Ask on GitHub
           </ButtonLink>
         </SectionHeading>
-        <div className="w-full">
-          <Accordion items={FAQ} />
+
+        {/* Questions and answers as a two-column list: nothing to open, nothing
+            to miss. The accordion is still in the library, this page no longer
+            needs it. */}
+        <div className="flex flex-col">
+          {FAQ.map((item, index) => (
+            <div
+              key={item.id}
+              className="grid gap-1.5 border-t border-separator-border py-5 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] sm:gap-10"
+            >
+              <h3 className="flex items-baseline gap-3 text-title-3-medium text-text-primary">
+                <span className="font-mono text-caption-1-regular text-accent-600">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                {item.question}
+              </h3>
+              <p className="text-body-regular text-pretty text-text-secondary sm:pt-0.5">{item.answer}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

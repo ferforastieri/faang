@@ -25,7 +25,7 @@ export function TemplateCopyProvider({ translate, render, children }: CopySettin
 // Only display copy is translated. IDs, form values, data keys, URLs, styles,
 // event handlers and application state retain their original values.
 const textProps = new Set([
-  "children", "title", "subtitle", "description", "label", "textValue", "placeholder", "hint", "alt",
+  "children", "title", "subtitle", "description", "label", "textValue", "placeholder", "hint", "eyebrow", "alt",
   "aria-label", "aria-description", "metricLabel", "emptyMessage", "caption", "heading", "text", "content", "renderValue",
 ]);
 const dataProps = new Set(["items", "options", "tabs", "columns", "series", "ranges", "stats", "data", "nodes", "bar", "line"]);

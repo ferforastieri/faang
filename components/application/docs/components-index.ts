@@ -81,7 +81,7 @@ const charts: Entry[] = [
 ];
 
 const templates: Entry[] = [
-  { name: "Chat Starter", href: "/components/chat-starter", description: "A deployable chat on your own model key.", isNew: true },
+  { name: "Chat Starter", href: "/components/chat-starter", description: "A deployable chat on Cloudflare's own inference.", isNew: true },
 ];
 
 /**
@@ -89,11 +89,11 @@ const templates: Entry[] = [
  * which is unreadable at a third of the width.
  */
 export const COMPONENT_SECTIONS: { title: string; blurb: string; entries: Entry[]; wide?: boolean }[] = [
-  { title: "Foundations", blurb: "The tokens everything else is built on.", entries: foundations },
-  { title: "Base", blurb: "The everyday building blocks.", entries: components },
-  { title: "Blocks", blurb: "Larger assemblies, ready to drop in.", entries: blocks },
-  { title: "Charts", blurb: "Data cards for dashboards.", entries: charts },
-  { title: "Templates", blurb: "Complete screens, wired together.", entries: templates, wide: true },
+  { title: "Tokens", blurb: "Colors and type, the two decisions everything else inherits.", entries: foundations },
+  { title: "Elements", blurb: "The single-purpose pieces: a field, a button, a tab.", entries: components },
+  { title: "Assemblies", blurb: "Several elements working as one panel.", entries: blocks },
+  { title: "Data", blurb: "Read-outs for dashboards: revenue and orders.", entries: charts },
+  { title: "Screens", blurb: "Whole pages, already wired to a runtime.", entries: templates, wide: true },
 ];
 
 export const ALL_ENTRIES = COMPONENT_SECTIONS.flatMap((section) => section.entries);

@@ -81,6 +81,7 @@ const PT_BR: Record<string, string> = {
   "Licensing, the CLI and what the components run on. Anything else, the Discord answers the same day.":
     "Licença, CLI e o que os componentes usam por baixo. O resto, o GitHub resolve.",
   "Ask on Discord": "Perguntar no GitHub",
+  "Ask on GitHub": "Perguntar no GitHub",
   "Start building agent interfaces": "Comece a construir interfaces de agentes",
   "A chat starter, the dashboard components and the tokens under both. Install what you need with one command — the code is yours.":
     "Um chat starter, os componentes de dashboard e os tokens que sustentam os dois. Instale o que precisar com um comando — o código é seu.",
@@ -215,7 +216,7 @@ const PT_BR: Record<string, string> = {
   "KPI cards with delta chips or a footer band.": "Cards de KPI com selos de variação ou faixa no rodapé.",
   "This year against last, area over a dashed line.": "Este ano contra o anterior, área sobre linha tracejada.",
   "Monthly bars, this year beside last.": "Barras mensais, este ano ao lado do anterior.",
-  "A deployable chat on your own model key.": "Um chat publicável na sua própria chave de modelo.",
+  "A deployable chat on Cloudflare's own inference.": "Um chat publicável na própria inferência do Cloudflare.",
   New: "Novo",
   Soon: "Em breve",
 
@@ -278,6 +279,27 @@ const PT_BR: Record<string, string> = {
   "Dashboard": "Dashboard",
   "Bem-vindo, Marina": "Bem-vindo, Marina",
 
+
+  // Catalogue sections
+  Tokens: "Tokens",
+  Elements: "Elementos",
+  Assemblies: "Montagens",
+  Data: "Dados",
+  Screens: "Telas",
+  "Colors and type, the two decisions everything else inherits.": "Cores e tipografia: as duas decisões que tudo o resto herda.",
+  "The single-purpose pieces: a field, a button, a tab.": "As peças de um propósito só: um campo, um botão, uma aba.",
+  "Several elements working as one panel.": "Vários elementos trabalhando como um painel.",
+  "Read-outs for dashboards: revenue and orders.": "Leituras de dashboard: receita e pedidos.",
+  "Whole pages, already wired to a runtime.": "Páginas inteiras, já ligadas a um runtime.",
+  "Filter…": "Filtrar…",
+  "items in total": "itens no total",
+  "Nothing matches that.": "Nada corresponde a isso.",
+  "Open docs": "Abrir docs",
+  "The chat starter wires the sidebar, the transcript, the composer and a streaming endpoint together. The model is the Worker's own binding, so there is no key to add.":
+    "O chat starter junta a barra lateral, a conversa, o compositor e um endpoint de streaming. O modelo é o binding do próprio Worker, então não há chave para adicionar.",
+  "Licensing, the CLI and what the components run on. Anything else, the GitHub issues answer.":
+    "Licença, CLI e o que os componentes usam por baixo. O resto, as issues do GitHub respondem.",
+
   // Search
   "Quick search": "Busca rápida",
   Landing: "Início",
@@ -337,6 +359,10 @@ const PT_BR_RULES: { pattern: RegExp; replace: (match: RegExpMatchArray) => stri
   {
     pattern: /^(\d+) things you can install$/,
     replace: (m) => `${m[1]} coisas para instalar`,
+  },
+  {
+    pattern: /^(\d+) items in total$/,
+    replace: (m) => `${m[1]} itens no total`,
   },
   {
     pattern: /^This chat runs on (.+)\. History stays in this browser\.$/,
