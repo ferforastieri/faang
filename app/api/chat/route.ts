@@ -80,8 +80,11 @@ async function withinBudget(limiter: RateLimitBinding | null, req: Request) {
   const key = req.headers.get("cf-connecting-ip") ?? "local";
   try {
     const { success } = await limiter.limit({ key });
+    if (!success) console.log(`[chat] rate limited ${key}`);
     return success;
-  } catch {
+  } catch (error) {
+    // Fail open: a limiter outage should not take the chat down with it.
+    console.error("[chat] rate limit failed", error);
     return true;
   }
 }
