@@ -17,8 +17,7 @@ import { cx } from "@/utils/cx";
 
 const NAV: { label: string; href: string; external?: boolean }[] = [
   { label: "Components", href: "/components" },
-  { label: "Dashboard", href: "/dashboard" },
-  { label: "Chat", href: "/chat" },
+  { label: "Demo", href: "/dashboard" },
   { label: "Docs", href: "/docs" },
 ];
 

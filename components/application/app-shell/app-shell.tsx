@@ -115,7 +115,7 @@ export function AppShell({
   return localize((
     <div
       className={cx(
-        "relative flex w-full gap-4 overflow-hidden bg-background-full",
+        "relative flex w-full gap-4 overflow-hidden bg-background-full p-3",
         fill ? "h-full" : "h-dvh",
         className,
       )}
@@ -143,7 +143,7 @@ export function AppShell({
         </div>
       )}
 
-      <main className="relative flex min-h-0 min-w-0 flex-1 justify-center overflow-x-hidden overflow-y-auto bg-background-full">
+      <main className="relative flex min-h-0 min-w-0 flex-1 justify-center overflow-x-hidden overflow-y-auto bg-background-full sm:pt-3">
         <div className={cx("flex w-full flex-col gap-2.5", columnClassName)}>
           <header className="flex w-full flex-col gap-2">
             <Breadcrumb>

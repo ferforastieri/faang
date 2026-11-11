@@ -278,6 +278,7 @@ const PT_BR: Record<string, string> = {
   "Demo mode: the answers are scripted. Run the app as a Worker to talk to the real model.":
     "Modo demo: as respostas são roteirizadas. Rode o app como Worker para falar com o modelo de verdade.",
   "Dashboard": "Dashboard",
+  Demo: "Demonstração",
   "Bem-vindo, Marina": "Bem-vindo, Marina",
 
 
