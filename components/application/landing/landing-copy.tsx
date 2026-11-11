@@ -37,8 +37,46 @@ const PT_BR: Record<string, string> = {
   "Close navigation": "Fechar navegação",
 
   // Hero
-  "React design system": "Sistema de design React",
-  "for agent interfaces": "para interfaces de agentes",
+  "A design system that looks like a product": "Um sistema de design que parece produto",
+  "not a demo.": "não uma demo.",
+  "The components on this page are the library: the demo, the docs and the install command all read from the same source. Take what you need, keep the files, and ship it as your product.":
+    "Os componentes desta página são a biblioteca: o demo, a documentação e o comando de instalação leem do mesmo código. Pegue o que precisar, fique com os arquivos e publique como seu.",
+  "Pick a part, watch it work": "Escolha uma peça e veja funcionando",
+  "Every name on the left is a live component from the registry — the same source the install command writes into your project.":
+    "Cada nome à esquerda é um componente vivo do registry — o mesmo código que o comando de instalação grava no seu projeto.",
+  "Open the index": "Abrir o índice",
+  "The wait": "A espera",
+  "The wait, made visible": "A espera, visível",
+  "A band of light orbits the input while the agent works, so the pause is a state of its own. It follows the theme and the accent.":
+    "Uma faixa de luz orbita o campo enquanto o agente trabalha, então a pausa vira um estado próprio. Ela segue o tema e o acento.",
+  "The docs are a protocol": "A documentação é um protocolo",
+  "Point your agent at /llms.txt and /docs.md and it gets every component, the install command and the files each one writes. No scraping, no guessing.":
+    "Aponte seu agente para /llms.txt e /docs.md e ele recebe cada componente, o comando de instalação e os arquivos que cada um grava. Sem scraping, sem adivinhação.",
+  "The questions before the first install": "As perguntas antes da primeira instalação",
+  "Take the demo apart": "Desmonte o demo",
+  "Everything you just saw is installable source. Start with the whole set, or take the one component you need.":
+    "Tudo o que você acabou de ver é código instalável. Comece pelo conjunto inteiro ou pegue só o componente que precisa.",
+  "Open the catalogue": "Abrir o catálogo",
+  "The source behind the demo: install it, change it, publish it. MIT, light and dark from the same classes.":
+    "O código por trás do demo: instale, mude e publique. MIT, claro e escuro com as mesmas classes.",
+  "A table that keeps its header, selection and page count while the data changes.":
+    "Uma tabela que mantém o cabeçalho, a seleção e a paginação enquanto os dados mudam.",
+  "The app's left rail: teams, a quick jump and the account menu.":
+    "A coluna da esquerda do app: times, busca rápida e o menu da conta.",
+  "What the agent is doing, in words, while it does it.":
+    "O que o agente está fazendo, em palavras, enquanto faz.",
+  "A band of light that says the agent is still working.":
+    "Uma faixa de luz que diz que o agente ainda está trabalhando.",
+  "Four numbers, their month-over-month delta, and a footer that explains it.":
+    "Quatro números, a variação mês a mês e um rodapé que explica.",
+  "An inbox that groups the noise and keeps unread on top.":
+    "Uma caixa que agrupa o ruído e mantém o não lido no topo.",
+  "One card for both sides of the door, with provider buttons.":
+    "Um card para os dois lados da porta, com botões de provedores.",
+  "A calendar in a popover, and the scheduling flow that uses it.":
+    "Um calendário em popover e o fluxo de agendamento que usa ele.",
+  "Twelve months, this year against last, in one glance.":
+    "Doze meses, este ano contra o anterior, de uma vez.",
   "Browse the library": "Explorar a biblioteca",
   "See the chat starter": "Ver o chat starter",
 
@@ -159,8 +197,6 @@ const PT_BR: Record<string, string> = {
   "Agent skills": "Skills para agentes",
   "RTL support": "Suporte a RTL",
   License: "Licença",
-  "A React design system for agentic interfaces. Source files in your project, MIT licensed, light and dark from the same classes.":
-    "Um sistema de design React para interfaces de agentes. Código no seu projeto, licença MIT, claro e escuro com as mesmas classes.",
   "Sign in": "Entrar",
   "Sign up": "Criar conta",
 
@@ -299,8 +335,8 @@ const PT_BR: Record<string, string> = {
   "Open docs": "Abrir docs",
   "The chat starter wires the sidebar, the transcript, the composer and a streaming endpoint together. The model is the Worker's own binding, so there is no key to add.":
     "O chat starter junta a barra lateral, a conversa, o compositor e um endpoint de streaming. O modelo é o binding do próprio Worker, então não há chave para adicionar.",
-  "Licensing, the CLI and what the components run on. Anything else, the GitHub issues answer.":
-    "Licença, CLI e o que os componentes usam por baixo. O resto, as issues do GitHub respondem.",
+  "Licence, the CLI, and the stack under the components. For anything else, the GitHub issues are open.":
+    "Licença, CLI e a stack por baixo dos componentes. Para o resto, as issues do GitHub estão abertas.",
 
   // Search
   "Quick search": "Busca rápida",

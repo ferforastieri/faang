@@ -59,8 +59,8 @@ export function FaqSection() {
         <SectionHeading
           index="05"
           eyebrow="FAQ"
-          title="Everything about installing and shipping"
-          description="Licensing, the CLI and what the components run on. Anything else, the GitHub issues answer."
+          title="The questions before the first install"
+          description="Licence, the CLI, and the stack under the components. For anything else, the GitHub issues are open."
         >
           <ButtonLink href="https://github.com/ferforastieri/faang/issues" variant="secondary">
             Ask on GitHub
@@ -99,21 +99,21 @@ export function FinalCta() {
       <div className="mx-auto grid w-full max-w-[1200px] items-center gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1fr_auto]">
         <div className="max-w-2xl">
           <h2 className="text-display-3-semibold text-balance text-text-primary">
-            Start building agent interfaces
+            Take the demo apart
           </h2>
           <p className="mt-4 text-title-3-regular text-pretty text-text-secondary">
-            A chat starter, the dashboard components and the tokens under both. Install what you
-            need with one command — the code is yours.
+            Everything you just saw is installable source. Start with the whole set, or take the
+            one component you need.
           </p>
         </div>
         <div className="flex w-full flex-col gap-3 lg:w-[360px]">
           <InstallCommand command="npx faang@latest add --all" />
           <div className="flex flex-col gap-3 sm:flex-row">
             <ButtonLink href="/components" size="medium" className="sm:flex-1">
-              Explore components
+              Open the catalogue
             </ButtonLink>
             <ButtonLink href="/chat" size="medium" variant="secondary" className="sm:flex-1">
-              Open the chat starter
+              Open the chat
             </ButtonLink>
           </div>
         </div>

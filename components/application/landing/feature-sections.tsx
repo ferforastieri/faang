@@ -81,9 +81,9 @@ export function FeatureSections() {
           <div className="order-1 flex flex-col items-start gap-5 lg:order-2">
             <SectionHeading
               index="03"
-              eyebrow="Loading states"
-              title="A loading state worth looking at"
-              description="The composer loader wraps your input in a light orbiting the rim while the agent works, glass controls included. Pick the colours; it follows the theme."
+              eyebrow="The wait"
+              title="The wait, made visible"
+              description="A band of light orbits the input while the agent works, so the pause is a state of its own. It follows the theme and the accent."
             >
               <div className="flex flex-wrap gap-3">
                 <ButtonLink href="/chat" variant="secondary">
@@ -107,8 +107,8 @@ export function FeatureSections() {
             <SectionHeading
               index="04"
               eyebrow="MCP"
-              title="Install it with your agent"
-              description="Faang speaks MCP. Connect your agent once and it can browse every component with real usage examples, configure your project and install the source files."
+              title="The docs are a protocol"
+              description="Point your agent at /llms.txt and /docs.md and it gets every component, the install command and the files each one writes. No scraping, no guessing."
             />
             <div className="w-full max-w-md">
               <InstallCommand command="claude mcp add faang -- npx -y faang@latest mcp" />
@@ -137,7 +137,7 @@ export function FeatureSections() {
   ));
 }
 
-/** The band before the FAQ: three promises, no cards-in-cards. */
+/** The three promises, in one card before the FAQ. */
 export function ValueRow() {
   const localize = useTemplateCopy();
   const values = [
@@ -147,14 +147,19 @@ export function ValueRow() {
   ];
   return localize((
     <section className="mx-auto w-full max-w-[1200px] px-4 py-16 sm:px-6">
-      <div className={cx("grid gap-8 sm:grid-cols-3 sm:gap-12")}>
-        {values.map((value, position) => (
-          <div key={value.title} className="flex flex-col gap-2 border-t border-separator-border pt-5">
-            <span className="font-mono text-caption-1-medium text-accent-600">{`0${position + 1}`}</span>
-            <h3 className="text-title-3-semibold text-text-primary">{value.title}</h3>
-            <p className="text-body-2-regular text-text-secondary">{value.body}</p>
-          </div>
-        ))}
+      <div className="rounded-3xl border border-border-button-default bg-background-secondary-default p-6 sm:p-8">
+        <div className="grid gap-8 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-separator-border">
+          {values.map((value, position) => (
+            <div
+              key={value.title}
+              className="flex flex-col gap-2 sm:px-8 sm:first:ps-0 sm:last:pe-0"
+            >
+              <span className="font-mono text-caption-1-medium text-accent-600">{`0${position + 1}`}</span>
+              <h3 className="text-title-3-semibold text-text-primary">{value.title}</h3>
+              <p className="text-body-2-regular text-text-secondary">{value.body}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   ));

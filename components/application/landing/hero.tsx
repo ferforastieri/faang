@@ -2,7 +2,7 @@
 
 import { useTemplateCopy } from "@/components/foundations/template-copy/template-copy";
 
-import { RiArrowRightLine, RiBearSmileLine, RiReactjsLine, RiTailwindCssLine } from "@remixicon/react";
+import { RiArrowRightLine } from "@remixicon/react";
 import { useEffect, useState } from "react";
 
 import { LazyPreview } from "@/components/application/docs/lazy-preview";
@@ -29,11 +29,7 @@ const HERO_RAYS: HeroRaysConfig = {
   height: 820,
 };
 
-const STACK = [
-  { label: "React", version: "v19.2", Icon: RiReactjsLine },
-  { label: "Tailwind CSS", version: "v4", Icon: RiTailwindCssLine },
-  { label: "React Aria", version: "v1.17", Icon: RiBearSmileLine },
-];
+
 
 /**
  * A left-hand statement, a right-hand screen. Deliberately not the centred
@@ -73,12 +69,14 @@ export function Hero({ total }: { total: number }) {
           </p>
 
           <h1 className="mt-6 text-display-3-semibold text-balance text-text-primary sm:text-display-1-semibold">
-            React design system{" "}
-            <span className="block text-accent-600">for agent interfaces</span>
+            A design system that looks like a product{" "}
+            <span className="block text-accent-600">not a demo.</span>
           </h1>
 
           <p className="mt-6 max-w-xl text-title-3-regular text-pretty text-text-secondary">
-            {`Faang is a React design system with ${total} components, charts and templates, plus 400+ design tokens, built in Figma. The parts an AI product needs and the parts every dashboard needs, in one visual language, as source files in your project.`}
+            The components on this page are the library: the demo, the docs and the install command
+            all read from the same source. Take what you need, keep the files, and ship it as your
+            product.
           </p>
 
           <div className="mt-8 flex w-full flex-col gap-3 sm:flex-row">
@@ -94,20 +92,6 @@ export function Hero({ total }: { total: number }) {
             <InstallCommand command="npx faang@latest add --all" />
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-body-2-regular text-text-secondary">
-            {STACK.map(({ label, version, Icon }) => (
-              <span key={label} className="inline-flex items-center gap-1.5">
-                <Icon className="size-4 text-foreground-icon-secondary" aria-hidden />
-                {label}
-                <span className="text-text-tertiary">{version}</span>
-              </span>
-            ))}
-            <span className="hidden items-center gap-1.5 sm:inline-flex">
-              <span className="size-1 rounded-full bg-text-tertiary" aria-hidden />
-              TanStack Table
-              <span className="text-text-tertiary">v8.21</span>
-            </span>
-          </div>
         </div>
 
         {/* One framed window, tilted out of the grid: the app, not a collage. */}

@@ -38,8 +38,8 @@ export function SiteFooter() {
               <LogoLockup height={24} />
             </Link>
             <p className="text-body-2-regular text-text-secondary">
-              A React design system for agentic interfaces. Source files in your project, MIT
-              licensed, light and dark from the same classes.
+              The source behind the demo: install it, change it, publish it. MIT, light and dark
+              from the same classes.
             </p>
             <a
               href="https://github.com/ferforastieri/faang"

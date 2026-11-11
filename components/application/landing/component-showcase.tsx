@@ -23,47 +23,47 @@ const SHOWCASE: { href: PreviewHref; title: string; description: string }[] = [
   {
     href: "/components/data-table",
     title: "Data table",
-    description: "Filter, sort and paginate complex data in a responsive table.",
+    description: "A table that keeps its header, selection and page count while the data changes.",
   },
   {
     href: "/components/sidebar",
     title: "Sidebar",
-    description: "Navigation with search, badges and account controls.",
+    description: "The app's left rail: teams, a quick jump and the account menu.",
   },
   {
     href: "/components/agent-thinking",
     title: "Agent thinking",
-    description: "Reasoning, search and writing indicators for a working agent.",
+    description: "What the agent is doing, in words, while it does it.",
   },
   {
     href: "/components/composer-loader",
     title: "Composer loader",
-    description: "A light orbiting the composer while the agent works.",
+    description: "A band of light that says the agent is still working.",
   },
   {
     href: "/components/stat-cards",
     title: "Stat cards",
-    description: "KPI cards with delta chips and a footer band.",
+    description: "Four numbers, their month-over-month delta, and a footer that explains it.",
   },
   {
     href: "/components/notification-center",
     title: "Notification center",
-    description: "Grouped activity inbox with tabs, unread state and actions.",
+    description: "An inbox that groups the noise and keeps unread on top.",
   },
   {
     href: "/components/auth-card",
     title: "Auth card",
-    description: "Sign-in and sign-up with providers, inline or stacked.",
+    description: "One card for both sides of the door, with provider buttons.",
   },
   {
     href: "/components/date-picker",
     title: "Date picker",
-    description: "Popover calendar, and a meeting scheduler in the same chrome.",
+    description: "A calendar in a popover, and the scheduling flow that uses it.",
   },
   {
     href: "/components/orders-chart-card",
     title: "Orders chart",
-    description: "Monthly bars, this year beside last year for every month.",
+    description: "Twelve months, this year against last, in one glance.",
   },
 ];
 
@@ -79,13 +79,13 @@ export function ComponentShowcase({ total }: { total: number }) {
           <SectionHeading
             index="01"
             eyebrow="Install"
-            title="A pile of interactive dashboard components"
-            description={`Components for agent products, forms, calendars and meeting scheduling — ${total} in all, shipped as source you own.`}
+            title="Pick a part, watch it work"
+            description="Every name on the left is a live component from the registry — the same source the install command writes into your project."
           />
           <div className="flex w-full max-w-xs flex-col gap-3">
             <InstallCommand command="npx faang@latest add data-table" />
             <ButtonLink href="/components" variant="secondary" className="w-full">
-              See every component
+              Open the index
             </ButtonLink>
           </div>
         </div>

@@ -20,9 +20,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Faang — a React design system for agent interfaces",
+  title: "Faang — a design system that looks like a product",
   description:
-    "Components, blocks, charts and templates for AI products, as source files in your project. One visual language, light and dark, MIT licensed.",
+    "The source behind a working agent UI: components, screens and tokens you install and own. Light and dark from the same classes, MIT licensed.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
