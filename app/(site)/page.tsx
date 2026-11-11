@@ -5,6 +5,8 @@ import { FaqSection, FinalCta } from "@/components/application/landing/faq-secti
 import { FeatureSections, ValueRow } from "@/components/application/landing/feature-sections";
 import { Hero } from "@/components/application/landing/hero";
 
+export const dynamic = "force-static";
+
 /**
  * The landing page. One screen of marketing per section, every visual a live
  * component from this repository rather than a screenshot: the catalogue

@@ -7,6 +7,8 @@ export const metadata = {
   description: "The brand and danger ramps, and the semantic tokens built on them.",
 };
 
+export const dynamic = "force-static";
+
 /** The colour documentation: the two ramps, read from the stylesheet at build. */
 export default function ColorDocsPage() {
   return (

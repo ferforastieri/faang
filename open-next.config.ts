@@ -1,11 +1,15 @@
 import { defineCloudflareConfig } from "@opennextjs/cloudflare";
+import staticAssetsIncrementalCache from "@opennextjs/cloudflare/overrides/incremental-cache/static-assets-incremental-cache";
 
 /**
- * OpenNext's Cloudflare adapter, with everything at its default.
+ * OpenNext's Cloudflare adapter.
  *
- * Every page in this app is static and the only dynamic route is `/api/chat`,
- * so there is no ISR cache to wire up and no R2 bucket to create. Image
- * optimization is off in `next.config.ts` (the Worker has no optimizer), so
- * there is no `IMAGES` binding either.
+ * The app only serves prerendered pages; the one dynamic route is `/api/chat`.
+ * The static assets cache keeps those pages in `cdn-cgi/_next_cache` next to
+ * the client assets, so a request is an asset lookup instead of a full render.
+ * Without it the Worker rendered the landing and the docs on every request and
+ * intermittently hit Cloudflare's 1102 (exceeded resources).
  */
-export default defineCloudflareConfig({});
+export default defineCloudflareConfig({
+  incrementalCache: staticAssetsIncrementalCache,
+});

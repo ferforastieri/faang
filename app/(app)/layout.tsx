@@ -4,6 +4,8 @@ import { LandingCopyProvider } from "@/components/application/landing/landing-co
 import { SiteFooter } from "@/components/application/landing/site-footer";
 import { SiteHeader } from "@/components/application/landing/site-header";
 
+export const dynamic = "force-static";
+
 /**
  * The workspaces: chat and dashboard. They keep the site's header and footer,
  * but not the page scroll — the app inside is exactly one viewport tall (minus

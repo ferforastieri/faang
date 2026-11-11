@@ -7,6 +7,8 @@ export const metadata = {
   description: "The composite type utilities the design system ships.",
 };
 
+export const dynamic = "force-static";
+
 /** The type scale, each style set at its own size. */
 export default function TypographyDocsPage() {
   return (

@@ -3,6 +3,9 @@ import { notFound } from "next/navigation";
 import { DocItemView } from "@/components/application/docs/doc-item-view";
 import { readDocItem, readDocsIndex } from "@/components/application/docs/registry-data";
 
+export const dynamic = "force-static";
+export const dynamicParams = false;
+
 /** Every item is known at build time, so each docs page is static. */
 export function generateStaticParams() {
   return readDocsIndex().map((item) => ({ name: item.name }));

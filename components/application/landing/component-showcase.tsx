@@ -5,7 +5,7 @@ import { useTemplateCopy } from "@/components/foundations/template-copy/template
 import { RiArrowRightLine } from "@remixicon/react";
 import { useState } from "react";
 
-import { FREE_COMPONENT_PREVIEWS } from "@/components/application/docs/component-previews-free";
+import { LazyPreview } from "@/components/application/docs/lazy-preview";
 import type { PreviewHref } from "@/components/application/docs/component-preview-hrefs";
 import { InstallCommand } from "@/components/application/landing/install-command";
 import { SectionHeading } from "@/components/application/landing/section-heading";
@@ -71,7 +71,6 @@ export function ComponentShowcase({ total }: { total: number }) {
   const localize = useTemplateCopy();
   const [activeHref, setActiveHref] = useState<PreviewHref>(SHOWCASE[0].href);
   const active = SHOWCASE.find((item) => item.href === activeHref) ?? SHOWCASE[0];
-  const Preview = FREE_COMPONENT_PREVIEWS[activeHref];
 
   return localize((
     <section id="components" className="mx-auto w-full max-w-[1200px] px-4 py-20 sm:px-6 sm:py-24">
@@ -132,7 +131,7 @@ export function ComponentShowcase({ total }: { total: number }) {
           </div>
 
           <div className="relative h-[400px] overflow-hidden rounded-2xl border border-border-button-default bg-background-secondary-default">
-            {Preview ? <Preview /> : null}
+            <LazyPreview href={activeHref} />
           </div>
 
           <div className="flex flex-col gap-4 lg:pt-1">
@@ -160,8 +159,6 @@ export function ComponentShowcase({ total }: { total: number }) {
 /** The chat starter, wide, inside a browser frame rather than a plain card. */
 export function TemplateShowcase() {
   const localize = useTemplateCopy();
-  const Preview = FREE_COMPONENT_PREVIEWS["/components/chat-starter"];
-  if (!Preview) return null;
   return localize((
     <section id="templates" className="mx-auto w-full max-w-[1200px] px-4 pb-20 sm:px-6 sm:pb-24">
       <div className="flex flex-col gap-8">
@@ -186,7 +183,7 @@ export function TemplateShowcase() {
             </span>
           </div>
           <div className="relative h-[560px]">
-            <Preview />
+            <LazyPreview href="/components/chat-starter" />
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import { useTemplateCopy } from "@/components/foundations/template-copy/template
 import { RiArrowRightLine, RiBearSmileLine, RiReactjsLine, RiTailwindCssLine } from "@remixicon/react";
 import { useEffect, useState } from "react";
 
-import { FREE_COMPONENT_PREVIEWS } from "@/components/application/docs/component-previews-free";
+import { LazyPreview } from "@/components/application/docs/lazy-preview";
 import { HeroRays } from "@/components/application/landing/hero-rays/hero-rays";
 import { HERO_RAYS_DEFAULTS, type HeroRaysConfig } from "@/components/application/landing/hero-rays/hero-rays-config";
 import { InstallCommand } from "@/components/application/landing/install-command";
@@ -55,9 +55,6 @@ export function Hero({ total }: { total: number }) {
     theme === "dark"
       ? { ...HERO_RAYS, background: HERO_RAYS.backgroundDark, grain: HERO_RAYS.grainDark }
       : HERO_RAYS;
-
-  const Sidebar = FREE_COMPONENT_PREVIEWS["/components/sidebar"];
-  const Revenue = FREE_COMPONENT_PREVIEWS["/components/revenue-chart-card"];
 
   return localize((
     <section className="relative isolate overflow-hidden border-b border-separator-border">
@@ -117,19 +114,20 @@ export function Hero({ total }: { total: number }) {
         <div className="relative mx-auto w-full max-w-[520px] lg:mx-0">
           <div className="relative rounded-[26px] border border-border-button-default bg-background-secondary-default p-2 shadow-2xl">
             <div className="pointer-events-none relative h-[380px] overflow-hidden rounded-[18px] bg-background-full sm:h-[440px]">
-              {Sidebar ? <Sidebar /> : null}
+              <LazyPreview href="/components/sidebar" fallback={<div className="size-full bg-background-secondary-default" />} />
             </div>
           </div>
 
-          {Revenue ? (
-            <div
-              className={cx(
-                "pointer-events-none absolute -bottom-8 -start-4 hidden h-[168px] w-[280px] overflow-hidden rounded-2xl border border-border-button-default bg-background-primary-default shadow-xl sm:block lg:-start-10",
-              )}
-            >
-              <Revenue />
-            </div>
-          ) : null}
+          <div
+            className={cx(
+              "pointer-events-none absolute -bottom-8 -start-4 hidden h-[168px] w-[280px] overflow-hidden rounded-2xl border border-border-button-default bg-background-primary-default shadow-xl sm:block lg:-start-10",
+            )}
+          >
+            <LazyPreview
+              href="/components/revenue-chart-card"
+              fallback={<div className="size-full bg-background-primary-default" />}
+            />
+          </div>
 
           <div
             aria-hidden

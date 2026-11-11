@@ -6,6 +6,8 @@ export const metadata = {
   description: "Every installable item in the Faang registry, with its files and packages.",
 };
 
+export const dynamic = "force-static";
+
 /** The documentation index, generated from the same registry the CLI reads. */
 export default function DocsPage() {
   return <DocsIndexView items={readDocsIndex()} />;

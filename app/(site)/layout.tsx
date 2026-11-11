@@ -4,6 +4,8 @@ import { LandingCopyProvider } from "@/components/application/landing/landing-co
 import { SiteFooter } from "@/components/application/landing/site-footer";
 import { SiteHeader } from "@/components/application/landing/site-header";
 
+export const dynamic = "force-static";
+
 /**
  * The public pages share one frame: the landing, the catalogue and the two
  * auth screens. Every route in this group gets the same header and footer, so

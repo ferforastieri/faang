@@ -5,7 +5,8 @@ import { useTemplateCopy } from "@/components/foundations/template-copy/template
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { FREE_COMPONENT_PREVIEWS } from "@/components/application/docs/component-previews-free";
+import { PREVIEW_HREFS } from "@/components/application/docs/component-preview-hrefs";
+import { LazyPreview } from "@/components/application/docs/lazy-preview";
 import type { PreviewHref } from "@/components/application/docs/component-preview-hrefs";
 import type { DocSummary } from "@/components/application/docs/docs-index-view";
 import { DocsShell } from "@/components/application/docs/docs-sidebar";
@@ -48,7 +49,8 @@ export function DocItemView({ item, items }: { item: DocDetail; items: DocSummar
     };
   }, [item.name]);
 
-  const Preview = FREE_COMPONENT_PREVIEWS[`/components/${item.name}` as PreviewHref];
+  const previewHref = `/components/${item.name}` as PreviewHref;
+  const hasPreview = PREVIEW_HREFS.includes(previewHref);
 
   return localize((
     <DocsShell items={items} current={item.name}>
@@ -61,9 +63,9 @@ export function DocItemView({ item, items }: { item: DocDetail; items: DocSummar
           </div>
         </header>
 
-        {Preview ? (
+        {hasPreview ? (
           <div className="relative h-[360px] overflow-hidden rounded-2xl border border-border-button-default bg-background-secondary-default">
-            <Preview />
+            <LazyPreview href={previewHref} />
           </div>
         ) : null}
 

@@ -1,5 +1,7 @@
 import { ComponentsCatalog } from "@/components/application/app-shell/components-catalog";
 
+export const dynamic = "force-static";
+
 /**
  * The catalogue page. It sits in the public group, so it carries the site's
  * header and footer instead of the app shell — the sidebar belongs to the
