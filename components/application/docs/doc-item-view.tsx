@@ -5,7 +5,7 @@ import { useTemplateCopy } from "@/components/foundations/template-copy/template
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { PREVIEW_HREFS } from "@/components/application/docs/component-preview-hrefs";
+import { FREE_PREVIEW_HREFS } from "@/components/application/docs/free-preview-hrefs.generated";
 import { LazyPreview } from "@/components/application/docs/lazy-preview";
 import type { PreviewHref } from "@/components/application/docs/component-preview-hrefs";
 import type { DocSummary } from "@/components/application/docs/docs-index-view";
@@ -50,7 +50,7 @@ export function DocItemView({ item, items }: { item: DocDetail; items: DocSummar
   }, [item.name]);
 
   const previewHref = `/components/${item.name}` as PreviewHref;
-  const hasPreview = PREVIEW_HREFS.includes(previewHref);
+  const hasPreview = FREE_PREVIEW_HREFS.includes(previewHref);
 
   return localize((
     <DocsShell items={items} current={item.name}>

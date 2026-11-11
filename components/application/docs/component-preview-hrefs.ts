@@ -97,6 +97,21 @@ export const PREVIEW_HREFS = [
   "/components/textarea",
   "/components/tree-view",
   "/components/tooltip",
+  "/components/accordion",
+  "/components/badge",
+  "/components/checkbox-card",
+  "/components/checkbox-glyph",
+  "/components/date-range-picker",
+  "/components/hint-text",
+  "/components/kbd",
+  "/components/label",
+  "/components/meeting-scheduler",
+  "/components/menu-styles",
+  "/components/pill-tab",
+  "/components/radio-card",
+  "/components/status-dot",
+  "/components/switch-card",
+  "/components/composer-loader",
 ] as const;
 
 export type PreviewHref = (typeof PREVIEW_HREFS)[number];

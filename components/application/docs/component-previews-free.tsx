@@ -3,18 +3,21 @@
 import { useTemplateCopy } from "@/components/foundations/template-copy/template-copy";
 
 import { useEffect, useRef, useState } from "react";
-import { RiAddLine, RiArrowRightSLine, RiCheckboxCircleFill, RiDeleteBinLine, RiFileTextLine, RiFolder3Line, RiHome5Line, RiMailLine, RiSearchLine, RiSettings3Line, RiUserLine } from "@remixicon/react";
+import { RiAddLine, RiArrowRightSLine, RiArrowUpLine, RiCheckboxCircleFill, RiDeleteBinLine, RiFileTextLine, RiFolder3Line, RiHome5Line, RiMailLine, RiSearchLine, RiSettings3Line, RiUserLine } from "@remixicon/react";
 import { AgentThinkingPreview, DataTablePreview, DropdownPreview, FileUploadPreview, MeetingSchedulePreview, SidebarPreview } from "@/components/application/docs/free-landing-previews";
 import type { PreviewHref } from "@/components/application/docs/component-preview-hrefs";
 import { AgentChat } from "@/components/application/agent-chat/agent-chat";
+import { ComposerLoader } from "@/components/application/composer-loader/composer-loader";
 import { AuthCard } from "@/components/application/auth/auth-card";
 import { NotificationCenterDemo } from "@/components/application/notification-center/notification-center-demo";
 import { SettingsGeneral } from "@/components/application/settings/settings-general";
 import { OrdersChartCard } from "@/components/application/dashboard/orders-chart-card";
 import { RevenueChartCard } from "@/components/application/dashboard/revenue-chart-card";
 import { StatCards } from "@/components/application/dashboard/stat-cards";
+import { Accordion } from "@/components/base/accordion/accordion";
 import { Announcement } from "@/components/base/announcement/announcement";
 import { Avatar } from "@/components/base/avatar/avatar";
+import { Badge } from "@/components/base/badges/badge";
 import { Chip } from "@/components/base/badges/chip";
 import { Breadcrumb, BreadcrumbItem } from "@/components/base/breadcrumb/breadcrumb";
 import { Button } from "@/components/base/buttons/button";
@@ -24,7 +27,13 @@ import { IconButton } from "@/components/base/buttons/icon-button";
 import { LinkButton } from "@/components/base/buttons/link-button";
 import { Carousel, CarouselItem } from "@/components/base/carousel/carousel";
 import { Checkbox } from "@/components/base/checkbox/checkbox";
+import { CheckboxCard } from "@/components/base/checkbox/checkbox-card";
+import { CheckboxGlyph } from "@/components/base/checkbox/checkbox-glyph";
+import { DateRangePicker } from "@/components/base/date-picker/date-range-picker";
 import { Divider } from "@/components/base/divider/divider";
+import { HintText } from "@/components/base/input/hint-text";
+import { Kbd } from "@/components/base/kbd/kbd";
+import { Label } from "@/components/base/input/label";
 import { Notification } from "@/components/base/notification/notification";
 import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@/components/base/table/table";
 import { Tab, TabList, Tabs } from "@/components/base/tabs/tabs";
@@ -32,11 +41,16 @@ import { Input } from "@/components/base/input/input";
 import { InputOtp } from "@/components/base/input-otp/input-otp";
 import { Pagination } from "@/components/base/pagination/pagination";
 import { Radio, RadioGroup } from "@/components/base/radio/radio";
+import { RadioCard } from "@/components/base/radio/radio-card";
+import { StatusDot } from "@/components/base/badges/status-dot";
+import { SwitchCard } from "@/components/base/switch/switch-card";
+import { PillTab, PillTabList } from "@/components/base/tabs/pill-tab";
 import { SegmentedControl, SegmentedControlItem } from "@/components/base/segmented-control/segmented-control";
 import { Select, SelectItem } from "@/components/base/select/select";
 import { Slider } from "@/components/base/slider/slider";
 import { SocialButton } from "@/components/base/social-button/social-button";
 import { Switch } from "@/components/base/switch/switch";
+import { CalendarDate } from "@internationalized/date";
 import { Textarea } from "@/components/base/textarea/textarea";
 import { TreeViewPreview } from "@/components/application/docs/tree-view-preview";
 import { DataGridExample } from "@/components/application/docs/examples/data-grid-example";
@@ -816,6 +830,175 @@ export const FREE_PREVIEW_OPTIONS: Record<string, PreviewOptions> = {
   "/components/chat-starter": TEMPLATE_CARD,
 };
 
+
+function AccordionPreview() {
+  return (
+    <Center>
+      <div className="w-full max-w-[340px]">
+        <Accordion
+          items={[
+            { id: "one", question: "What is Faang?", answer: "A design system for agent products, shipped as source." },
+            { id: "two", question: "Can I change the tokens?", answer: "Yes — the CSS variables are yours to retint." },
+          ]}
+        />
+      </div>
+    </Center>
+  );
+}
+
+function BadgePreview() {
+  return (
+    <Center>
+      <div className="flex flex-wrap items-center justify-center gap-2">
+        <Badge>Draft</Badge>
+        <Badge color="primary">Live</Badge>
+      </div>
+    </Center>
+  );
+}
+
+function CheckboxCardPreview() {
+  return (
+    <Center>
+      <div className="flex w-full max-w-[300px] flex-col gap-2">
+        <CheckboxCard title="Product updates" description="A short note every Friday." defaultSelected />
+        <CheckboxCard title="Security alerts" description="Only when something changes." />
+      </div>
+    </Center>
+  );
+}
+
+function CheckboxGlyphPreview() {
+  const base = { isSelected: false, isIndeterminate: false, isFocusVisible: false, isDisabled: false, isHovered: false };
+  return (
+    <Center>
+      <div className="flex items-center gap-4">
+        <CheckboxGlyph state={{ ...base, isSelected: true }} />
+        <CheckboxGlyph state={base} />
+        <CheckboxGlyph state={{ ...base, isIndeterminate: true }} />
+      </div>
+    </Center>
+  );
+}
+
+function DateRangePickerPreview() {
+  return (
+    <Center>
+      <div className="w-full max-w-[260px]">
+        <DateRangePicker
+          defaultValue={{
+            start: new CalendarDate(2026, 11, 3),
+            end: new CalendarDate(2026, 11, 12),
+          }}
+        />
+      </div>
+    </Center>
+  );
+}
+
+function HintTextPreview() {
+  return (
+    <Center>
+      <div className="flex w-full max-w-[260px] flex-col gap-1.5">
+        <Label isRequired>Work email</Label>
+        <p className="rounded-lg border border-border-button-default px-3 py-2 text-body-2-regular text-text-placeholder">
+          you@company.com
+        </p>
+        <HintText>We only use this for the receipt.</HintText>
+      </div>
+    </Center>
+  );
+}
+
+function KbdPreview() {
+  return (
+    <Center>
+      <div className="flex items-center gap-2">
+        <Kbd>⌘</Kbd>
+        <Kbd>K</Kbd>
+        <span className="text-body-2-regular text-text-tertiary">to search</span>
+      </div>
+    </Center>
+  );
+}
+
+function RadioCardPreview() {
+  return (
+    <Center>
+      <RadioGroup defaultValue="starter" aria-label="Plan" className="flex w-full max-w-[300px] flex-col gap-2">
+        <RadioCard value="starter" title="Starter" description="Everything in the free tier." />
+        <RadioCard value="team" title="Team" description="Shared tokens and previews." />
+      </RadioGroup>
+    </Center>
+  );
+}
+
+function StatusDotPreview() {
+  return (
+    <Center>
+      <div className="flex flex-col gap-3">
+        {(["green", "yellow", "indigo"] as const).map((color) => (
+          <span key={color} className="flex items-center gap-2 text-body-2-regular text-text-secondary">
+            <StatusDot color={color} />
+            {color === "green" ? "Operational" : color === "yellow" ? "Degraded" : "Maintenance"}
+          </span>
+        ))}
+      </div>
+    </Center>
+  );
+}
+
+function SwitchCardPreview() {
+  return (
+    <Center>
+      <div className="w-full max-w-[320px]">
+        <SwitchCard title="Weekly summary" description="A digest every Monday." defaultSelected />
+      </div>
+    </Center>
+  );
+}
+
+function PillTabPreview() {
+  const [tab, setTab] = useState<"overview" | "activity">("overview");
+  return (
+    <Center>
+      <PillTabList>
+        <PillTab isSelected={tab === "overview"} onSelect={() => setTab("overview")}>
+          Overview
+        </PillTab>
+        <PillTab isSelected={tab === "activity"} onSelect={() => setTab("activity")}>
+          Activity
+        </PillTab>
+      </PillTabList>
+    </Center>
+  );
+}
+
+function ComposerLoaderPreview() {
+  return (
+    <Center>
+      <ComposerLoader
+        active
+        radius={26}
+        colors={["#ef0c0c", "#ff7a59", "#ffb3a7", "#ffe0da"]}
+        speed={5}
+        intensity={0.85}
+        line={2}
+        bloom={9}
+        bloomStrength={0.28}
+        className="w-full max-w-[320px] shadow-lg"
+      >
+        <div className="flex w-full items-center justify-between gap-3 rounded-[26px] p-3">
+          <span className="px-1 text-body-2-regular text-text-placeholder">Ask anything…</span>
+          <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-accent-500 text-white">
+            <RiArrowUpLine className="size-[18px]" aria-hidden />
+          </span>
+        </div>
+      </ComposerLoader>
+    </Center>
+  );
+}
+
 export const FREE_COMPONENT_PREVIEWS: Partial<Record<PreviewHref, () => React.ReactElement>> = {
   "/components/data-grid": () => <Scaled width={960}><DataGridExample rowCount={48} showTitle={false} height={264} /></Scaled>,
   "/components/data-table": DataTablePreview,
@@ -1185,4 +1368,20 @@ export const FREE_COMPONENT_PREVIEWS: Partial<Record<PreviewHref, () => React.Re
   "/components/textarea": TextareaPreviewCard,
   "/components/tooltip": TooltipPreviewCard,
   "/components/tree-view": () => <Scaled width={384} insetRight><TreeViewPreview compact /></Scaled>,
+  "/components/accordion": AccordionPreview,
+  "/components/badge": BadgePreview,
+  "/components/checkbox-card": CheckboxCardPreview,
+  "/components/checkbox-glyph": CheckboxGlyphPreview,
+  "/components/date-range-picker": DateRangePickerPreview,
+  "/components/hint-text": HintTextPreview,
+  "/components/kbd": KbdPreview,
+  "/components/label": HintTextPreview,
+  "/components/meeting-scheduler": MeetingSchedulePreview,
+  "/components/menu-styles": DropdownPreview,
+  "/components/pill-tab": PillTabPreview,
+  "/components/radio-card": RadioCardPreview,
+  "/components/status-dot": StatusDotPreview,
+  "/components/switch-card": SwitchCardPreview,
+  "/components/composer-loader": ComposerLoaderPreview,
+
 };
