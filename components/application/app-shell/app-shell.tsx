@@ -144,7 +144,7 @@ export function AppShell({
       )}
 
       <main className="relative flex min-h-0 min-w-0 flex-1 justify-center overflow-x-hidden overflow-y-auto bg-background-full sm:pt-3">
-        <div className={cx("flex w-full max-w-[1200px] flex-col gap-2.5", columnClassName)}>
+        <div className={cx("flex w-full flex-col gap-2.5", columnClassName)}>
           <header className="flex w-full flex-col gap-2">
             <Breadcrumb>
               <BreadcrumbItem href="#">

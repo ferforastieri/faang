@@ -5,6 +5,7 @@ import { useTemplateCopy } from "@/components/foundations/template-copy/template
 import { RiArrowRightLine } from "@remixicon/react";
 import Link from "next/link";
 
+import { DocsShell } from "@/components/application/docs/docs-sidebar";
 import { InstallCommand } from "@/components/application/landing/install-command";
 
 export type DocSummary = {
@@ -37,7 +38,8 @@ export function DocsIndexView({ items }: { items: DocSummary[] }) {
   })).filter((group) => group.items.length > 0);
 
   return localize((
-    <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-12 px-4 py-14 sm:px-6 sm:py-20">
+    <DocsShell items={items}>
+    <div className="flex flex-col gap-12">
       <header className="flex flex-col gap-4">
         <p className="flex items-center gap-3 font-mono text-caption-1-medium tracking-[0.14em] text-text-tertiary uppercase">
           <span className="h-px w-8 bg-accent-500" aria-hidden />
@@ -85,5 +87,6 @@ export function DocsIndexView({ items }: { items: DocSummary[] }) {
         </section>
       ))}
     </div>
+    </DocsShell>
   ));
 }

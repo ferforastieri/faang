@@ -54,7 +54,7 @@ const FAQ = [
 export function FaqSection() {
   const localize = useTemplateCopy();
   return localize((
-    <section id="faq" className="mx-auto w-full max-w-[1200px] px-4 py-20 sm:px-6 sm:py-24">
+    <section id="faq" className="w-full px-3 py-20 sm:py-24">
       <div className="flex flex-col gap-10">
         <SectionHeading
           index="05"
@@ -96,7 +96,7 @@ export function FinalCta() {
   const localize = useTemplateCopy();
   return localize((
     <section className="border-t border-separator-border bg-background-secondary-default">
-      <div className="mx-auto grid w-full max-w-[1200px] items-center gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1fr_auto]">
+      <div className="grid w-full items-center gap-10 px-3 py-16 sm:py-20 lg:grid-cols-[1fr_auto]">
         <div className="max-w-2xl">
           <h2 className="text-display-3-semibold text-balance text-text-primary">
             Start building agent interfaces

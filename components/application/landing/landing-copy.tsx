@@ -254,6 +254,7 @@ const PT_BR: Record<string, string> = {
 
   // Docs pages
   Documentation: "Documentação",
+  "All components": "Todos os componentes",
   "Files it writes": "Arquivos que grava",
   "Pulls in": "Puxa junto",
   "None.": "Nenhum.",

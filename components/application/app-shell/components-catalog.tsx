@@ -58,6 +58,18 @@ export function ComponentsCatalog() {
       </nav>
 
       <div className="flex min-w-0 flex-col gap-14">
+        {/* The page title lives in the content column, not above the grid:
+            that way it starts at the same x as the dashboard's heading. */}
+        <div className="flex flex-col gap-3">
+          <p className="flex items-center gap-3 font-mono text-caption-1-medium tracking-[0.14em] text-text-tertiary uppercase">
+            <span className="h-px w-8 bg-accent-500" aria-hidden />
+            Library
+          </p>
+          <h1 className="text-display-3-semibold text-balance text-text-primary">
+            Components and Blocks
+          </h1>
+        </div>
+
         {COMPONENT_SECTIONS.map((section) => {
           const entries = section.entries.filter(matches);
           if (entries.length === 0) return null;

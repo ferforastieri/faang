@@ -21,7 +21,7 @@ export function ColorTokensView() {
   ];
 
   return localize((
-    <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-14 px-4 py-14 sm:px-6 sm:py-20">
+    <div className="flex flex-col gap-14">
       <header className="flex flex-col gap-4">
         <h1 className="text-display-3-semibold text-text-primary">Color</h1>
         <p className="max-w-2xl text-title-3-regular text-pretty text-text-secondary">
@@ -72,7 +72,7 @@ export function ColorTokensView() {
 export function TypographyTokensView() {
   const localize = useTemplateCopy();
   return localize((
-    <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-10 px-4 py-14 sm:px-6 sm:py-20">
+    <div className="flex flex-col gap-10">
       <header className="flex flex-col gap-4">
         <h1 className="text-display-3-semibold text-text-primary">Typography</h1>
         <p className="max-w-2xl text-title-3-regular text-pretty text-text-secondary">

@@ -31,7 +31,7 @@ export function SiteFooter() {
   const localize = useTemplateCopy();
   return localize((
     <footer className="border-t border-separator-border bg-background-full">
-      <div className="mx-auto w-full max-w-[1200px] px-4 py-12 sm:px-6">
+      <div className="w-full px-3 py-12">
         <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
           <div className="flex max-w-sm flex-col gap-4">
             <Link href="/" className="w-fit" aria-label="Faang home">

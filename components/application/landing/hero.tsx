@@ -68,7 +68,7 @@ export function Hero({ total }: { total: number }) {
         <HeroRays config={rays} paused={reduceMotion} className="size-full" />
       </div>
 
-      <div className="mx-auto grid w-full max-w-[1200px] items-center gap-14 px-4 pt-16 pb-16 sm:px-6 sm:pt-24 sm:pb-24 lg:grid-cols-[1.02fr_0.98fr] lg:gap-16">
+      <div className="grid w-full items-center gap-14 px-3 pt-16 pb-16 sm:pt-24 sm:pb-24 lg:grid-cols-[1.02fr_0.98fr] lg:gap-16">
         <div className="flex flex-col items-start">
           <p className="flex items-center gap-3 font-mono text-caption-1-medium tracking-[0.14em] text-text-tertiary uppercase">
             <span className="h-px w-8 bg-accent-500" aria-hidden />
