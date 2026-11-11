@@ -375,7 +375,8 @@ export function AgentChat({
   return localize((
     <div
       className={cx(
-        "relative flex w-full gap-4 overflow-hidden bg-background-full p-3",
+        "relative flex w-full gap-4 overflow-hidden bg-background-full",
+        contained && "p-3",
         contained ? "h-[var(--template-preview-height)]" : fill ? "h-full" : "h-dvh",
         className,
       )}

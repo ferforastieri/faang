@@ -53,7 +53,7 @@ export function SiteHeader() {
           : "border-transparent bg-background-full",
       )}
     >
-      <div className="flex h-16 w-full items-center gap-8 px-3">
+      <div className="mx-auto flex h-16 w-full max-w-[1200px] items-center gap-8 px-4 sm:px-6">
         <Link
           href="/"
           className="rounded-md outline-none focus-visible:ring-2 focus-visible:ring-border-focus-ring"
@@ -114,7 +114,7 @@ export function SiteHeader() {
 
       {open ? (
         <div className="border-t border-separator-border md:hidden">
-          <nav aria-label="Main" className="flex flex-col gap-1 px-3 py-3">
+          <nav aria-label="Main" className="mx-auto flex max-w-[1200px] flex-col gap-1 px-4 py-3 sm:px-6">
             {NAV.map((item) => (
               <Link
                 key={item.label}

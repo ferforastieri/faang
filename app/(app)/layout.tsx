@@ -16,7 +16,13 @@ export default function AppLayout({ children }: { children: ReactNode }) {
       <div className="flex min-h-dvh w-full flex-col bg-background-full">
         <SiteHeader />
         <main className="flex flex-1 flex-col">
-          <div className="h-[calc(100dvh-4rem)] min-h-[560px] w-full">{children}</div>
+          {/* The workspaces sit in the same 1200px column as every other page:
+              the sidebar starts where the site's content starts, and the app
+              keeps the same 32px below the header. The page scrolls to reach
+              the footer. */}
+          <div className="mx-auto flex h-[calc(100dvh-4rem)] min-h-[560px] w-full max-w-[1200px] flex-col px-4 pt-8 pb-8 sm:px-6">
+            {children}
+          </div>
         </main>
         <SiteFooter />
       </div>

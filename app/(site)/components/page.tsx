@@ -8,7 +8,7 @@ import { ComponentsCatalog } from "@/components/application/app-shell/components
  */
 export default function ComponentsPage() {
   return (
-    <div className="w-full px-3 py-14 sm:py-20">
+    <div className="mx-auto w-full max-w-[1200px] px-4 py-8 sm:px-6">
       <ComponentsCatalog />
     </div>
   );

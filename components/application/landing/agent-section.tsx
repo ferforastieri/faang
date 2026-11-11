@@ -36,7 +36,7 @@ export function AgentSection() {
   const localize = useTemplateCopy();
   return localize((
     <section className="border-t border-separator-border">
-      <div className="grid w-full gap-10 px-3 py-20 sm:py-24 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+      <div className="mx-auto grid w-full max-w-[1200px] gap-10 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
         <SectionHeading
           index="06"
           eyebrow="For agents"

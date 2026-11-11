@@ -131,7 +131,7 @@ export function DocsShell({
   children: React.ReactNode;
 }) {
   return (
-    <div className="grid w-full gap-10 px-3 py-12 lg:grid-cols-[220px_1fr] lg:gap-14">
+    <div className="mx-auto grid w-full max-w-[1200px] gap-10 px-4 py-8 sm:px-6 lg:grid-cols-[220px_1fr] lg:gap-14">
       <DocsSidebar items={items} current={current} />
       <div className="min-w-0">{children}</div>
     </div>

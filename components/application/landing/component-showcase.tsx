@@ -74,7 +74,7 @@ export function ComponentShowcase({ total }: { total: number }) {
   const Preview = FREE_COMPONENT_PREVIEWS[activeHref];
 
   return localize((
-    <section id="components" className="w-full px-3 py-20 sm:py-24">
+    <section id="components" className="mx-auto w-full max-w-[1200px] px-4 py-20 sm:px-6 sm:py-24">
       <div className="flex flex-col gap-8">
         <div className="flex flex-col items-start gap-6 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading
@@ -163,7 +163,7 @@ export function TemplateShowcase() {
   const Preview = FREE_COMPONENT_PREVIEWS["/components/chat-starter"];
   if (!Preview) return null;
   return localize((
-    <section id="templates" className="w-full px-3 pb-20 sm:pb-24">
+    <section id="templates" className="mx-auto w-full max-w-[1200px] px-4 pb-20 sm:px-6 sm:pb-24">
       <div className="flex flex-col gap-8">
         <SectionHeading
           index="02"

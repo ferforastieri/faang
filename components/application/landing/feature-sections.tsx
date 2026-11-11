@@ -73,7 +73,7 @@ export function FeatureSections() {
   const localize = useTemplateCopy();
   return localize((
     <>
-      <section className="w-full px-3 py-20 sm:py-28">
+      <section className="mx-auto w-full max-w-[1200px] px-4 py-20 sm:px-6 sm:py-28">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div className="order-2 lg:order-1">
             <ComposerDemo />
@@ -102,7 +102,7 @@ export function FeatureSections() {
       </section>
 
       <section className="border-y border-separator-border bg-background-secondary-default">
-        <div className="grid w-full items-center gap-12 px-3 py-20 sm:py-28 lg:grid-cols-2 lg:gap-16">
+        <div className="mx-auto grid w-full max-w-[1200px] items-center gap-12 px-4 py-20 sm:px-6 sm:py-28 lg:grid-cols-2 lg:gap-16">
           <div className="flex flex-col items-start gap-5">
             <SectionHeading
               index="04"
@@ -146,7 +146,7 @@ export function ValueRow() {
     { title: "Accessible by default", body: "React Aria underneath, Tailwind v4 on top, no runtime CSS." },
   ];
   return localize((
-    <section className="w-full px-3 py-16">
+    <section className="mx-auto w-full max-w-[1200px] px-4 py-16 sm:px-6">
       <div className={cx("grid gap-8 sm:grid-cols-3 sm:gap-12")}>
         {values.map((value, position) => (
           <div key={value.title} className="flex flex-col gap-2 border-t border-separator-border pt-5">
