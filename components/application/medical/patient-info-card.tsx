@@ -49,7 +49,7 @@ export function PatientInfoCard({ className }: { className?: string } = {}) {
           className="absolute -top-0.5 -end-0.5 rounded-full"
         />
       </div>
-      <p className="text-title-2-medium whitespace-nowrap text-text-primary">Mertcan Esmergül</p>
+      <p className="text-title-2-medium whitespace-nowrap text-text-primary">Marina Duarte</p>
       <div className="flex w-full flex-1 flex-col gap-2.5">
         {DETAILS.map((detail) => (
           <div

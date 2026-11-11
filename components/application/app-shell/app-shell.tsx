@@ -153,7 +153,7 @@ export function AppShell({
               </BreadcrumbItem>
               <BreadcrumbItem href="#">
                 <Avatar size="xs" color="neutral" initials="M" />
-                Mertcan
+                Marina
               </BreadcrumbItem>
               <BreadcrumbItem current icon={Icon}>
                 {title}

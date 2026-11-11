@@ -94,7 +94,7 @@ export function SettingsProfile({ onSaved }: { onSaved?: () => void } = {}) {
           />
         </SettingsRow>
         <SettingsRow label="First name">
-          <SavableInput aria-label="First name" initialValue="Mertcan" onSaved={onSaved} />
+          <SavableInput aria-label="First name" initialValue="Marina" onSaved={onSaved} />
         </SettingsRow>
         <SettingsRow label="Last name">
           <SavableInput aria-label="Last name" initialValue="Esmergül" onSaved={onSaved} />
