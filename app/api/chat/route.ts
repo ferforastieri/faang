@@ -40,6 +40,9 @@ interface RateLimitBinding {
   limit(options: { key: string }): Promise<{ success: boolean }>;
 }
 
+/** Budget per visitor, per minute. */
+const RATE_LIMIT = { max: 10, windowSeconds: 60 };
+
 /** Room for a real conversation, not for a free model endpoint. */
 const MAX_MESSAGES = 12;
 const MAX_MESSAGE_CHARS = 4000;
@@ -70,21 +73,56 @@ async function binding(): Promise<{
   }
 }
 
+/** The bits of the Cache API this route uses, so it types without the Workers lib. */
+interface EdgeCache {
+  match(key: string): Promise<Response | undefined>;
+  put(key: string, response: Response): Promise<void>;
+}
+
+/**
+ * Counter kept in the edge cache: one key per client IP, TTL of the window.
+ *
+ * This is the layer that actually holds on every plan. The rate-limit binding
+ * is the tidier primitive, but an account where it does not count (the binding
+ * answers `success: true` forever) would leave the endpoint open, so the cache
+ * does the counting and the binding, when it works, is a second fence.
+ */
+async function cacheBudget(req: Request): Promise<boolean> {
+  const cache = (globalThis as { caches?: { default?: EdgeCache } }).caches?.default;
+  if (!cache) return true;
+  const ip = req.headers.get("cf-connecting-ip") ?? "local";
+  const key = `https://rate-limit.faang.internal/${encodeURIComponent(ip)}`;
+  try {
+    const hit = await cache.match(key);
+    const used = hit ? Number.parseInt(await hit.text(), 10) || 0 : 0;
+    if (used >= RATE_LIMIT.max) return false;
+    await cache.put(
+      key,
+      new Response(String(used + 1), {
+        headers: { "cache-control": `max-age=${RATE_LIMIT.windowSeconds}` },
+      }),
+    );
+    return true;
+  } catch (error) {
+    console.error("[chat] cache limiter failed", error);
+    return true;
+  }
+}
+
 /**
  * The visitor's budget. One key per client IP, so a shared office still shares
- * one allowance; without the binding (a plain `next dev`) the check is skipped
- * rather than blocking the demo.
+ * one allowance. Without the Worker runtime (a plain `next dev`) there is no
+ * cache and no binding, and the demo is not blocked.
  */
 async function withinBudget(limiter: RateLimitBinding | null, req: Request) {
+  if (!(await cacheBudget(req))) return false;
   if (!limiter) return true;
   const key = req.headers.get("cf-connecting-ip") ?? "local";
   try {
     const { success } = await limiter.limit({ key });
-    if (!success) console.log(`[chat] rate limited ${key}`);
     return success;
-  } catch (error) {
+  } catch {
     // Fail open: a limiter outage should not take the chat down with it.
-    console.error("[chat] rate limit failed", error);
     return true;
   }
 }
