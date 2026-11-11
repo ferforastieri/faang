@@ -35,6 +35,16 @@ interface WorkersAIBinding {
   run(model: string, inputs: unknown, options?: unknown): Promise<unknown>;
 }
 
+/** The rate-limit binding from `wrangler.jsonc`, same narrowing. */
+interface RateLimitBinding {
+  limit(options: { key: string }): Promise<{ success: boolean }>;
+}
+
+/** Room for a real conversation, not for a free model endpoint. */
+const MAX_MESSAGES = 12;
+const MAX_MESSAGE_CHARS = 4000;
+const MAX_TOTAL_CHARS = 12000;
+
 /** Empty and whitespace-only values count as unset. */
 function env(name: string): string | undefined {
   const value = process.env[name]?.trim();
@@ -46,14 +56,49 @@ function env(name: string): string | undefined {
  * `next dev`, a container — there is nothing to call and the route says so;
  * `npm run preview` runs the Worker locally, binding included.
  */
-async function binding(): Promise<WorkersAIBinding | null> {
+async function binding(): Promise<{
+  ai: WorkersAIBinding | null;
+  limiter: RateLimitBinding | null;
+}> {
   try {
     const { getCloudflareContext } = await import("@opennextjs/cloudflare");
     const { env: bindings } = await getCloudflareContext({ async: true });
-    return (bindings as { AI?: WorkersAIBinding }).AI ?? null;
+    const env = bindings as { AI?: WorkersAIBinding; CHAT_LIMIT?: RateLimitBinding };
+    return { ai: env.AI ?? null, limiter: env.CHAT_LIMIT ?? null };
   } catch {
-    return null;
+    return { ai: null, limiter: null };
   }
+}
+
+/**
+ * The visitor's budget. One key per client IP, so a shared office still shares
+ * one allowance; without the binding (a plain `next dev`) the check is skipped
+ * rather than blocking the demo.
+ */
+async function withinBudget(limiter: RateLimitBinding | null, req: Request) {
+  if (!limiter) return true;
+  const key = req.headers.get("cf-connecting-ip") ?? "local";
+  try {
+    const { success } = await limiter.limit({ key });
+    return success;
+  } catch {
+    return true;
+  }
+}
+
+/** Keeps one request from being a whole conversation pasted in. */
+function tooLarge(messages: { parts: { text?: string }[] }[]): boolean {
+  const total = messages.reduce(
+    (sum, message) => sum + message.parts.reduce((chars, part) => chars + (part.text?.length ?? 0), 0),
+    0,
+  );
+  return (
+    messages.length > MAX_MESSAGES ||
+    total > MAX_TOTAL_CHARS ||
+    messages.some((message) =>
+      message.parts.some((part) => (part.text?.length ?? 0) > MAX_MESSAGE_CHARS),
+    )
+  );
 }
 
 function modelId(): string {
@@ -202,12 +247,13 @@ function answerStream(
  * can explain itself instead of letting someone type a message and hit an error.
  */
 export async function GET() {
-  const ai = await binding();
+  const { ai, limiter } = await binding();
   return Response.json({
     configured: ai !== null,
     provider: ai ? "workers-ai" : null,
     providerLabel: ai ? "Workers AI" : null,
     model: ai ? modelId() : null,
+    rateLimited: limiter !== null,
     reason: ai
       ? null
       : "Workers AI is not available here. Run the app as a Worker (`npm run preview`, or a deploy) to get the AI binding.",
@@ -216,7 +262,7 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  const ai = await binding();
+  const { ai, limiter } = await binding();
   if (!ai) {
     return Response.json(
       {
@@ -225,6 +271,16 @@ export async function POST(req: Request) {
           "Workers AI is not available here. Run the app as a Worker (`npm run preview`, or a deploy) to get the AI binding.",
       },
       { status: 503 },
+    );
+  }
+
+  if (!(await withinBudget(limiter, req))) {
+    return Response.json(
+      {
+        error: "rate_limited",
+        message: "Too many messages in a minute. Wait a moment and try again.",
+      },
+      { status: 429, headers: { "retry-after": "60" } },
     );
   }
 
@@ -246,6 +302,16 @@ export async function POST(req: Request) {
   // Validate before flattening: `safeValidateUIMessages` rejects a message
   // missing `parts`, a null entry and an unknown role, so a malformed body
   // gets an explained 400 instead of a bare 500 mid-stream.
+  if (tooLarge(submitted as { parts: { text?: string }[] }[])) {
+    return Response.json(
+      {
+        error: "too_large",
+        message: `Keep it to ${MAX_MESSAGES} messages and ${MAX_MESSAGE_CHARS} characters each.`,
+      },
+      { status: 413 },
+    );
+  }
+
   const validated = await safeValidateUIMessages({ messages: submitted });
   if (!validated.success) {
     return Response.json(

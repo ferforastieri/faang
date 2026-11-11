@@ -489,7 +489,7 @@ export function AgentChat({
 
                     {error && (
                       <p role="alert" className="px-1 text-body-regular text-text-tertiary">
-                        Something went wrong. Check the server logs, then try again.
+                        {error.message?.trim() || "Something went wrong. Try again in a moment."}
                       </p>
                     )}
                   </div>

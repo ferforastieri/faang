@@ -23,6 +23,18 @@
     "binding": "AI",
     "remote": true
   },
+  // Teto de uso do chat: o endpoint fala com um modelo de verdade, então cada
+  // visitante ganha um orçamento por minuto em vez de um ChatGPT de graça.
+  "ratelimits": [
+    {
+      "name": "CHAT_LIMIT",
+      "namespace_id": "1001",
+      "simple": {
+        "limit": 10,
+        "period": 60
+      }
+    }
+  ],
   "observability": {
     "enabled": true
   }
