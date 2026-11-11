@@ -149,7 +149,7 @@ export function AppShell({
             <Breadcrumb>
               <BreadcrumbItem href="#">
                 <Avatar size="xs" color="blue" initials="B" />
-                Board team
+                Time Faang
               </BreadcrumbItem>
               <BreadcrumbItem href="#">
                 <Avatar size="xs" color="neutral" initials="M" />

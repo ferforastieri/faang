@@ -32,7 +32,7 @@ import { cx } from "@/utils/cx";
 /**
  * Figma source: Faang → sidebar profile menu (node 3823:3699).
  *
- * Dropdown opened from the sidebar's "Board team" card. Floats to the right of
+ * Dropdown opened from the sidebar's "Time Faang" card. Floats to the right of
  * the sidebar: white panel, 1px border/button/default, radius 16, p 10,
  * shadow/dropdown. Header (team avatar + name/email), three grouped sections of
  * sidebar-style rows separated by full-bleed dividers, and a "Faang" + version
@@ -164,7 +164,7 @@ export function DashboardTeamMenu({
   return localize((
     <AriaDialogTrigger isOpen={isOpen} onOpenChange={setIsOpen}>
       <AriaButton
-        aria-label="Board team"
+        aria-label="Time Faang"
         className={cx(
           "flex cursor-pointer items-center overflow-hidden outline-none",
           "border-2 border-transparent hover:border-border-button-hover",
@@ -177,11 +177,11 @@ export function DashboardTeamMenu({
         )}
       >
         <span className="flex min-w-0 items-center gap-2">
-          <Avatar size="md" color="blue" src="/brand/faang-icon-circle.png" alt="Board team" />
+          <Avatar size="md" color="blue" src="/brand/faang-icon-circle.png" alt="Time Faang" />
           <Collapsible collapsed={collapsed}>
             <span className="flex min-w-0 flex-col items-start justify-center">
-              <span className="text-body-medium whitespace-nowrap text-text-primary">Board team</span>
-              <span className="text-body-regular whitespace-nowrap text-text-secondary">hi@faang.com</span>
+              <span className="text-body-medium whitespace-nowrap text-text-primary">Time Faang</span>
+              <span className="text-body-regular whitespace-nowrap text-text-secondary">oi@faang.com</span>
             </span>
           </Collapsible>
         </span>
@@ -205,13 +205,13 @@ export function DashboardTeamMenu({
           "data-[exiting]:opacity-0 data-[exiting]:scale-95 data-[exiting]:blur-[2px]",
         )}
       >
-        <AriaDialog aria-label="Board team menu" className="flex flex-col gap-[7px] outline-none">
+        <AriaDialog aria-label="Time Faang menu" className="flex flex-col gap-[7px] outline-none">
           {/* Header */}
           <div className="flex w-full items-center gap-2 px-2 pt-1">
-            <Avatar size="md" color="blue" src="/brand/faang-icon-circle.png" alt="Board team" />
+            <Avatar size="md" color="blue" src="/brand/faang-icon-circle.png" alt="Time Faang" />
             <div className="flex min-w-0 flex-col items-start justify-center">
-              <span className="text-body-medium whitespace-nowrap text-text-primary">Board team</span>
-              <span className="text-body-regular whitespace-nowrap text-text-secondary">hi@faang.com</span>
+              <span className="text-body-medium whitespace-nowrap text-text-primary">Time Faang</span>
+              <span className="text-body-regular whitespace-nowrap text-text-secondary">oi@faang.com</span>
             </div>
           </div>
 

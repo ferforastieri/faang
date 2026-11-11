@@ -660,7 +660,7 @@ function InputPreviewCard() {
 
   useEffect(() => {
     if (!hovered) return;
-    const EMAIL = "hello@faang.com";
+    const EMAIL = "contato@faang.com";
     const QUERY = "data table";
     const timers: number[] = [];
     let delay = 350;
@@ -908,7 +908,7 @@ export const FREE_COMPONENT_PREVIEWS: Partial<Record<PreviewHref, () => React.Re
           </TableHeader>
           <TableBody>
             <TableRow id="1">
-              <TableCell>Olivia Rhye</TableCell>
+              <TableCell>Larissa Fontes</TableCell>
               <TableCell>Product Designer</TableCell>
               <TableCell>Active</TableCell>
             </TableRow>
@@ -989,10 +989,10 @@ export const FREE_COMPONENT_PREVIEWS: Partial<Record<PreviewHref, () => React.Re
     <Center>
       <div className="flex items-center">
         {[
-          { src: "/avatars/john-clarkson.webp", alt: "John Clarkson", initials: undefined },
-          { src: "/avatars/aspen-lubin.webp", alt: "Aspen Lubin", initials: undefined },
-          { src: "/avatars/kianna-vaccaro.webp", alt: "Kianna Vaccaro", initials: undefined },
-          { src: undefined, alt: "Mertcan Esmergul", initials: "M" },
+          { src: "/avatars/rafael-nogueira.webp", alt: "Rafael Nogueira", initials: undefined },
+          { src: "/avatars/bianca-tavares.webp", alt: "Bianca Tavares", initials: undefined },
+          { src: "/avatars/clara-bezerra.webp", alt: "Clara Bezerra", initials: undefined },
+          { src: undefined, alt: "Marina Duarte", initials: "M" },
         ].map((person, i) => (
           <div
             key={person.alt}

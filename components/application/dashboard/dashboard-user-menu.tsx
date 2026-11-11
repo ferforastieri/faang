@@ -36,7 +36,7 @@ type UserRow = {
 };
 
 const USERS: UserRow[] = [
-  { initials: "M", color: "neutral", name: "Mertcan Esmergul" },
+  { initials: "M", color: "neutral", name: "Marina Duarte" },
   { initials: "S", color: "lime", name: "Steven Raule" },
   { initials: "L", color: "pink", name: "Lauren Proso" },
 ];
@@ -150,7 +150,7 @@ export function DashboardUserMenu({
   return localize((
     <AriaDialogTrigger isOpen={isOpen} onOpenChange={setIsOpen}>
       <AriaButton
-        aria-label="Mertcan Esmergul"
+        aria-label="Marina Duarte"
         onPointerLeave={() => {
           if (suppressHover) onHoverSuppressionEnd?.();
         }}
@@ -176,7 +176,7 @@ export function DashboardUserMenu({
         <Avatar size="md" color="neutral" initials="M" className={avatarClassName} />
         <Collapsible collapsed={collapsed}>
           <span className="flex items-center gap-0.5">
-            <span className="text-body-medium whitespace-nowrap text-text-primary">Mertcan Esmergul</span>
+            <span className="text-body-medium whitespace-nowrap text-text-primary">Marina Duarte</span>
             <ChevronUpDownSmall className="size-4 shrink-0 text-foreground-icon-tertiary" />
           </span>
         </Collapsible>

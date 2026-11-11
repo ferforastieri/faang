@@ -182,7 +182,7 @@ export function MeetingSchedulePreview() {
       <div className="flex w-[220px] shrink-0 flex-col gap-4 rounded-2xl bg-background-primary-default p-4 shadow-xs">
         <Avatar size="sm" color="blue" initials="M" />
         <div>
-          <p className="text-body-medium text-text-primary">Mertcan Esmergul</p>
+          <p className="text-body-medium text-text-primary">Marina Duarte</p>
           <p className="text-body-2-regular text-text-secondary">hi@mertcan.works</p>
         </div>
         <div className="flex flex-col gap-1">

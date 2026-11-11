@@ -273,8 +273,8 @@ const PT_BR: Record<string, string> = {
   "Explain what this starter does": "Explique o que este starter faz",
   "Write a product update in three sentences": "Escreva um update de produto em três frases",
   "Give me five names for a scheduling app": "Sugira cinco nomes para um app de agenda",
-  "Demo mode: the answers are scripted. Add AI_API_KEY, or deploy on Cloudflare with the AI binding, for a real model.":
-    "Modo demo: as respostas são roteirizadas. Adicione AI_API_KEY, ou publique no Cloudflare com o binding AI, para um modelo de verdade.",
+  "Demo mode: the answers are scripted. Run the app as a Worker to talk to the real model.":
+    "Modo demo: as respostas são roteirizadas. Rode o app como Worker para falar com o modelo de verdade.",
   "Dashboard": "Dashboard",
   "Welcome Mertcan": "Bem-vindo, Mertcan",
 

@@ -99,18 +99,18 @@ type Customer = {
 };
 
 const PHOTO_PEOPLE: { name: string; avatar: string }[] = [
-  { name: "John Clarkson", avatar: "/avatars/john-clarkson.webp" },
-  { name: "Aspen Lubin", avatar: "/avatars/aspen-lubin.webp" },
-  { name: "Michael Ekstrom", avatar: "/avatars/michael-ekstrom.webp" },
-  { name: "Kianna Vaccaro", avatar: "/avatars/kianna-vaccaro.webp" },
-  { name: "Livia Saris", avatar: "/avatars/livia-saris.webp" },
-  { name: "Jaydon Aminoff", avatar: "/avatars/jaydon-aminoff.webp" },
-  { name: "Maria Lubin", avatar: "/avatars/maria-lubin.webp" },
-  { name: "Ann Press", avatar: "/avatars/ann-press.webp" },
+  { name: "Rafael Nogueira", avatar: "/avatars/rafael-nogueira.webp" },
+  { name: "Bianca Tavares", avatar: "/avatars/bianca-tavares.webp" },
+  { name: "Otávio Lins", avatar: "/avatars/otavio-lins.webp" },
+  { name: "Clara Bezerra", avatar: "/avatars/clara-bezerra.webp" },
+  { name: "Helena Prado", avatar: "/avatars/helena-prado.webp" },
+  { name: "Igor Sampaio", avatar: "/avatars/igor-sampaio.webp" },
+  { name: "Sofia Andrade", avatar: "/avatars/sofia-andrade.webp" },
+  { name: "Luiza Camargo", avatar: "/avatars/luiza-camargo.webp" },
 ];
 
-const FIRST_NAMES = ["Marcus", "Cheyenne", "Alfredo", "Talan", "Roger", "Cristofer", "Emery", "Kadin", "Nolan", "Ruben", "Skylar", "Hanna", "Corey", "Miracle", "Zaire", "Cooper", "Leilani", "Alena", "Terry", "Jaxson"];
-const LAST_NAMES = ["Culhane", "Herwitz", "Septimus", "Bergson", "Curtis", "Vetrovs", "Rhiel", "Dokidis", "Kenter", "Stanton", "Baptista", "Workman", "Torff", "Calzoni", "Rosser", "Geidt", "Bator", "Vaccaro", "Lipshutz", "Botosh"];
+const FIRST_NAMES = ["Ana", "Bruno", "Camila", "Diego", "Eduarda", "Felipe", "Gabriela", "Henrique", "Isabela", "João", "Larissa", "Mateus", "Natália", "Pedro", "Renata", "Thiago", "Vanessa", "Wagner", "Yasmin", "Zeca"];
+const LAST_NAMES = ["Almeida", "Barbosa", "Cardoso", "Duarte", "Ferreira", "Freitas", "Gomes", "Lima", "Martins", "Mendes", "Moreira", "Nunes", "Pereira", "Pires", "Ribeiro", "Rocha", "Silva", "Souza", "Teixeira", "Vieira"];
 
 function makeRng(seed: number) {
   let a = seed;

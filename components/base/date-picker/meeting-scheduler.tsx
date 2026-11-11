@@ -73,7 +73,7 @@ export interface MeetingSchedulerProps {
 }
 
 const DEFAULT_HOST: MeetingSchedulerHost = {
-  name: "Mertcan Esmergul",
+  name: "Marina Duarte",
   email: "hi@mertcan.works",
   avatarInitial: "M",
 };

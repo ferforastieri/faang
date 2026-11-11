@@ -53,7 +53,7 @@ const ALERTS: Alert[] = [
     icon: RiTestTubeFill,
     iconBg: "bg-emerald-500",
     title: "Lab results ready",
-    description: "Your latest blood panel ordered by Dr. Mattheus Clarkson is back — cholesterol and glucose are within the normal range.",
+    description: "Your latest blood panel ordered by Dr. Paulo Andrade is back — cholesterol and glucose are within the normal range.",
     date: "June, 9",
   },
   {

@@ -8,11 +8,11 @@ export const STARTER_NOTIFICATIONS: NotificationCenterItem[] = [
     id: "mention-notes",
     category: "mentions",
     group: "Today",
-    title: "Livia mentioned you",
+    title: "Helena mentioned you",
     description: "Can you review the new empty state before we ship the dashboard?",
     timestamp: "2m",
     unread: true,
-    avatar: { initials: "LS", alt: "Livia Saris", color: "pink" },
+    avatar: { initials: "LS", alt: "Helena Prado", color: "pink" },
     actions: [
       { id: "reply", label: "Reply", variant: "primary" },
       { id: "view", label: "View thread", variant: "secondary" },
@@ -58,7 +58,7 @@ export const STARTER_NOTIFICATIONS: NotificationCenterItem[] = [
     title: "Aspen mentioned you",
     description: "The launch checklist is done on my side. Anything left from yours?",
     timestamp: "1d",
-    avatar: { initials: "AL", alt: "Aspen Lubin", color: "blue" },
+    avatar: { initials: "AL", alt: "Bianca Tavares", color: "blue" },
   },
 ];
 

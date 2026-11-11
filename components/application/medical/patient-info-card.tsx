@@ -26,7 +26,7 @@ const DETAILS: Detail[] = [
   { icon: RiAsterisk, label: "Date of Birth", value: "28 July, 1997" },
   { icon: RiMenLine, label: "Gender", value: "Male" },
   { icon: RiDropLine, label: "Blood Type", value: "A rh+" },
-  { icon: RiStethoscopeLine, label: "GP Doctor", value: "Mattheus Clarkson" },
+  { icon: RiStethoscopeLine, label: "GP Doctor", value: "Paulo Andrade" },
 ];
 
 export function PatientInfoCard({ className }: { className?: string } = {}) {

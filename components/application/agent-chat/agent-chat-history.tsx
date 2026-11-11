@@ -209,16 +209,16 @@ function AccountMenu({ threads }: { threads: ChatThreadSummary[] }) {
       }}
     >
       <DropdownTrigger
-        aria-label="Mertcan Esmergul account menu"
+        aria-label="Marina Duarte account menu"
         className={cx(
           "flex min-w-0 flex-1 items-center gap-2 rounded-2lg px-1 py-1 text-start",
           "transition-colors hover:bg-background-secondary-hover",
           isOpen && "bg-background-secondary-hover",
         )}
       >
-        <Avatar size="sm" initials="M" color="neutral" alt="Mertcan Esmergul" />
+        <Avatar size="sm" initials="M" color="neutral" alt="Marina Duarte" />
         <span className="min-w-0 flex-1 truncate text-body-2-medium text-text-primary">
-          Mertcan Esmergul
+          Marina Duarte
         </span>
       </DropdownTrigger>
 

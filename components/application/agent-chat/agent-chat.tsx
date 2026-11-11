@@ -550,7 +550,7 @@ function EmptyState({
         <h2 className="text-title-2-medium text-text-primary">What can I help with?</h2>
         <p className="text-body-regular text-text-secondary">
           {demo
-            ? "Demo mode: the answers are scripted. Add AI_API_KEY, or deploy on Cloudflare with the AI binding, for a real model."
+            ? "Demo mode: the answers are scripted. Run the app as a Worker to talk to the real model."
             : provider
               ? `This chat runs on ${provider}. History stays in this browser.`
               : "This chat runs against your own API key. History stays in this browser."}
@@ -573,30 +573,32 @@ function EmptyState({
 }
 
 /**
- * Shown when the runtime reports no provider key. Deliberately specific about
- * where the key goes, because the person seeing this has usually just clicked
- * Deploy and has no context for where that setting lives.
+ * Shown when the runtime reports no model. There is no key to paste here: the
+ * chat answers through Cloudflare's `AI` binding, which only exists when the
+ * app runs as a Worker — so the fix is to run it that way, not to configure a
+ * secret.
  */
 function SetupNotice({ onSkip }: { onSkip: () => void }) {
   const localize = useTemplateCopy();
   return localize((
     <div className="flex min-h-0 flex-1 items-center justify-center p-6">
       <div className="flex max-w-md flex-col gap-3 rounded-2xl bg-background-primary-default p-6 shadow-card">
-        <h2 className="text-headline-medium text-text-primary">Add an API key to start</h2>
+        <h2 className="text-headline-medium text-text-primary">Run it as a Worker to chat</h2>
         <p className="text-body-regular text-text-secondary">
-          The chat is wired up and ready. It needs a model provider key before it can answer.
+          This chat answers through Cloudflare's Workers AI, using the Worker's own
+          <code className="text-text-primary"> AI </code>
+          binding. There is no key to paste — the binding is the credential.
         </p>
         <ol className="flex list-decimal flex-col gap-1.5 ps-5 text-body-regular text-text-secondary">
-          <li>Open your project on Vercel, then Settings, then Environment Variables.</li>
           <li>
-            Add <code className="text-text-primary">AI_API_KEY</code> with a key from OpenAI,
-            Anthropic, Google, OpenRouter, or Vercel AI Gateway.
+            Locally: <code className="text-text-primary">npm run preview</code>, which builds the
+            Worker and serves it with the binding.
           </li>
-          <li>Redeploy.</li>
+          <li>Deployed: the same app on Cloudflare, where the binding comes from wrangler.jsonc.</li>
         </ol>
         <p className="text-caption-1-regular text-text-tertiary">
-          Running locally? Put the same variable in <code>.env.local</code> and restart the dev
-          server.
+          A plain <code>npm run dev</code> runs Next without the Cloudflare runtime, so the model is
+          not reachable there.
         </p>
         <Button variant="primary" size="medium" className="w-full" onClick={onSkip}>
           Skip, show me the demo
