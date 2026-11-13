@@ -715,3 +715,9 @@
     radial-gradient(50% 40% at 20% 90%, color-mix(in srgb, var(--agent) 8%, transparent), transparent 75%),
     var(--side);
 }
+
+.tp-footer__links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}

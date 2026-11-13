@@ -1,4 +1,5 @@
 import { BrandLogo } from "@/components/brand/brand-logo";
+import { GithubMark } from "@/components/brand/github-mark";
 
 const REPOSITORY = "https://github.com/ferforastieri/faang";
 
@@ -17,6 +18,7 @@ export function SiteFooter() {
           <a href="/docs">Docs</a>
           <a href="/docs/color">Tokens</a>
           <a href={REPOSITORY} target="_blank" rel="noreferrer">
+            <GithubMark size={14} />
             GitHub
           </a>
           <a href={`${REPOSITORY}/blob/main/LICENSE`} target="_blank" rel="noreferrer">

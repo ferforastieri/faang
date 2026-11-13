@@ -1,11 +1,11 @@
 "use client";
 
 import { Button } from "@ui/components/Button";
-import { Icon } from "@ui/icons/Icon";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { BrandLogo } from "@/components/brand/brand-logo";
+import { GithubMark } from "@/components/brand/github-mark";
 
 import { QuickSearch } from "./quick-search";
 import { ThemeToggle } from "./theme-toggle";
@@ -59,7 +59,7 @@ export function SiteHeader() {
 
           <Button variant="ghost" size="sm" iconOnly asChild className="tp-header__github">
             <a href={REPOSITORY} target="_blank" rel="noreferrer" aria-label="Faang no GitHub">
-              <Icon name="repo" size={18} />
+              <GithubMark size={18} />
             </a>
           </Button>
 

@@ -27,7 +27,7 @@ for (const file of walk(SRC).sort()) {
 
 const pkg = {
   name: "faang-ui",
-  version: "0.2.0",
+  version: "0.3.0",
   description:
     "A design system for agent interfaces: conversation, tools, approvals, tokens and pixel portraits, in React and plain CSS.",
   license: "MIT",
