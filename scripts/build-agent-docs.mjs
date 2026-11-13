@@ -1,263 +1,42 @@
-#!/usr/bin/env node
-/**
- * Writes the two files an agent needs to install this library without reading
- * the website: `public/llms.txt` (the short index from llmstxt.org) and
- * `public/docs.md` (the whole thing, in markdown).
- *
- * Both are generated from the registry the CLI reads, so an item added to
- * `components/` shows up in the docs on the next build instead of drifting.
- *
- *   node scripts/build-agent-docs.mjs
- */
-import { readFileSync, writeFileSync } from "node:fs";
-import { join, resolve } from "node:path";
+import fs from "node:fs";
+import path from "node:path";
 
-const ROOT = resolve(import.meta.dirname, "..");
-const SITE = "https://faang.fer.tec.br";
-const index = JSON.parse(readFileSync(join(ROOT, "public/r/index.json"), "utf8"));
+const ROOT = path.join(import.meta.dirname, "..");
+const COMPONENTS = path.join(ROOT, "packages/ui/src/components");
 
-/** Descriptions written for the catalogue, keyed by title and by slug. */
-const CATALOGUE = readFileSync(join(ROOT, "components/application/docs/components-index.ts"), "utf8");
-const descriptions = new Map();
-for (const match of CATALOGUE.matchAll(/\{\s*name:\s*"([^"]+)",\s*href:\s*"[^"]*",\s*description:\s*"([^"]+)"/g)) {
-  const [, name, description] = match;
-  descriptions.set(name.toLocaleLowerCase(), description);
-  descriptions.set(
-    name
-      .toLocaleLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-|-$/g, ""),
-    description,
-  );
-}
+const names = fs
+  .readdirSync(COMPONENTS)
+  .filter((file) => /\.(ts|tsx)$/.test(file))
+  .map((file) => file.replace(/\.(ts|tsx)$/, ""))
+  .sort();
 
-const GROUP_ORDER = ["registry:ui", "registry:block", "registry:lib", "registry:style", "registry:file"];
-const GROUP_LABEL = {
-  "registry:ui": "Base components",
-  "registry:block": "Application blocks",
-  "registry:lib": "Utilities and hooks",
-  "registry:style": "Styles",
-  "registry:file": "API routes",
-};
+const items = names.map((name) => ({ name, path: `components/${name}` }));
+fs.writeFileSync(path.join(ROOT, "cli/components.json"), `${JSON.stringify({ items }, null, 2)}\n`);
 
-function descriptionOf(item) {
-  return descriptions.get(item.name) ?? descriptions.get(item.title.toLocaleLowerCase()) ?? item.title;
-}
+const header = `# Faang UI
 
-const grouped = GROUP_ORDER.map((type) => ({
-  type,
-  label: GROUP_LABEL[type],
-  items: index.items.filter((item) => item.type === type),
-})).filter((group) => group.items.length > 0);
+A design system for agent interfaces: conversation, tools, approvals and pixel
+portraits, in React and plain CSS. MIT.
 
-const total = index.items.length;
+## Install
 
-const installLine = (name) => `npx faang@latest add ${name}`;
+npm i faang-ui
 
-// --- llms.txt ---------------------------------------------------------------
-const llms = [
-  "# Faang",
-  "",
-  `> Faang is a React design system for agentic interfaces. ${total} installable items — components, blocks, styles, utilities and an API route — as source files you copy into the project. MIT licensed, light and dark from the same classes.`,
-  "",
-  "Faang is not a dependency. Each component is a file (or a small set of files) installed by a CLI that reads this site's registry. Every item declares the npm packages it uses and the other items it imports, so installing one pulls its whole graph.",
-  "",
-  "## Start here",
-  "",
-  `- [Documentation](${SITE}/docs.md): every item, its files, its npm dependencies and how to install it`,
-  `- [Registry index](${SITE}/r/index.json): machine-readable list of all ${total} items`,
-  `- [Package](${SITE}/r/button.json): one component's JSON — inline source, dependencies, registry dependencies`,
-  "",
-  "## Install",
-  "",
-  "```bash",
-  "npx faang@latest add data-table   # one component and its graph",
-  "npx faang@latest add --all        # the whole registry",
-  "npx faang@latest list             # every item",
-  "```",
-  "",
-  "The project needs Next.js (App Router), Tailwind CSS v4, the `@/` path alias and `react-aria-components`.",
-  "",
-  "## Rules for generated code",
-  "",
-  `- Use the semantic tokens in \`styles/theme.css\` (text-text-primary, bg-background-secondary-default, border-border-button-default). Never raw palette classes or hex values.`,
-  `- Use the composite type utilities (\`text-title-2-medium\`, \`text-body-regular\`, \`text-caption-1-semibold\`). Never rebuild type with \`text-sm font-medium\`.`,
-  `- Merge classes with \`cx()\` from \`@/utils/cx\`. No string concatenation.`,
-  `- Icons come from \`@remixicon/react\`, passed as component references (\`leadingIcon={RiAddLine}\`).`,
-  `- Layouts use logical properties (\`ps\`, \`pe\`, \`ms\`, \`me\`, \`start\`, \`end\`) so RTL works without a second stylesheet.`,
-  "",
-  "## Components",
-  "",
-  ...index.items.map((item) => `- [${item.name}](${SITE}/r/${item.name}.json): ${descriptionOf(item)}`),
-  "",
-];
+// app/layout.tsx
+import "faang-ui/styles.css";
 
-writeFileSync(join(ROOT, "public/llms.txt"), `${llms.join("\n")}\n`);
+## Components
 
-// --- docs.md ----------------------------------------------------------------
-const docs = [
-  "# Faang",
-  "",
-  `A React design system for agentic interfaces — ${total} installable items (components, blocks, styles, utilities, an API route), installed as source files. MIT licensed.`,
-  "",
-  "This file is written for a coding agent: it lists every installable item, the files each one writes, the npm packages it needs and the other items it pulls in.",
-  "",
-  "## Install",
-  "",
-  "```bash",
-  "npx faang@latest list              # every item, one line each",
-  "npx faang@latest add button        # one item and everything it imports",
-  "npx faang@latest add --all         # the whole registry",
-  "npx faang@latest add all           # same thing",
-  "```",
-  "",
-  "Options: `--cwd <dir>` (project to write into), `--overwrite` (replace files that exist), `--dry-run` (print the plan), `--registry <url>`.",
-  "",
-  "Without the published package, the same CLI runs from the repository:",
-  "",
-  "```bash",
-  "node cli/index.mjs add data-table",
-  "```",
-  "",
-  "## What the host project needs",
-  "",
-  "1. Next.js with the App Router and the `@/` alias pointing at the project root.",
-  "2. Tailwind CSS v4 (`@import \"tailwindcss\"` in the entry stylesheet).",
-  "3. The styles: `npx faang@latest add globals` pulls `styles/globals.css`, `theme.css` and `typography.css`. Import `globals.css` in the root layout.",
-  "4. `react-aria-components` for the interactive components, installed by the CLI's printed command.",
-  "",
-  "## Rules for generated code",
-  "",
-  "- Colours ride semantic tokens only: `text-text-primary`, `bg-background-secondary-default`, `border-border-button-default`, `text-text-error-primary`. No palette classes, no hex.",
-  "- Type uses the composite utilities: `text-display-2-semibold`, `text-title-3-medium`, `text-body-regular`, `text-caption-1-semibold`.",
-  "- Merge classes with `cx()` from `@/utils/cx`.",
-  "- Icons come from `@remixicon/react` as component references (`leadingIcon={RiAddLine}`), never as inline SVG.",
-  "- Forms and overlays build on React Aria Components; reuse the installed components instead of raw inputs.",
-  "- Direction-aware styles: `ps`/`pe`, `ms`/`me`, `start`/`end`, `text-start`. Wrap the app in `DirectionProvider` with an explicit locale.",
-  "",
-  "## Items",
-  "",
-];
+Every component has its own export, e.g. \`import { Button } from "faang-ui/components/Button"\`.
+`;
 
-for (const group of grouped) {
-  docs.push(`### ${group.label}`, "");
-  for (const item of group.items) {
-    docs.push(`#### ${item.name}`, "");
-    docs.push(descriptionOf(item), "");
-    docs.push(`- Files: ${item.files.map((file) => `\`${file.path}\``).join(", ")}`);
-    if (item.dependencies.length > 0) {
-      docs.push(`- npm: ${item.dependencies.map((dep) => `\`${dep}\``).join(", ")}`);
-    }
-    if (item.registryDependencies.length > 0) {
-      docs.push(`- Pulls in: ${item.registryDependencies.map((dep) => `\`${dep}\``).join(", ")}`);
-    }
-    docs.push(`- Install: \`${installLine(item.name)}\``);
-    docs.push("");
-  }
-}
+const list = items.map((item) => `- ${item.name} — faang-ui/${item.path}`).join("\n");
 
-docs.push(
-  "## Registry",
-  "",
-  `${SITE}/r/index.json is the index. Each item is also its own file, for example ${SITE}/r/checkbox.json:`,
-  "",
-  "```json",
-  "{",
-  '  "name": "checkbox",',
-  '  "type": "registry:ui",',
-  '  "files": [{ "path": "components/base/checkbox/checkbox.tsx", "content": "…" }],',
-  '  "dependencies": ["react-aria-components"],',
-  '  "registryDependencies": ["cx"]',
-  "}",
-  "```",
-  "",
-  "## Licence",
-  "",
-  "MIT. Copy, change, ship.",
-  "",
+fs.mkdirSync(path.join(ROOT, "public"), { recursive: true });
+fs.writeFileSync(path.join(ROOT, "public/llms.txt"), `${header}\n${list}\n`);
+fs.writeFileSync(
+  path.join(ROOT, "public/docs.md"),
+  `${header}\n${list}\n\n## Tokens\n\nAll colors, radii and spacing are CSS custom properties in\n\`faang-ui/styles.css\`. The theme is \`data-theme="light|dark"\` on \`<html>\`.\n`,
 );
 
-writeFileSync(join(ROOT, "public/docs.md"), `${docs.join("\n")}\n`);
-
-console.log(`agent docs: llms.txt + docs.md (${total} items)`);
-
-// --- registry as a module ----------------------------------------------------
-// The docs pages must not touch the filesystem at request time: on Cloudflare the
-// Worker has no `public/` on disk. Emitting the same data as a module lets the
-// bundler inline it, so the pages are static everywhere.
-const modulePath = join(ROOT, "components/application/docs/registry.generated.ts");
-const detail = {};
-for (const summary of index.items) {
-  const item = JSON.parse(readFileSync(join(ROOT, "public/r", `${summary.name}.json`), "utf8"));
-  // Summaries only. Inlining the source here put 1.1 MB into the Worker bundle
-  // and every request blew the CPU limit (Cloudflare 1102); the code block
-  // fetches /r/<name>.json from the assets binding instead.
-  detail[summary.name] = {
-    name: item.name,
-    title: item.title,
-    type: item.type,
-    files: (item.files ?? []).map((file) => ({ path: file.path })),
-    dependencies: item.dependencies ?? [],
-    registryDependencies: item.registryDependencies ?? [],
-  };
-}
-
-writeFileSync(
-  modulePath,
-  `// Generated by scripts/build-agent-docs.mjs — do not edit.\n` +
-    `export type RegistryItem = {\n` +
-    `  name: string;\n  title: string;\n  type: string;\n` +
-    `  files: { path: string }[];\n  dependencies: string[];\n  registryDependencies: string[];\n};\n\n` +
-    `export const REGISTRY_ITEMS: Record<string, RegistryItem> = ${JSON.stringify(detail)};\n`,
-);
-console.log(`agent docs: registry.generated.ts (${Object.keys(detail).length} items)`);
-
-// --- design tokens ------------------------------------------------------------
-// The colour ramps and the type scale, read from the stylesheets so the docs
-// pages show what the code actually ships instead of a hand-kept copy.
-const themeCss = readFileSync(join(ROOT, "styles/theme.css"), "utf8");
-const typographyCss = readFileSync(join(ROOT, "styles/typography.css"), "utf8");
-
-const rampOf = (name) =>
-  [...themeCss.matchAll(new RegExp(`--color-${name}-(\\d{1,3}):\\s*(#[0-9a-fA-F]{6})`, "g"))]
-    .map((match) => ({ step: Number(match[1]), hex: match[2].toLowerCase() }))
-    .sort((a, b) => a.step - b.step);
-
-const ramps = { brand: rampOf("brand"), danger: rampOf("danger") };
-
-const typeScale = [...typographyCss.matchAll(
-  /--text-([a-z0-9-]+):\s*([\d.]+rem);\s*\n\s*--text-[a-z0-9-]+--line-height:\s*([\d.]+rem);\s*\n\s*--text-[a-z0-9-]+--letter-spacing:\s*([^;]+);\s*\n\s*--text-[a-z0-9-]+--font-weight:\s*(\d+);/g,
-)].map((match) => ({
-  name: match[1],
-  size: match[2],
-  lineHeight: match[3],
-  tracking: match[4].trim(),
-  weight: Number(match[5]),
-}));
-
-writeFileSync(
-  join(ROOT, "components/application/docs/registry.generated.ts"),
-  readFileSync(join(ROOT, "components/application/docs/registry.generated.ts"), "utf8") +
-    `\nexport const TOKENS: { ramps: Record<string, { step: number; hex: string }[]>; typeScale: { name: string; size: string; lineHeight: string; tracking: string; weight: number }[] } = ${JSON.stringify({ ramps, typeScale })};\n`,
-);
-
-console.log(`agent docs: tokens (${ramps.brand.length} brand, ${ramps.danger.length} danger, ${typeScale.length} type styles)`);
-
-// --- free preview list -------------------------------------------------------
-// The docs item page is a server component and cannot read the client preview
-// map, so the browser-loaded entries are mirrored into a plain module. It is
-// generated from the map itself, which keeps the two in sync.
-const previewsSource = readFileSync(
-  join(ROOT, "components/application/docs/component-previews-free.tsx"),
-  "utf8",
-);
-const freePreviewHrefs = [...previewsSource.matchAll(/^\s*"(\/components\/[^"]+)":/gm)].map(
-  (match) => match[1],
-);
-
-writeFileSync(
-  join(ROOT, "components/application/docs/free-preview-hrefs.generated.ts"),
-  `// Generated by scripts/build-agent-docs.mjs — do not edit.\nimport type { PreviewHref } from "./component-preview-hrefs";\n\nexport const FREE_PREVIEW_HREFS: PreviewHref[] = ${JSON.stringify(freePreviewHrefs, null, 2)};\n`,
-);
-
-console.log(`agent docs: free previews (${freePreviewHrefs.length})`);
+console.log(`${items.length} components → public/llms.txt, public/docs.md, cli/components.json`);

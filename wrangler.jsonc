@@ -1,40 +1,19 @@
 {
-  // Worker that serves the whole Next.js app (landing, chat, dashboard, the
-  // catalogue and /api/chat). `.open-next/` is produced by
-  // `opennextjs-cloudflare build`; nothing here is a static export.
+  // Worker que serve o site inteiro (landing, catálogo, docs, chat e dashboard).
+  // `.open-next/` é produzido por `opennextjs-cloudflare build`.
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "faang",
   "main": ".open-next/worker.js",
   // Publicado só no domínio próprio; nenhum <worker>.workers.dev.
   "workers_dev": false,
   "compatibility_date": "2026-11-10",
-  // The AI SDK and Next's node paths need the Node built-ins shim.
-  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
-  // Static assets (CSS, JS, images) are served straight off the edge; the
-  // Worker only wakes up for routes it has to render.
+  "compatibility_flags": ["nodejs_compat"],
+  // Assets estáticos (CSS, JS, imagens) saem direto da borda; o Worker só
+  // acorda para o que precisa renderizar.
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS"
   },
-  // Cloudflare's own inference, so the chat answers without any model key.
-  // `remote` so `wrangler dev` and the preview hit the real Workers AI too,
-  // the way vira.ia.br is configured.
-  "ai": {
-    "binding": "AI",
-    "remote": true
-  },
-  // Teto de uso do chat: o endpoint fala com um modelo de verdade, então cada
-  // visitante ganha um orçamento por minuto em vez de um ChatGPT de graça.
-  "ratelimits": [
-    {
-      "name": "CHAT_LIMIT",
-      "namespace_id": "1001",
-      "simple": {
-        "limit": 10,
-        "period": 60
-      }
-    }
-  ],
   "observability": {
     "enabled": true
   }

@@ -4,7 +4,7 @@ import staticAssetsIncrementalCache from "@opennextjs/cloudflare/overrides/incre
 /**
  * OpenNext's Cloudflare adapter.
  *
- * The app only serves prerendered pages; the one dynamic route is `/api/chat`.
+ * The app serves prerendered pages only (the chat is a client demo).
  * The static assets cache keeps those pages in `cdn-cgi/_next_cache` next to
  * the client assets, so a request is an asset lookup instead of a full render.
  * Without it the Worker rendered the landing and the docs on every request and

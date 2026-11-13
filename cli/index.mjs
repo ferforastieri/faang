@@ -1,54 +1,58 @@
 #!/usr/bin/env node
 /**
- * faang — install Faang components into a project as source.
+ * faang — install Faang UI in a project.
  *
- *   npx faang@latest list
- *   npx faang@latest add button
- *   npx faang@latest add data-table stat-cards
- *   npx faang@latest add --all
+ *   npx faang list
+ *   npx faang add button
+ *   npx faang add button chip --cwd ./apps/site
+ *   npx faang init --write
  *
- * The components come from Faang's registry (a JSON index plus one file per
- * item, served by the site). Every item declares its own npm dependencies and
- * the other items it imports, so installing one pulls its whole graph in the
- * right order and prints the packages the host project still needs.
+ * The library ships on npm as `faang-ui`. This CLI resolves the component
+ * names, installs the package with the project's own package manager and
+ * prints the exact imports; `init` wires the stylesheet into the root layout.
  */
-import { existsSync, mkdirSync, writeFileSync } from "node:fs";
-import { dirname, isAbsolute, join, resolve } from "node:path";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { join, resolve } from "node:path";
+import { spawnSync } from "node:child_process";
 
-const DEFAULT_REGISTRY = process.env.FAANG_REGISTRY ?? "https://faang.fer.tec.br/r";
-const VERSION = "0.1.0";
+const VERSION = "0.2.0";
+const PACKAGE = "faang-ui";
+const ITEMS = JSON.parse(readFileSync(new URL("./components.json", import.meta.url), "utf8")).items;
+
+const color =
+  process.env.NO_COLOR || !process.stdout.isTTY
+    ? { dim: (s) => s, bold: (s) => s, green: (s) => s, red: (s) => s, cyan: (s) => s }
+    : {
+        dim: (s) => `\u001b[2m${s}\u001b[0m`,
+        bold: (s) => `\u001b[1m${s}\u001b[0m`,
+        green: (s) => `\u001b[32m${s}\u001b[0m`,
+        red: (s) => `\u001b[31m${s}\u001b[0m`,
+        cyan: (s) => `\u001b[36m${s}\u001b[0m`,
+      };
 
 const HELP = `
-  faang v${VERSION} — add Faang components to your project
+  faang v${VERSION} — add Faang UI to your project
 
   Usage
-    faang list                     every component in the registry
-    faang add <name...>            install one or more components
-    faang add --all                install the whole registry
-    faang add all                  same thing
-    faang add <name> --dry-run     show what would be written
+    faang list                     every component and its import
+    faang add <name...>            install faang-ui and print the imports
+    faang add --all                install the whole library
+    faang init                     wire the stylesheet into the root layout
+    faang init --write             do it (otherwise only prints the line)
 
   Options
-    --cwd <dir>         project to write into (default: current directory)
-    --registry <url>    registry to read from (default: ${DEFAULT_REGISTRY})
-    --overwrite         replace files that already exist
-    --dry-run           print the plan without touching disk
+    --cwd <dir>         project to work in (default: current directory)
+    --write             init: edit the layout file
+    --dry-run           print the plan without installing or writing
     --json              machine-readable output for \`list\`
     -h, --help          this text
+    -v, --version       the version
 
-  Registry
-    FAANG_REGISTRY      same as --registry, for CI
+  The library
+    npm i faang-ui
+    import "faang-ui/styles.css";
+    import { Button } from "faang-ui/components/Button";
 `;
-
-const color = process.env.NO_COLOR || !process.stdout.isTTY
-  ? { dim: (s) => s, bold: (s) => s, green: (s) => s, red: (s) => s, cyan: (s) => s }
-  : {
-      dim: (s) => `\u001b[2m${s}\u001b[0m`,
-      bold: (s) => `\u001b[1m${s}\u001b[0m`,
-      green: (s) => `\u001b[32m${s}\u001b[0m`,
-      red: (s) => `\u001b[31m${s}\u001b[0m`,
-      cyan: (s) => `\u001b[36m${s}\u001b[0m`,
-    };
 
 function parseArgs(argv) {
   const args = { _: [], names: [] };
@@ -58,11 +62,8 @@ function parseArgs(argv) {
       case "--cwd":
         args.cwd = argv[++i];
         break;
-      case "--registry":
-        args.registry = argv[++i];
-        break;
-      case "--overwrite":
-        args.overwrite = true;
+      case "--write":
+        args.write = true;
         break;
       case "--dry-run":
         args.dryRun = true;
@@ -86,180 +87,163 @@ function parseArgs(argv) {
           console.error(color.red(`Unknown option: ${arg}`));
           process.exit(1);
         }
-        args.names.push(arg);
+        args._.push(arg);
+        if (args._.length > 1) args.names.push(arg);
     }
   }
   return args;
 }
 
-async function getJson(url) {
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`${response.status} ${response.statusText} — ${url}`);
+function resolveName(term) {
+  const wanted = term.toLowerCase().replace(/^faang-ui\//, "").replace(/^components\//, "");
+  return ITEMS.find((item) => item.name.toLowerCase() === wanted) ?? ITEMS.find((item) => item.path.toLowerCase() === wanted);
+}
+
+function packageManager(cwd) {
+  if (existsSync(join(cwd, "bun.lock")) || existsSync(join(cwd, "bun.lockb"))) return "bun";
+  if (existsSync(join(cwd, "pnpm-lock.yaml"))) return "pnpm";
+  if (existsSync(join(cwd, "yarn.lock"))) return "yarn";
+  return "npm";
+}
+
+function hasPackage(cwd) {
+  for (const file of ["package.json"]) {
+    const path = join(cwd, file);
+    if (!existsSync(path)) continue;
+    const pkg = JSON.parse(readFileSync(path, "utf8"));
+    if (pkg.dependencies?.[PACKAGE] || pkg.devDependencies?.[PACKAGE]) return true;
   }
-  return response.json();
+  return false;
 }
 
-function registryUrl(args) {
-  return (args.registry ?? DEFAULT_REGISTRY).replace(/\/+$/, "");
-}
-
-async function loadIndex(args) {
-  try {
-    return await getJson(`${registryUrl(args)}/index.json`);
-  } catch (error) {
-    console.error(color.red(`Could not read the registry at ${registryUrl(args)}`));
-    console.error(color.dim(String(error.message ?? error)));
-    console.error(color.dim("Use --registry <url> or set FAANG_REGISTRY."));
-    process.exit(1);
+function install(cwd, dryRun) {
+  if (hasPackage(cwd)) {
+    console.log(color.dim(`  ${PACKAGE} is already in package.json`));
+    return true;
   }
+
+  const pm = packageManager(cwd);
+  const command = pm === "npm" ? ["npm", ["install", PACKAGE]] : [pm, ["add", PACKAGE]];
+  const line = `${command[0]} ${command[1].join(" ")}`;
+
+  if (dryRun) {
+    console.log(color.dim(`  would run ${line}`));
+    return true;
+  }
+
+  console.log(color.dim(`  ${line}`));
+  const result = spawnSync(command[0], command[1], { cwd, stdio: "inherit", shell: process.platform === "win32" });
+  if (result.status !== 0) {
+    console.error(color.red(`Could not install ${PACKAGE}. Run it yourself: ${line}`));
+    return false;
+  }
+  return true;
 }
 
-/** "Button", "buttons/button" and "button" all resolve to the item named button. */
-function resolveName(index, wanted) {
-  const term = wanted.toLowerCase().replace(/^@faang\//, "");
-  return (
-    index.items.find((item) => item.name === term) ??
-    index.items.find((item) => item.name === term.split("/").pop()) ??
-    index.items.find((item) => item.title.toLowerCase() === term)
-  );
-}
-
-async function cmdList(args) {
-  const index = await loadIndex(args);
+function cmdList(args) {
   if (args.json) {
-    console.log(JSON.stringify(index.items.map(({ name, title, type }) => ({ name, title, type })), null, 2));
+    console.log(JSON.stringify(ITEMS.map(({ name, path }) => ({ name, import: `${PACKAGE}/${path}` })), null, 2));
     return;
   }
-  const width = Math.max(...index.items.map((item) => item.name.length));
-  for (const item of index.items) {
-    console.log(`  ${item.name.padEnd(width)}  ${color.dim(item.title)}`);
+  const width = Math.max(...ITEMS.map((item) => item.name.length));
+  for (const item of ITEMS) {
+    console.log(`  ${item.name.padEnd(width)}  ${color.dim(`${PACKAGE}/${item.path}`)}`);
   }
-  console.log(color.dim(`\n  ${index.items.length} items — ${registryUrl(args)}`));
+  console.log(color.dim(`\n  ${ITEMS.length} components — ${PACKAGE}`));
 }
 
-async function cmdAdd(args) {
+function cmdAdd(args) {
   if (!args.all && args.names.length === 0) {
     console.error(color.red("Name at least one component, or pass --all."));
     console.error(color.dim("faang list"));
     process.exit(1);
   }
 
-  const cwd = isAbsolute(args.cwd ?? "") ? args.cwd : resolve(process.cwd(), args.cwd ?? ".");
-  const index = await loadIndex(args);
+  const cwd = resolve(args.cwd ?? ".");
+  const wanted = args.all
+    ? ITEMS
+    : args.names.map((name) => {
+        const item = resolveName(name);
+        if (!item) {
+          console.error(color.red(`Not in the library: ${name}`));
+          process.exit(1);
+        }
+        return item;
+      });
 
-  let wanted;
-  if (args.all) {
-    wanted = index.items;
-  } else {
-    wanted = args.names.map((name) => {
-      const item = resolveName(index, name);
-      if (!item) {
-        console.error(color.red(`Not in the registry: ${name}`));
-        process.exit(1);
-      }
-      return item;
-    });
-  }
+  if (!install(cwd, args.dryRun)) process.exit(1);
 
-  // Items are summaries in the index; fetch each one for its file contents.
-  const detail = async (item) => getJson(`${registryUrl(args)}/${item.path ?? `${item.name}.json`}`);
-  const resolved = [];
-  for (const item of wanted) resolved.push(await detail(item));
-
-  // Resolve registry dependencies to their full items before installing.
-  async function expand(item, acc, seen) {
-    if (seen.has(item.name)) return;
-    seen.add(item.name);
-    for (const name of item.registryDependencies ?? []) {
-      const summary = index.items.find((entry) => entry.name === name);
-      if (!summary) continue;
-      await expand(await detail(summary), acc, seen);
-    }
-    acc.push(item);
-  }
-  const ordered = [];
-  const seen = new Set();
-  for (const item of resolved) await expand(item, ordered, seen);
-
-  const dependencies = new Set();
-  const plan = [];
-  for (const item of ordered) {
-    for (const dep of item.dependencies ?? []) dependencies.add(dep);
-    for (const file of item.files ?? []) plan.push({ ...file, item: item.name });
-  }
-
-  const written = [];
-  const skipped = [];
-
-  for (const file of plan) {
-    const target = join(cwd, file.path);
-    const exists = existsSync(target);
-    if (exists && !args.overwrite) {
-      skipped.push(target);
-      continue;
-    }
-    if (!args.dryRun) {
-      mkdirSync(dirname(target), { recursive: true });
-      writeFileSync(target, file.content ?? "", "utf8");
-    }
-    written.push(target);
-  }
-
-  const label = args.dryRun ? "would write" : "wrote";
   console.log("");
-  for (const item of ordered) {
+  for (const item of wanted) {
     console.log(`${color.green("✔")} ${color.bold(item.name)}`);
+    console.log(color.dim(`  import { ${item.name} } from "${PACKAGE}/${item.path}";`));
   }
   console.log("");
-  for (const file of written) {
-    console.log(`  ${color.dim(label)} ${file.replace(`${cwd}/`, "")}`);
-  }
-  for (const file of skipped) {
-    console.log(`  ${color.dim("skipped (exists)")} ${file.replace(`${cwd}/`, "")}`);
-  }
-
-  if (dependencies.size > 0) {
-    console.log(`\n  ${color.bold("npm packages")}\n`);
-    console.log(`  npm install ${[...dependencies].join(" ")}`);
-  }
-
-  if (skipped.length > 0) {
-    console.log(color.dim("\n  Existing files were left alone; pass --overwrite to replace them."));
-  }
-  if (args.dryRun) {
-    console.log(color.dim("\n  Dry run: nothing was written."));
-  }
+  console.log(color.dim(`  the stylesheet is imported once, in the root layout:`));
+  console.log(color.dim(`  import "${PACKAGE}/styles.css";`));
+  console.log(color.dim(`  (faang init${args.dryRun ? "" : " --write"})`));
 }
 
-async function main() {
-  const args = parseArgs(process.argv.slice(2));
-  if (args.names.includes("all")) {
-    args.all = true;
-    args.names = args.names.filter((name) => name !== "all");
-  }
-  if (args.version) {
-    console.log(VERSION);
+function cmdInit(args) {
+  const cwd = resolve(args.cwd ?? ".");
+  const candidates = [
+    "app/layout.tsx",
+    "src/app/layout.tsx",
+    "app/layout.jsx",
+    "src/app/layout.jsx",
+  ];
+  const layout = candidates.map((file) => join(cwd, file)).find((file) => existsSync(file));
+  const line = `import "${PACKAGE}/styles.css";`;
+
+  if (!install(cwd, args.dryRun)) process.exit(1);
+
+  console.log("");
+  if (!layout) {
+    console.log(color.red("No App Router layout found (app/layout.tsx)."));
+    console.log(color.dim(`Add the line yourself: ${line}`));
     return;
   }
-  if (args.help || args._.length === 0 && args.names.length === 0 && !args.all) {
-    console.log(HELP);
+
+  const source = readFileSync(layout, "utf8");
+  if (source.includes(`${PACKAGE}/styles.css`)) {
+    console.log(color.green("✔") + ` ${layout} already imports the stylesheet`);
     return;
   }
 
-  const command = args.names[0] ?? args._[0];
-  const rest = args.names.slice(1);
+  if (!args.write || args.dryRun) {
+    console.log(color.dim(`${layout} — add:`));
+    console.log(`  ${line}`);
+    console.log(color.dim(args.dryRun ? "\n  dry run: the file was not touched" : "\n  rerun with --write to edit the file"));
+    return;
+  }
 
-  if (command === "list") return cmdList(args);
-  if (command === "add") return cmdAdd({ ...args, names: rest });
-  if (command === "help") return console.log(HELP);
+  const lines = source.split("\n");
+  let last = -1;
+  lines.forEach((text, index) => {
+    if (/^\s*import\s/.test(text)) last = index;
+  });
+  lines.splice(last + 1, 0, line);
+  writeFileSync(layout, lines.join("\n"), "utf8");
+  console.log(color.green("✔") + ` ${layout}`);
+  console.log(color.dim(`  added ${line}`));
+}
 
-  console.error(color.red(`Unknown command: ${command}`));
+const args = parseArgs(process.argv.slice(2));
+
+if (args.help) {
   console.log(HELP);
-  process.exit(1);
+  process.exit(0);
+}
+if (args.version) {
+  console.log(VERSION);
+  process.exit(0);
 }
 
-main().catch((error) => {
-  console.error(color.red(String(error?.message ?? error)));
-  process.exit(1);
-});
+const command = args._[0];
+if (command === "list") cmdList(args);
+else if (command === "add") cmdAdd(args);
+else if (command === "init") cmdInit(args);
+else {
+  console.log(HELP);
+  process.exit(command ? 1 : 0);
+}

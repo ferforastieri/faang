@@ -1,13 +1,14 @@
 {
   "name": "faang",
-  "version": "0.1.2",
-  "description": "Add Faang components to your project.",
+  "version": "0.2.0",
+  "description": "Add Faang UI to your project: installs the faang-ui package and prints the imports.",
   "type": "module",
   "bin": {
     "faang": "index.mjs"
   },
   "files": [
     "index.mjs",
+    "components.json",
     "README.md",
     "LICENSE"
   ],
@@ -15,7 +16,7 @@
     "node": ">=18"
   },
   "license": "MIT",
-  "homepage": "https://faang.vira.ia.br",
+  "homepage": "https://faang.fer.tec.br",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ferforastieri/faang.git",
@@ -24,10 +25,9 @@
   "keywords": [
     "react",
     "design-system",
-    "tailwind",
     "nextjs",
     "components",
     "cli",
-    "registry"
+    "faang"
   ]
 }

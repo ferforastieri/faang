@@ -1,51 +1,58 @@
 # faang
 
-Instala os componentes do [Faang](https://faang.fer.tec.br) no seu projeto como
-**código-fonte** — arquivos no seu repositório, editáveis como qualquer código
-seu. Não é uma dependência e não fica preso a uma versão.
+Instala o [Faang UI](https://faang.fer.tec.br) no seu projeto. A biblioteca é
+um pacote npm (`faang-ui`, MIT); este CLI resolve os nomes, instala com o seu
+gerenciador e mostra os imports exatos.
 
 ```bash
-npx faang@latest list              # todos os itens disponíveis
-npx faang@latest add button        # um componente
-npx faang@latest add data-table    # um bloco inteiro
-npx faang@latest add --all         # o catálogo completo
+npx faang@latest list              # todos os componentes e o import de cada um
+npx faang@latest add button        # instala faang-ui e mostra o import
+npx faang@latest add button chip   # vários de uma vez
+npx faang@latest init --write      # importa o CSS no app/layout.tsx
 ```
 
-Cada item declara os outros itens que importa e os pacotes npm de que precisa.
-O `add` resolve esse grafo na ordem certa, escreve os arquivos e termina
-mostrando a linha de `npm install` que falta no seu projeto.
+## O que ele faz
 
-## O que ele grava
-
-- os arquivos do componente, no caminho original (`components/base/…`);
-- as peças que ele importa (utilitários, ícones, tokens de estilo);
-- nada é sobrescrito sem `--overwrite`.
+- **`list`** — lê o índice embutido (`components.json`) e imprime nome e caminho
+  de import.
+- **`add`** — detecta npm, pnpm, yarn ou bun pelo lockfile, instala
+  `faang-ui` se ainda não estiver no `package.json` e imprime:
+  `import { Button } from "faang-ui/components/Button";`
+- **`init`** — encontra o layout do App Router (`app/layout.tsx` ou
+  `src/app/layout.tsx`) e adiciona `import "faang-ui/styles.css";` com
+  `--write`. Sem a flag, só mostra a linha.
 
 ## Opções
 
 | Opção | O que faz |
 | --- | --- |
-| `--cwd <dir>` | projeto onde escrever (padrão: diretório atual) |
-| `--registry <url>` | registry alternativo (padrão: `https://faang.fer.tec.br/r`) |
-| `--overwrite` | substitui arquivos que já existem |
-| `--dry-run` | mostra o plano sem escrever nada |
+| `--cwd <dir>` | projeto onde trabalhar (padrão: diretório atual) |
+| `--write` | `init`: edita o layout em vez de só imprimir |
+| `--dry-run` | mostra o plano sem instalar nem escrever |
 | `--json` | saída legível por máquina no `list` |
 | `-h`, `--help` | ajuda |
+| `-v`, `--version` | versão |
 
-`FAANG_REGISTRY` faz o mesmo que `--registry`, útil em CI.
+## Uso no projeto
 
-## Requisitos do projeto
+```tsx
+// app/layout.tsx
+import "faang-ui/styles.css";
 
-Next.js com App Router, Tailwind CSS v4, o alias `@/` apontando para a raiz e
-`react-aria-components` para os componentes interativos. O comando
-`npx faang add globals` instala os três arquivos de estilo.
+// em qualquer componente
+import { Button } from "faang-ui/components/Button";
+```
+
+Os componentes são TypeScript com CSS próprio; converse com o Next para
+transpilar o pacote (`transpilePackages: ["faang-ui"]`) ou copie o código de
+`packages/ui` no repositório.
 
 ## Documentação
 
 - Site: [faang.fer.tec.br](https://faang.fer.tec.br)
+- Catálogo: [faang.fer.tec.br/components](https://faang.fer.tec.br/components)
+- Docs: [faang.fer.tec.br/docs](https://faang.fer.tec.br/docs)
 - Índice para agentes: [llms.txt](https://faang.fer.tec.br/llms.txt)
-- Documentação completa: [docs.md](https://faang.fer.tec.br/docs.md)
-- Registry: [r/index.json](https://faang.fer.tec.br/r/index.json)
 
 ## Licença
 

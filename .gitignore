@@ -2,11 +2,9 @@ node_modules
 .next
 .open-next
 .wrangler
-# generated at build time by scripts/build-registry.mjs and build-agent-docs.mjs
-public/r
+# generated before build/dev by scripts/build-agent-docs.mjs
 public/llms.txt
 public/docs.md
-components/application/docs/registry.generated.ts
 out
 dist
 .vercel

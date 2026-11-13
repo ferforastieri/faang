@@ -1,45 +1,40 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { Inter, JetBrains_Mono } from "next/font/google";
-import { DirectionProvider } from "@/components/foundations/direction/direction";
 
-import "@/styles/globals.css";
+import "./globals.css";
 
-// Faang's type scale is set in Inter with the optical-size axis, so display
-// sizes render in the display grade and body sizes in the text grade from one
-// variable font. The variable names are what styles/typography.css expects.
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  axes: ["opsz"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-mono-source",
-  subsets: ["latin"],
-});
+/** Resolved before the first paint: a stored choice, else the system's. */
+const THEME_SCRIPT = `(() => {
+  try {
+    const stored = localStorage.getItem("tophs:theme");
+    const dark = stored ? stored === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    document.documentElement.dataset.theme = dark ? "dark" : "light";
+  } catch {
+    document.documentElement.dataset.theme = "light";
+  }
+})();`;
 
 export const metadata: Metadata = {
-  title: "Faang — a design system that looks like a product",
+  title: "Tophs UI — a interface para produtos de agente",
   description:
-    "The source behind a working agent UI: components, screens and tokens you install and own. Light and dark from the same classes, MIT licensed.",
+    "Um sistema de design em React para produtos de agente: conversa, ferramentas, aprovações e retratos em pixel. Dois temas, tokens semânticos e acessibilidade do Radix.",
+  icons: { icon: "/favicon.svg" },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en-US"
-      dir="ltr"
-      className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
-      suppressHydrationWarning
-    >
-      <body className="flex min-h-full flex-col font-sans">
-        {/* Every page starts dark, before the first paint. The toggle can
-            switch the current session to light, but a reload starts dark. */}
-        <Script id="faang-theme" strategy="beforeInteractive">
-          {`document.documentElement.classList.add("dark");`}
+    <html lang="pt-BR" suppressHydrationWarning>
+      <body className="flex min-h-dvh flex-col">
+        {/* The theme is a `data-theme` attribute on <html>; it is set before paint. */}
+        <Script id="tophs-theme" strategy="beforeInteractive">
+          {THEME_SCRIPT}
         </Script>
-        <DirectionProvider locale="en-US">{children}</DirectionProvider>
+        {children}
       </body>
     </html>
   );

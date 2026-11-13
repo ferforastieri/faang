@@ -1,0 +1,324 @@
+{
+  "items": [
+    {
+      "name": "AccessDialog",
+      "path": "components/AccessDialog"
+    },
+    {
+      "name": "AgentLook",
+      "path": "components/AgentLook"
+    },
+    {
+      "name": "AgentSticker",
+      "path": "components/AgentSticker"
+    },
+    {
+      "name": "ApprovalCard",
+      "path": "components/ApprovalCard"
+    },
+    {
+      "name": "AutonomyPixels",
+      "path": "components/AutonomyPixels"
+    },
+    {
+      "name": "Avatar",
+      "path": "components/Avatar"
+    },
+    {
+      "name": "Brain",
+      "path": "components/Brain"
+    },
+    {
+      "name": "Button",
+      "path": "components/Button"
+    },
+    {
+      "name": "CardHorizon",
+      "path": "components/CardHorizon"
+    },
+    {
+      "name": "CardMore",
+      "path": "components/CardMore"
+    },
+    {
+      "name": "Carousel",
+      "path": "components/Carousel"
+    },
+    {
+      "name": "ChatGif",
+      "path": "components/ChatGif"
+    },
+    {
+      "name": "Checkbox",
+      "path": "components/Checkbox"
+    },
+    {
+      "name": "Chip",
+      "path": "components/Chip"
+    },
+    {
+      "name": "CodeInput",
+      "path": "components/CodeInput"
+    },
+    {
+      "name": "ColorDot",
+      "path": "components/ColorDot"
+    },
+    {
+      "name": "ColorPicker",
+      "path": "components/ColorPicker"
+    },
+    {
+      "name": "CommandPalette",
+      "path": "components/CommandPalette"
+    },
+    {
+      "name": "Composer",
+      "path": "components/Composer"
+    },
+    {
+      "name": "Computer",
+      "path": "components/Computer"
+    },
+    {
+      "name": "DatePicker",
+      "path": "components/DatePicker"
+    },
+    {
+      "name": "DetailsDialog",
+      "path": "components/DetailsDialog"
+    },
+    {
+      "name": "Dialog",
+      "path": "components/Dialog"
+    },
+    {
+      "name": "Diff",
+      "path": "components/Diff"
+    },
+    {
+      "name": "EffortPixels",
+      "path": "components/EffortPixels"
+    },
+    {
+      "name": "EmojiPicker",
+      "path": "components/EmojiPicker"
+    },
+    {
+      "name": "EventPill",
+      "path": "components/EventPill"
+    },
+    {
+      "name": "FactLine",
+      "path": "components/FactLine"
+    },
+    {
+      "name": "FactStrip",
+      "path": "components/FactStrip"
+    },
+    {
+      "name": "Field",
+      "path": "components/Field"
+    },
+    {
+      "name": "FilterChip",
+      "path": "components/FilterChip"
+    },
+    {
+      "name": "FoldRow",
+      "path": "components/FoldRow"
+    },
+    {
+      "name": "GroupHeading",
+      "path": "components/GroupHeading"
+    },
+    {
+      "name": "InfoHint",
+      "path": "components/InfoHint"
+    },
+    {
+      "name": "Kbd",
+      "path": "components/Kbd"
+    },
+    {
+      "name": "Logo",
+      "path": "components/Logo"
+    },
+    {
+      "name": "MediaPicker",
+      "path": "components/MediaPicker"
+    },
+    {
+      "name": "Mention",
+      "path": "components/Mention"
+    },
+    {
+      "name": "Menu",
+      "path": "components/Menu"
+    },
+    {
+      "name": "MenuOverlay",
+      "path": "components/MenuOverlay"
+    },
+    {
+      "name": "Message",
+      "path": "components/Message"
+    },
+    {
+      "name": "OptionList",
+      "path": "components/OptionList"
+    },
+    {
+      "name": "PageHeader",
+      "path": "components/PageHeader"
+    },
+    {
+      "name": "PixelMarks",
+      "path": "components/PixelMarks"
+    },
+    {
+      "name": "PixelSky",
+      "path": "components/PixelSky"
+    },
+    {
+      "name": "PixelSpinner",
+      "path": "components/PixelSpinner"
+    },
+    {
+      "name": "PlanMeter",
+      "path": "components/PlanMeter"
+    },
+    {
+      "name": "Popover",
+      "path": "components/Popover"
+    },
+    {
+      "name": "PresenceBadge",
+      "path": "components/PresenceBadge"
+    },
+    {
+      "name": "ProviderLogo",
+      "path": "components/ProviderLogo"
+    },
+    {
+      "name": "QrCode",
+      "path": "components/QrCode"
+    },
+    {
+      "name": "RecurrencePicker",
+      "path": "components/RecurrencePicker"
+    },
+    {
+      "name": "RoleMark",
+      "path": "components/RoleMark"
+    },
+    {
+      "name": "RunPixels",
+      "path": "components/RunPixels"
+    },
+    {
+      "name": "SavedNote",
+      "path": "components/SavedNote"
+    },
+    {
+      "name": "SearchPixels",
+      "path": "components/SearchPixels"
+    },
+    {
+      "name": "SearchSelect",
+      "path": "components/SearchSelect"
+    },
+    {
+      "name": "Segmented",
+      "path": "components/Segmented"
+    },
+    {
+      "name": "Select",
+      "path": "components/Select"
+    },
+    {
+      "name": "Settings",
+      "path": "components/Settings"
+    },
+    {
+      "name": "SettingsPath",
+      "path": "components/SettingsPath"
+    },
+    {
+      "name": "Skeleton",
+      "path": "components/Skeleton"
+    },
+    {
+      "name": "StepTrack",
+      "path": "components/StepTrack"
+    },
+    {
+      "name": "Surfaces",
+      "path": "components/Surfaces"
+    },
+    {
+      "name": "Tabs",
+      "path": "components/Tabs"
+    },
+    {
+      "name": "TimeSelect",
+      "path": "components/TimeSelect"
+    },
+    {
+      "name": "TimezoneSelect",
+      "path": "components/TimezoneSelect"
+    },
+    {
+      "name": "Tip",
+      "path": "components/Tip"
+    },
+    {
+      "name": "Token",
+      "path": "components/Token"
+    },
+    {
+      "name": "ToolBlock",
+      "path": "components/ToolBlock"
+    },
+    {
+      "name": "ToolPixels",
+      "path": "components/ToolPixels"
+    },
+    {
+      "name": "Toolbar",
+      "path": "components/Toolbar"
+    },
+    {
+      "name": "UsageDays",
+      "path": "components/UsageDays"
+    },
+    {
+      "name": "VideoPlayer",
+      "path": "components/VideoPlayer"
+    },
+    {
+      "name": "VoicePlayer",
+      "path": "components/VoicePlayer"
+    },
+    {
+      "name": "Work",
+      "path": "components/Work"
+    },
+    {
+      "name": "WorkLine",
+      "path": "components/WorkLine"
+    },
+    {
+      "name": "media-playback",
+      "path": "components/media-playback"
+    },
+    {
+      "name": "voice-recorder",
+      "path": "components/voice-recorder"
+    },
+    {
+      "name": "voice-wave",
+      "path": "components/voice-wave"
+    }
+  ]
+}

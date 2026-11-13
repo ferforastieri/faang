@@ -1,65 +1,60 @@
-<a href="https://faang.fer.tec.br"><img src=".github/readme-banner.png" alt="Faang — sistema de design React para interfaces de agentes" width="100%"></a>
-
 # Faang
 
-Um sistema de design React para **interfaces de agentes**: as peças que um produto de IA precisa e as que todo dashboard precisa, na mesma linguagem visual, como **código-fonte dentro do seu projeto**.
+Um sistema de design para **interfaces de agentes** — e o site que o mostra
+funcionando. A biblioteca vive em `packages/ui` e sai no npm como
+[`faang-ui`](https://www.npmjs.com/package/faang-ui); o site consome a mesma
+fonte, então cada componente da landing, do catálogo e das telas de app é o
+componente publicado.
 
-Não é uma dependência. Cada componente é instalado como arquivo, editável como qualquer código seu.
+Não é uma dependência fechada: o CSS é próprio, os tokens são variáveis
+semânticas e o código fica no repositório, editável como qualquer código seu.
 
 ---
 
 ## O que o projeto entrega
 
-- **44 componentes e blocos** — de Button, Input e Select a Data Table, Sidebar, Chat e Notification Center.
-- **2 gráficos de dashboard** (receita e pedidos) construídos sobre Recharts.
-- **Mais de 400 tokens semânticos** — cor, tipografia, espaçamento, sombra e raio — com claro e escuro trocando pelas mesmas classes.
-- **Acessibilidade de base**: React Aria por baixo dos componentes interativos, navegação por teclado e suporte a RTL.
-- **Um app inteiro funcionando**: landing, catálogo, documentação, chat com IA, dashboard e telas de autenticação — todos montados com os próprios componentes.
-
----
+- **80 componentes** em `packages/ui/src/components` — de Button, Input e
+  Segmented a Message, ToolBlock, ApprovalCard e PixelSky.
+- **20 peças documentadas com prévia viva** em `/components` e `/docs`.
+- **Dois temas** por um único atributo (`data-theme` no `<html>`), sem
+  variantes `dark:` espalhadas e sem runtime de estilo.
+- **Acessibilidade do Radix** nos controles interativos: foco, teclado, ARIA e
+  leitor de tela.
+- **Um site inteiro funcionando**: landing, catálogo, docs, login, signup,
+  chat com agente e dashboard — todos montados com o próprio kit.
+- **Um CLI** (`cli/`) que instala a biblioteca e mostra os imports.
 
 ## Arquitetura
 
-O app é um Next.js com App Router, organizado em três grupos de rotas:
-
-| Grupo | Rotas | Papel |
-| --- | --- | --- |
-| `app/(site)` | `/`, `/components`, `/docs`, `/login`, `/signup` | Páginas públicas, com header e footer do site |
-| `app/(app)` | `/chat`, `/dashboard` | Workspaces de altura cheia, com a navegação do produto |
-| `app/api` | `/api/chat` | O runtime do chat: recebe mensagens e devolve a resposta em streaming |
-
-O código dos componentes se divide em três camadas:
-
 ```
-components/
-├── base/          átomos: button, input, select, table, tabs, switch…
-├── application/   blocos: chat, dashboard, sidebar, catálogo, docs, auth…
-└── foundations/   marca, direção (RTL), ícones e tradução
-styles/
-├── theme.css      primitivas de cor e os tokens semânticos
-├── typography.css a escala tipográfica como utilitários compostos
-└── globals.css    entrada do Tailwind, reset e animações
+app/                    o site (Next.js App Router)
+├── (site)/             landing, catálogo, docs, login, signup
+├── (app)/              chat e dashboard, em tela cheia
+packages/ui/            faang-ui — a biblioteca (TS + CSS)
+├── src/components/     as 80 peças
+├── src/agent/          o motor do retrato em pixel
+├── src/sky/            o céu em canvas
+├── src/tokens/         valores compartilhados
+├── src/i18n/           locale e menções
+└── src/styles/         tokens.css + components.css
+components/             as peças do site (landing, catálogo, app shell)
+cli/                    o pacote `faang` do npm
 ```
 
-Duas peças são **geradas em tempo de build**, a partir do código real:
-
-- **registry** (`public/r/*.json`) — cada componente com seus arquivos, pacotes npm e dependências;
-- **documentação para agentes** (`public/llms.txt` e `public/docs.md`) — o mesmo conteúdo em texto.
-
----
+O site importa a biblioteca pelo alias `@ui/*` (veja `tsconfig.json`). O pacote
+declara um export por arquivo (`faang-ui/components/Button`), gerado por
+`npm run ui:exports`.
 
 ## Tecnologias
 
 | Camada | Escolha |
 | --- | --- |
-| Framework | Next.js (App Router), React 19 |
-| Estilo | Tailwind CSS v4 com tokens semânticos |
-| Interação | React Aria Components |
-| Dados | TanStack Table · Recharts |
-| IA | Cloudflare Workers AI, pelo binding `AI` do Worker |
+| Framework | Next.js 16 (App Router), React 19 |
+| Estilo | CSS próprio com tokens semânticos — **sem Tailwind** |
+| Interação | Radix UI |
+| Tipografia | Source Sans 3 + JetBrains Mono (`@fontsource`) |
 | Runtime | Cloudflare Workers, via adaptador OpenNext |
-
----
+| Licença | MIT |
 
 ## Como rodar
 
@@ -68,36 +63,45 @@ npm install
 npm run dev       # http://localhost:3000
 ```
 
-No `dev` o app roda sem o runtime do Cloudflare, então o chat fica em **modo demonstração**: as respostas são roteirizadas e todo o resto da interface funciona normalmente.
+| Script | O que faz |
+| --- | --- |
+| `npm run dev` | servidor de desenvolvimento |
+| `npm run build` | build de produção (gera os docs para agentes antes) |
+| `npm run typecheck` | TypeScript estrito em todo o monorepo |
+| `npm run ui:exports` | regenera os `exports` de `packages/ui/package.json` |
+| `npm run preview` | build + preview do Worker (Cloudflare) |
+| `npm run deploy` | publica o Worker |
 
-Para ter o modelo respondendo de verdade, rode como Worker:
-
-```bash
-npm run preview   # build do Worker + servidor local com o binding de IA
-```
-
-O binding `AI` está declarado no `wrangler.jsonc` e é a própria credencial — não existe chave para configurar.
-
-**Rotas para conhecer:**
+## Rotas
 
 | Rota | O que mostra |
 | --- | --- |
 | `/` | A apresentação do projeto |
-| `/components` | O catálogo, com previews vivos de cada componente |
-| `/docs` | A documentação de cada item: arquivos, pacotes e código |
-| `/chat` | O chat com IA, em streaming |
-| `/dashboard` | Um dashboard montado com os blocos do sistema |
+| `/components` | O catálogo, com prévia viva de 20 peças |
+| `/docs` | A documentação: fundamentos, tokens e componentes |
+| `/chat` | O chat de demonstração, com agente, ferramentas e aprovação |
+| `/dashboard` | O dashboard montado com os blocos do kit |
+| `/login`, `/signup` | As telas de autenticação |
 
----
+## Publicando a biblioteca
 
-## Personalizando
+```bash
+cd packages/ui
+npm publish
+```
 
-- **Cores**: `styles/theme.css` tem uma rampa `brand` (identidade) e uma `danger` (erro e destruição), e todo o resto referencia tokens semânticos (`text-text-primary`, `background-secondary-default`, `border-button-default`…). Trocar a rampa re-tinge o sistema inteiro.
-- **Tipografia**: `styles/typography.css` define a escala como utilitários compostos (`text-title-2-medium`, `text-body-regular`) — tamanho, peso, entrelinha e tracking juntos.
-- **Marca**: os arquivos ficam em `public/brand/` e os componentes `Logo` e `LogoLockup` em `components/foundations/brand/`.
-- **Textos da página**: o site abre em português e alterna para inglês no seletor do header; o dicionário fica em `components/application/landing/landing-copy.tsx`.
+O pacote inclui `src/` e `styles.css`. Para consumir em Next:
 
----
+```tsx
+// next.config.ts
+transpilePackages: ["faang-ui"]
+
+// app/layout.tsx
+import "faang-ui/styles.css";
+
+// componente
+import { Button } from "faang-ui/components/Button";
+```
 
 ## Licença
 

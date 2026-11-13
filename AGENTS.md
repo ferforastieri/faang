@@ -1,47 +1,52 @@
-Faang's design rules for coding agents, kept in sync by `npx faang init`.
-
-<!-- faang:rules:start -->
 # Faang design rules
 
-This project uses Faang (React + Tailwind CSS v4, source-owned components under `components/`). These rules always apply when writing UI code. MCP tools are on demand; these rules are not optional context.
+Este repositório é o **Faang UI**: uma biblioteca React com CSS próprio em
+`packages/ui` e o site que a consome em `app/`. Estas regras valem sempre que
+você escrever ou alterar UI.
 
-## Components first
+## Componentes primeiro
 
-- Before hand-building any UI element, check for an installed Faang component under `components/base/` and `components/application/`, and prefer it.
-- Missing a component? Install it (Faang MCP `install_components`, or `npx faang@latest add <name>`) instead of writing a lookalike.
-- Import through the `@/` alias, e.g. `import { Button } from "@/components/base/buttons/button"`.
+- Antes de montar qualquer elemento, procure em `packages/ui/src/components` e
+  prefira a peça existente.
+- Importe pelo alias do site: `import { Button } from "@ui/components/Button"`.
+  No pacote publicado, o mesmo arquivo é `faang-ui/components/Button`.
+- Não instale Tailwind, CSS-in-JS ou uma segunda biblioteca de componentes. O
+  visual vem de `packages/ui/src/styles/components.css` e dos tokens.
 
-## Color: semantic tokens only
+## Cor: só tokens semânticos
 
-- Never use raw palette classes (`text-gray-500`, `bg-white`, `border-neutral-200`) or hex/oklch literals. Every color rides a Faang semantic token, which also makes dark mode automatic.
-- Text: `text-text-primary`, `text-text-secondary`, `text-text-tertiary`, `text-text-placeholder`, errors `text-text-error-primary`.
-- Surfaces: `bg-background-primary-default`, `bg-background-secondary-default` / `-hover`, `bg-background-tertiary-default`, page ground `bg-background-full`.
-- Borders: `border-border-button-default` / `-hover`, hairlines `border-separator-border`, tables `border-border-table`, errors `border-border-error-default`.
-- Icons: `text-foreground-icon-primary` through `text-foreground-icon-quaternary`.
-- Charts: the `chart-1` … `chart-5` tokens (plus `-active` variants). CTAs and selection states: the `accent-50` … `accent-950` ramp.
-- Dark mode flips tokens via the `.dark` class on `<html>`. Do not write `dark:` overrides with raw colors; if a token pair looks wrong in dark mode, pick a different token, not a literal.
+- Nunca use hex, `oklch()` ou nomes de matiz soltos. Toda cor usa um token:
+  `var(--ink)`, `var(--muted)`, `var(--raised)`, `var(--line)`,
+  `var(--agent)`, `var(--ok)`, `var(--warn)`, `var(--danger)`, `var(--info)`.
+- O tema é `data-theme="light" | "dark"` no `<html>`. Não escreva regras
+  `dark:` nem `[data-theme] .alguma-coisa` por componente: os tokens já trocam.
+- Estado nunca é dito só por cor — sempre um ícone e uma palavra (`Chip`).
 
-## Typography: composite utilities only
+## Layout e forma
 
-- Use Faang's composite type utilities: `text-title-1-medium`, `text-title-2-medium`, `text-title-3-semibold`, `text-headline-medium`, `text-body-medium`, `text-body-regular`, `text-body-2-*`, `text-caption-1-semibold`, and friends. Each sets size, weight, line-height, and letter-spacing together.
-- Never rebuild type by stacking `text-sm font-medium leading-5`; if a style seems missing, look in `styles/typography.css` before inventing one.
+- Espaçamento e raios vêm dos tokens (`--space-*`, `--radius-*`,
+  `--control-h-*`). Página pode ter números próprios, componente não.
+- Uma ação principal por área (`Button variant="primary"`); o resto é
+  `default`, `ghost` ou `link`.
+- Nada de utilitários de layout no site: as páginas usam as classes `tp-*` em
+  `app/*.css`; os componentes usam `ac-*` no pacote.
 
-## Spacing and shape
+## Tipografia
 
-- Stay on Tailwind's spacing scale (`gap-2`, `p-4`, `mt-6`); prefer flex/grid `gap` over per-child margins. Arbitrary values (`p-[13px]`) only when matching an existing Faang component exactly.
-- Cards and panels: `rounded-3xl` with `border-border-button-default`. Inputs and menu rows: `rounded-md` to `rounded-xl`. Pills: `rounded-full`.
+- `--font-sans` (Source Sans 3) para a UI, `--font-mono` (JetBrains Mono) para
+  código, tokens e atalhos.
+- Tamanhos vêm de `--text-*`; não empilhe `text-sm font-medium leading-5`.
 
-## Mechanics
+## Acessibilidade
 
-- Direction: wrap the app (or a mixed-language region) in `DirectionProvider` from `@/components/foundations/direction/direction`, with an explicit BCP 47 `locale` (`ar`, `he`, `en-US`, `zh-CN`). Set matching `lang` and `dir` on `<html>` for full-app RTL. CSS `dir` alone does not configure React Aria keyboard navigation or portal placement. Use `useDirection()` for custom interactions and put its value on custom portal roots.
-- Use logical styles: `ms`/`me`, `ps`/`pe`, `start`/`end`, `text-start`/`text-end`, `border-s`/`border-e`, `rounded-s`/`rounded-e`, and inline logical CSS properties. Mirror navigation/disclosure glyphs and horizontal drawer motion in RTL. Preserve physical coordinates for measured geometry, charts, canvas, and decorative art. Keep code, OTP digits, email addresses and URLs in explicit LTR regions; isolate mixed text with `<bdi>` or `dir="auto"`. Translating labels and formatting application data is separate from layout direction. See https://www.faang.com/rtl.
+- Controles interativos usam Radix (`radix-ui`) por baixo. Não recrie o
+  comportamento de diálogo, menu, select ou tabs à mão.
+- Foco sempre visível (`--focus-ring`), alvo de toque de 44px (`--touch-target`).
 
-- Internal vertical scroll regions must soften the top edge with a progressive blur and surface fade once scrolled, rather than sharply clipping content. Keep headers outside the scroll region. Use a stationary, `pointer-events-none`, `aria-hidden` overlay in a relative wrapper: a 24px masked 1px backdrop blur, a 16px masked 4px backdrop blur, and a gradient from the enclosing semantic surface token to transparent. Ramp each layer's opacity from 0 to 1 over the first 24px of scrolling; keep it invisible at scrollTop 0. Apply opacity to the individual layers, never the overlay parent (a translucent parent creates a backdrop root and can break blur at normal browser zoom). Verify top/reset, overflow, light/dark mode, and 100% zoom; preserve keyboard scrolling and do not blur the whole content area.
+## Fontes de verdade
 
-- Merge classes with `cx()` from `@/utils/cx` (tailwind-merge aware of Faang's composite text styles). No string concatenation, no plain `clsx`.
-- Icons come from `@remixicon/react`, passed as component references (`leadingIcon={RiAddLine}`), not rendered elements.
-- Form components build on `react-aria-components`; extend the installed Faang form components rather than raw `<input>`/`<select>`.
-- Focus states: `outline-none focus-visible:ring-2 focus-visible:ring-border-focus-ring`.
-
-When unsure about a token, a component's API, or working example code, ask the Faang MCP server: `get_theme`, `get_component`, `get_usage_examples`.
-<!-- faang:rules:end -->
+- Componentes e tokens: `packages/ui/src`.
+- Catálogo e docs: `components/catalog/entries.ts` (uma entrada por peça
+  documentada) e `components/catalog/previews.tsx` (a prévia viva).
+- Ao adicionar uma peça documentada, atualize os dois e rode
+  `npm run typecheck` + `npm run build`.

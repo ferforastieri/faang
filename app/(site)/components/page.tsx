@@ -1,17 +1,38 @@
-import { ComponentsCatalog } from "@/components/application/app-shell/components-catalog";
+import { Catalog } from "@/components/catalog/catalog";
+import { INVENTORY } from "@/components/catalog/inventory";
 
-export const dynamic = "force-static";
+export const metadata = {
+  title: "Componentes — Faang",
+  description: "As peças do Faang UI: prévia viva, import e documentação.",
+};
 
-/**
- * The catalogue page. It sits in the public group, so it carries the site's
- * header and footer instead of the app shell — the sidebar belongs to the
- * product, and this page is documentation. The contents column doubles as the
- * page's left rail, so its content starts at the same x as the dashboard's.
- */
 export default function ComponentsPage() {
   return (
-    <div className="mx-auto w-full max-w-[1200px] px-4 py-8 sm:px-6">
-      <ComponentsCatalog />
-    </div>
+    <section className="tp-section tp-section--plain">
+      <div className="tp-shell">
+        <div className="tp-section__head">
+          <p className="tp-kicker">Catálogo</p>
+          <h1 className="tp-h2">As peças que constroem o produto.</h1>
+          <p className="tp-sub">
+            Vinte peças com prévia viva e documentação; o kit completo tem 80 arquivos em{" "}
+            <code>packages/ui/src/components</code> e cada um tem um export próprio no pacote.
+          </p>
+        </div>
+
+        <Catalog />
+
+        <div className="tp-section__head" style={{ marginTop: 64 }}>
+          <h2 className="tp-h2" style={{ fontSize: 22 }}>
+            Todo o kit
+          </h2>
+          <p className="tp-sub">Os 80 componentes, em ordem alfabética.</p>
+          <div className="tp-inventory">
+            {INVENTORY.map((name) => (
+              <code key={name}>{name}</code>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

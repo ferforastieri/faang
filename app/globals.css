@@ -1,0 +1,42 @@
+@import "@fontsource-variable/source-sans-3/index.css";
+@import "@fontsource-variable/jetbrains-mono/index.css";
+@import "../packages/ui/src/styles/index.css";
+@import "./landing.css";
+@import "./site.css";
+@import "./app.css";
+
+/*
+ * The app's faces, as the kit's own app draws them: Source Sans 3 for the UI,
+ * JetBrains Mono for code. The kit's tokens ship Onest as a fallback identity;
+ * these two lines make the landing read in the product's face.
+ */
+:root {
+  --font-sans: "Source Sans 3 Variable", "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --font-display: var(--font-sans);
+  /* Source Sans 3 draws small (x-height .486): as tall as 16px where the page says 15. */
+  --font-size-adjust: 0.52;
+  --tp-max: 1160px;
+  --tp-pad: clamp(20px, 4vw, 40px);
+  --tp-section: clamp(72px, 9vw, 120px);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 92px;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--agent-soft);
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
