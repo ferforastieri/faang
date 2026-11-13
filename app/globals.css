@@ -26,6 +26,12 @@ html {
   scroll-padding-top: 92px;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   text-rendering: optimizeLegibility;
 }
@@ -39,4 +45,28 @@ body {
   html {
     scroll-behavior: auto;
   }
+}
+
+/* While a view transition snapshots the page, component transitions must not
+   run their own animation on top of it (the theme toggle). */
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition: none !important;
+}
+
+/* The theme toggle's view transition: the old page stays still under the new
+   one, which is revealed by the injected circular mask. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
 }

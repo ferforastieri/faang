@@ -8,7 +8,7 @@
   --raised-2: #ffffff;
   --sunken: #f3f3f0;
   /* The app shell: the sidebar on the sky's paper (the faintest cool tint) and the work area beside it. */
-  --side: #fdf7f6;
+  --side: #f6f9fd;
   --pane: #ffffff;
   /* A sidebar row under the pointer, and the open one: one plate each, a step of ink into the paper. */
   --side-hover: color-mix(in srgb, var(--ink) 5%, var(--side));
@@ -49,7 +49,7 @@
   --raised-2: #242423;
   --sunken: #0a0a09;
   /* Three columns, two steps: both sidebars a step under the chat (Discord's split). */
-  --side: #100b0b;
+  --side: #0b0d11;
   --pane: #181817;
   --side-hover: color-mix(in srgb, var(--ink) 6%, var(--side));
   --side-chosen: color-mix(in srgb, var(--ink) 14%, var(--side));
