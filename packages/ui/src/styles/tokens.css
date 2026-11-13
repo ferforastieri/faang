@@ -91,8 +91,8 @@
   --surface-raised: var(--raised);
   --surface-sunken: var(--sunken);
   --ink-muted: var(--muted);
-  --action: var(--ink);
-  --on-action: var(--bg);
+  --action: var(--agent);
+  --on-action: var(--on-agent);
   --attention: var(--warn);
   --on-attention: var(--on-warn);
   --attention-soft: var(--warn-soft);
