@@ -10,7 +10,7 @@ import { SourceSection } from "@/components/landing/source-section";
 import { TokensSection } from "@/components/landing/tokens-section";
 
 const FACTS: Fact[] = [
-  { key: "pieces", icon: "layers", label: "Peças", value: "80 componentes" },
+  { key: "pieces", icon: "layers", label: "Peças", value: "101 componentes" },
   { key: "themes", icon: "preference", label: "Temas", value: "Claro e escuro" },
   { key: "keys", icon: "keyboard", label: "Teclado", value: "Foco em tudo" },
   { key: "css", icon: "code", label: "Estilo", value: "CSS puro" },
@@ -35,7 +35,7 @@ export default function LandingPage() {
 
               <p className="tp-lead">
                 Conversa, ferramentas, aprovações e o retrato do agente na mesma linguagem visual. Uma biblioteca React
-                com 80 peças, dois temas e acessibilidade de verdade — sem Tailwind e sem runtime de estilo.
+                com 100+ peças, dois temas e acessibilidade de verdade — sem Tailwind e sem runtime de estilo.
               </p>
 
               <div className="tp-actions">
@@ -86,6 +86,41 @@ export default function LandingPage() {
       <AgentSection />
       <TokensSection />
       <SourceSection />
+
+      <section id="ia" className="tp-section">
+        <div className="tp-shell">
+          <div className="tp-source">
+            <div className="tp-section__head">
+              <p className="tp-kicker">Runtime</p>
+              <h2 className="tp-h2">O agente responde de verdade.</h2>
+              <p className="tp-sub">
+                No Worker, <code>/api/chat</code> fala com o Workers AI pelo binding <code>AI</code> — sem chave de
+                modelo e com teto por visitante. No <code>next dev</code> não há binding, e o mesmo chat cai num
+                roteiro para a página continuar viva; a tela diz qual dos dois está no ar.
+              </p>
+              <div className="tp-actions">
+                <Button variant="primary" asChild>
+                  <a href="/chat">Abrir o chat</a>
+                </Button>
+              </div>
+            </div>
+
+            <div className="tp-terminal">
+              <div className="tp-terminal__note">{"// wrangler.jsonc"}</div>
+              <div>{'"ai": {'}</div>
+              <div>{'  "binding": "AI",'}</div>
+              <div>{'  "remote": true'}</div>
+              <div>{"}"}</div>
+              <div> </div>
+              <div className="tp-terminal__note">{"// app/api/chat/route.ts"}</div>
+              <div>{'const answer = await ai.run(chosenModel, {'}</div>
+              <div>{'  messages, stream: true, max_tokens: 1024,'}</div>
+              <div>{"});"}</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <FaqSection />
 
       <section className="tp-section">

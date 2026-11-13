@@ -3,7 +3,12 @@
 import { ApprovalCard } from "@ui/components/ApprovalCard";
 import { Button } from "@ui/components/Button";
 import { Card } from "@ui/components/Surfaces";
-import { CheckboxPill } from "@ui/components/Checkbox";
+import { CheckboxPill, SwitchCard } from "@ui/components/Checkbox";
+import { Breadcrumb } from "@ui/components/Breadcrumb";
+import { Divider } from "@ui/components/Divider";
+import { Notification } from "@ui/components/Notification";
+import { Slider } from "@ui/components/Slider";
+import { Table, type TableColumn } from "@ui/components/Table";
 import { AttentionNote, Chip } from "@ui/components/Chip";
 import { FactStrip } from "@ui/components/FactStrip";
 import { Field, Input } from "@ui/components/Field";
@@ -35,14 +40,31 @@ function Piece({
   );
 }
 
+type Run = { id: string; agent: string; action: string; time: string };
+
+const TABLE_COLUMNS: TableColumn<Run>[] = [
+  { key: "agent", title: "Agente", sortable: true },
+  { key: "action", title: "Ação", sortable: true },
+  { key: "time", title: "Hora", align: "end" },
+];
+
+const TABLE_ROWS: Run[] = [
+  { id: "1", agent: "Ada", action: "Abriu o PR #42", time: "09:12" },
+  { id: "2", agent: "Bento", action: "Importou 1.204 pedidos", time: "08:54" },
+  { id: "3", agent: "Cora", action: "Publicou o relatório", time: "08:31" },
+];
+
 /**
- * Six pieces, each drawn by the component it names. The state is local: these
+ * Twelve pieces, each drawn by the component it names. The state is local: these
  * are real controls, not screenshots.
  */
 export function Pieces() {
   const [view, setView] = useState<"lista" | "quadro">("lista");
   const [review, setReview] = useState(true);
   const [approved, setApproved] = useState(false);
+  const [digest, setDigest] = useState(true);
+  const [effort, setEffort] = useState(62);
+  const [selected, setSelected] = useState<string[]>([]);
 
   return (
     <div className="tp-grid tp-grid--3">
@@ -150,6 +172,53 @@ export function Pieces() {
             { key: "when", icon: "clock", label: "Prazo", value: "hoje" },
           ]}
         />
+      </Piece>
+
+      <Piece title="Ajustes" note="Liga e desliga, e uma faixa com o número sempre à vista.">
+        <SwitchCard
+          id="landing-digest"
+          checked={digest}
+          onCheckedChange={setDigest}
+          title="Resumo diário"
+          description="Um e-mail com o que os agentes fizeram."
+        />
+        <Slider value={[effort]} onValueChange={([next]) => setEffort(next)} label="Esforço" format={(n) => `${n}%`} />
+      </Piece>
+
+      <Piece title="Tabela" note="Colunas ordenáveis e seleção; o cabeçalho não sai da vista.">
+        <Table
+          columns={TABLE_COLUMNS}
+          rows={TABLE_ROWS}
+          getKey={(row) => row.id}
+          label="Execuções"
+          selected={selected}
+          onSelectedChange={setSelected}
+        />
+      </Piece>
+
+      <Piece title="Avisos" note="O que aconteceu, com tom, ícone e uma ação.">
+        <Notification
+          tone="done"
+          title="Publicado"
+          description="O relatório já está no ar para o time."
+          action={
+            <Button variant="ghost" size="sm">
+              Ver
+            </Button>
+          }
+        />
+        <Notification tone="attention" title="Espera você" description="Ada pede aprovação do merge." />
+      </Piece>
+
+      <Piece title="Trilha" note="O caminho até a tela e a régua entre blocos.">
+        <Breadcrumb
+          items={[
+            { label: "Acme", href: "/" },
+            { label: "eng", href: "/chat" },
+            { label: "PR #42" },
+          ]}
+        />
+        <Divider label="ou" />
       </Piece>
 
       <Piece title="Aprovação" note="A ação sensível espera uma pessoa, com o porquê junto." wide>

@@ -8,7 +8,7 @@ export const metadata = {
 const FUNDAMENTALS = [
   { href: "/docs/color", name: "Cor", note: "Tokens semânticos, dois temas por atributo." },
   { href: "/docs/typography", name: "Tipografia", note: "A escala em tokens, sem utilitários compostos." },
-  { href: "/components", name: "Catálogo", note: "As 20 peças com prévia viva." },
+  { href: "/components", name: "Catálogo", note: "As 54 peças com prévia viva." },
 ];
 
 export default function DocsIndexPage() {
@@ -46,6 +46,24 @@ export default function DocsIndexPage() {
           </div>
         </div>
       ))}
+
+      <div className="tp-doc__block">
+        <h2>Telas</h2>
+        <div className="tp-index-grid" style={{ marginTop: 0 }}>
+          <a href="/chat" className="tp-index-card">
+            <span className="tp-index-card__name">Chat</span>
+            <span className="tp-index-card__note">Agente, ferramentas, aprovação e o Workers AI no Worker.</span>
+          </a>
+          <a href="/dashboard" className="tp-index-card">
+            <span className="tp-index-card__name">Dashboard</span>
+            <span className="tp-index-card__note">Números, gráficos, aprovações e a tabela de execuções.</span>
+          </a>
+          <a href="/login" className="tp-index-card">
+            <span className="tp-index-card__name">Auth</span>
+            <span className="tp-index-card__note">Entrada e cadastro com o mesmo cartão e o céu em pixel.</span>
+          </a>
+        </div>
+      </div>
 
       <div className="tp-doc__block">
         <h2>Instalação</h2>

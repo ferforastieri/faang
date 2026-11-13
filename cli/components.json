@@ -13,6 +13,14 @@
       "path": "components/AgentSticker"
     },
     {
+      "name": "AgentThinking",
+      "path": "components/AgentThinking"
+    },
+    {
+      "name": "Announcement",
+      "path": "components/Announcement"
+    },
+    {
       "name": "ApprovalCard",
       "path": "components/ApprovalCard"
     },
@@ -29,8 +37,16 @@
       "path": "components/Brain"
     },
     {
+      "name": "Breadcrumb",
+      "path": "components/Breadcrumb"
+    },
+    {
       "name": "Button",
       "path": "components/Button"
+    },
+    {
+      "name": "ButtonGroup",
+      "path": "components/ButtonGroup"
     },
     {
       "name": "CardHorizon",
@@ -45,6 +61,10 @@
       "path": "components/Carousel"
     },
     {
+      "name": "Charts",
+      "path": "components/Charts"
+    },
+    {
       "name": "ChatGif",
       "path": "components/ChatGif"
     },
@@ -55,6 +75,10 @@
     {
       "name": "Chip",
       "path": "components/Chip"
+    },
+    {
+      "name": "CloseButton",
+      "path": "components/CloseButton"
     },
     {
       "name": "CodeInput",
@@ -77,8 +101,20 @@
       "path": "components/Composer"
     },
     {
+      "name": "ComposerLoader",
+      "path": "components/ComposerLoader"
+    },
+    {
       "name": "Computer",
       "path": "components/Computer"
+    },
+    {
+      "name": "DataGrid",
+      "path": "components/DataGrid"
+    },
+    {
+      "name": "DataTable",
+      "path": "components/DataTable"
     },
     {
       "name": "DatePicker",
@@ -95,6 +131,10 @@
     {
       "name": "Diff",
       "path": "components/Diff"
+    },
+    {
+      "name": "Divider",
+      "path": "components/Divider"
     },
     {
       "name": "EffortPixels",
@@ -119,6 +159,10 @@
     {
       "name": "Field",
       "path": "components/Field"
+    },
+    {
+      "name": "FileUpload",
+      "path": "components/FileUpload"
     },
     {
       "name": "FilterChip",
@@ -165,12 +209,24 @@
       "path": "components/Message"
     },
     {
+      "name": "Notification",
+      "path": "components/Notification"
+    },
+    {
+      "name": "NotificationCenter",
+      "path": "components/NotificationCenter"
+    },
+    {
       "name": "OptionList",
       "path": "components/OptionList"
     },
     {
       "name": "PageHeader",
       "path": "components/PageHeader"
+    },
+    {
+      "name": "Pagination",
+      "path": "components/Pagination"
     },
     {
       "name": "PixelMarks",
@@ -241,12 +297,32 @@
       "path": "components/Settings"
     },
     {
+      "name": "SettingsDialog",
+      "path": "components/SettingsDialog"
+    },
+    {
       "name": "SettingsPath",
       "path": "components/SettingsPath"
     },
     {
+      "name": "Sidebar",
+      "path": "components/Sidebar"
+    },
+    {
       "name": "Skeleton",
       "path": "components/Skeleton"
+    },
+    {
+      "name": "Slider",
+      "path": "components/Slider"
+    },
+    {
+      "name": "SocialButton",
+      "path": "components/SocialButton"
+    },
+    {
+      "name": "StatCard",
+      "path": "components/StatCard"
     },
     {
       "name": "StepTrack",
@@ -255,6 +331,10 @@
     {
       "name": "Surfaces",
       "path": "components/Surfaces"
+    },
+    {
+      "name": "Table",
+      "path": "components/Table"
     },
     {
       "name": "Tabs",
@@ -287,6 +367,10 @@
     {
       "name": "Toolbar",
       "path": "components/Toolbar"
+    },
+    {
+      "name": "TreeView",
+      "path": "components/TreeView"
     },
     {
       "name": "UsageDays",

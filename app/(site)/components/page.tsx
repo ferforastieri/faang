@@ -14,7 +14,7 @@ export default function ComponentsPage() {
           <p className="tp-kicker">Catálogo</p>
           <h1 className="tp-h2">As peças que constroem o produto.</h1>
           <p className="tp-sub">
-            Vinte peças com prévia viva e documentação; o kit completo tem 80 arquivos em{" "}
+            54 peças com prévia viva e documentação; o kit completo tem 101 arquivos em{" "}
             <code>packages/ui/src/components</code> e cada um tem um export próprio no pacote.
           </p>
         </div>
@@ -25,7 +25,7 @@ export default function ComponentsPage() {
           <h2 className="tp-h2" style={{ fontSize: 22 }}>
             Todo o kit
           </h2>
-          <p className="tp-sub">Os 80 componentes, em ordem alfabética.</p>
+          <p className="tp-sub">Os 101 componentes, em ordem alfabética.</p>
           <div className="tp-inventory">
             {INVENTORY.map((name) => (
               <code key={name}>{name}</code>

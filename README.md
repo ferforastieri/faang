@@ -13,9 +13,9 @@ semânticas e o código fica no repositório, editável como qualquer código se
 
 ## O que o projeto entrega
 
-- **80 componentes** em `packages/ui/src/components` — de Button, Input e
+- **101 componentes** em `packages/ui/src/components` — de Button, Input e
   Segmented a Message, ToolBlock, ApprovalCard e PixelSky.
-- **20 peças documentadas com prévia viva** em `/components` e `/docs`.
+- **54 peças documentadas com prévia viva** em `/components` e `/docs`.
 - **Dois temas** por um único atributo (`data-theme` no `<html>`), sem
   variantes `dark:` espalhadas e sem runtime de estilo.
 - **Acessibilidade do Radix** nos controles interativos: foco, teclado, ARIA e
@@ -31,7 +31,7 @@ app/                    o site (Next.js App Router)
 ├── (site)/             landing, catálogo, docs, login, signup
 ├── (app)/              chat e dashboard, em tela cheia
 packages/ui/            faang-ui — a biblioteca (TS + CSS)
-├── src/components/     as 80 peças
+├── src/components/     as 101 peças
 ├── src/agent/          o motor do retrato em pixel
 ├── src/sky/            o céu em canvas
 ├── src/tokens/         valores compartilhados
@@ -77,7 +77,7 @@ npm run dev       # http://localhost:3000
 | Rota | O que mostra |
 | --- | --- |
 | `/` | A apresentação do projeto |
-| `/components` | O catálogo, com prévia viva de 20 peças |
+| `/components` | O catálogo, com prévia viva de 54 peças |
 | `/docs` | A documentação: fundamentos, tokens e componentes |
 | `/chat` | O chat de demonstração, com agente, ferramentas e aprovação |
 | `/dashboard` | O dashboard montado com os blocos do kit |

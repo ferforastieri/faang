@@ -538,3 +538,26 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* Catalogue preview helpers */
+.tp-carousel {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.tp-sidebar-preview {
+  display: block;
+  width: 100%;
+  max-height: 380px;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+}
+
+.tp-sidebar-preview .ac-nav {
+  width: 100%;
+  min-height: 320px;
+}

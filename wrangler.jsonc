@@ -1,19 +1,38 @@
 {
-  // Worker que serve o site inteiro (landing, catálogo, docs, chat e dashboard).
-  // `.open-next/` é produzido por `opennextjs-cloudflare build`.
+  // Worker que serve o site inteiro (landing, catálogo, docs, chat e dashboard)
+  // e a rota de streaming `/api/chat` no Workers AI.
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "faang",
   "main": ".open-next/worker.js",
   // Publicado só no domínio próprio; nenhum <worker>.workers.dev.
   "workers_dev": false,
   "compatibility_date": "2026-11-10",
-  "compatibility_flags": ["nodejs_compat"],
+  // Next e as rotas do Worker usam os built-ins do Node.
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   // Assets estáticos (CSS, JS, imagens) saem direto da borda; o Worker só
   // acorda para o que precisa renderizar.
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS"
   },
+  // Inferência da própria Cloudflare: o chat responde sem chave de modelo.
+  // `remote` faz `wrangler dev` e o preview baterem no Workers AI de verdade.
+  "ai": {
+    "binding": "AI",
+    "remote": true
+  },
+  // Teto de uso do chat: cada visitante ganha um orçamento por minuto em vez
+  // de um endpoint de modelo aberto.
+  "ratelimits": [
+    {
+      "name": "CHAT_LIMIT",
+      "namespace_id": "1001",
+      "simple": {
+        "limit": 10,
+        "period": 60
+      }
+    }
+  ],
   "observability": {
     "enabled": true
   }

@@ -11,7 +11,7 @@ const CHECKS = [
 const TREE: { text: string; tone?: "dir" | "note" }[] = [
   { text: "packages/ui/", tone: "note" },
   { text: "├── src/", tone: "dir" },
-  { text: "│   ├── components/  # as 80 peças", tone: "note" },
+  { text: "│   ├── components/  # as 101 peças", tone: "note" },
   { text: "│   ├── agent/       # o motor do retrato", tone: "note" },
   { text: "│   ├── sky/         # o céu em pixel", tone: "note" },
   { text: "│   ├── tokens/      # valores compartilhados", tone: "note" },
