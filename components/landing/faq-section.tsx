@@ -44,7 +44,7 @@ export function FaqSection() {
       <div className="tp-shell">
         <div className="tp-faq__head">
           <SectionHeading
-            index="05"
+            index="03"
             eyebrow="Perguntas"
             title="As perguntas antes do primeiro install."
             description="Licença, CLI e o que está por baixo dos componentes. O resto fica nas issues do GitHub."

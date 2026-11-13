@@ -1,7 +1,6 @@
 import { Button } from "@ui/components/Button";
 
 import { FaqSection } from "@/components/landing/faq-section";
-import { Features } from "@/components/landing/features";
 import { FinalCta } from "@/components/landing/final-cta";
 import { HeroWindow } from "@/components/landing/hero-window";
 import { InstallCommand } from "@/components/landing/install-command";
@@ -53,7 +52,6 @@ export default function LandingPage() {
       <Values />
       <Showcase />
       <Screens />
-      <Features />
       <FaqSection />
       <FinalCta />
     </>
