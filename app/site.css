@@ -561,3 +561,157 @@
   width: 100%;
   min-height: 320px;
 }
+
+/* ── Catalogue index (the old components page) ──────────────────────────── */
+
+.tp-doc__nav .ac-searchfield {
+  margin-bottom: 4px;
+}
+
+.tp-doc__nav a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.tp-doc__count {
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+}
+
+.tp-doc__note {
+  margin: 4px 0 0;
+  color: var(--faint);
+  font-size: 12px;
+}
+
+.tp-index__section {
+  margin-top: 38px;
+  scroll-margin-top: 96px;
+}
+
+.tp-index__head h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.tp-index__head p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 13.5px;
+}
+
+.tp-index__list {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tp-indexrow {
+  display: grid;
+  grid-template-columns: minmax(0, 210px) minmax(0, 1fr) auto;
+  gap: 4px 18px;
+  align-items: baseline;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.tp-indexrow__name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tp-indexrow:hover .tp-indexrow__name {
+  color: var(--agent);
+}
+
+.tp-indexrow__desc {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.tp-indexrow > svg {
+  color: var(--faint);
+}
+
+@media (max-width: 640px) {
+  .tp-indexrow {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .tp-indexrow__desc {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ── Quick search dialog ────────────────────────────────────────────────── */
+
+.tp-searchlist {
+  display: grid;
+  gap: 2px;
+  max-height: 360px;
+  margin: 12px 0 0;
+  padding: 0;
+  overflow: auto;
+  list-style: none;
+}
+
+.tp-searchlist a {
+  display: grid;
+  gap: 2px;
+  padding: 10px 8px;
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.tp-searchlist a:hover,
+.tp-searchlist a:focus-visible {
+  background: var(--plate-soft);
+  outline: none;
+}
+
+.tp-searchlist__name {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.tp-searchlist__name small {
+  color: var(--faint);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tp-searchlist__summary {
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.4;
+}
+
+.tp-searchlist__empty {
+  margin: 18px 0 0;
+  color: var(--faint);
+  font-size: 13px;
+  text-align: center;
+}
+
+/* ── Auth brand panel (no pixel sky) ────────────────────────────────────── */
+
+.tp-auth__aside--brand {
+  background:
+    radial-gradient(70% 55% at 70% 16%, color-mix(in srgb, var(--agent) 16%, transparent), transparent 72%),
+    radial-gradient(50% 40% at 20% 90%, color-mix(in srgb, var(--agent) 8%, transparent), transparent 75%),
+    var(--side);
+}

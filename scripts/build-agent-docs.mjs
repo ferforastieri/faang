@@ -12,10 +12,6 @@ const names = fs
 
 const items = names.map((name) => ({ name, path: `components/${name}` }));
 fs.writeFileSync(path.join(ROOT, "cli/components.json"), `${JSON.stringify({ items }, null, 2)}\n`);
-fs.writeFileSync(
-  path.join(ROOT, "components/catalog/inventory.ts"),
-  `/** Every component file in the kit, A–Z. */\nexport const INVENTORY = ${JSON.stringify(names, null, 2)} as const;\n`,
-);
 
 const header = `# Faang UI
 

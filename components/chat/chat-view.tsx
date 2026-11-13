@@ -13,12 +13,6 @@ import { useEffect, useRef, useState } from "react";
 
 type Line = { id: number; own?: boolean; text: string };
 
-type Runtime = {
-  configured: boolean;
-  model?: string | null;
-  reason?: string | null;
-};
-
 const OPENING: Line[] = [
   {
     id: 1,
@@ -95,7 +89,7 @@ async function streamReply(messages: ReturnType<typeof history>, onDelta: (delta
         continue;
       }
       if (data.type === "text-delta" && typeof data.delta === "string") onDelta(data.delta);
-      if (data.type === "error") throw new Error(data.errorText ?? "Workers AI não respondeu.");
+      if (data.type === "error") throw new Error(data.errorText ?? "A resposta falhou.");
     }
   }
 }
@@ -104,23 +98,9 @@ export function ChatView() {
   const [lines, setLines] = useState<Line[]>(OPENING);
   const [text, setText] = useState("");
   const [approval, setApproval] = useState<"waiting" | "approved">("waiting");
-  const [runtime, setRuntime] = useState<Runtime | null>(null);
   const [streaming, setStreaming] = useState<number | null>(null);
   const feed = useRef<HTMLDivElement>(null);
   const nextId = useRef(2);
-
-  // The route says whether this runtime has the AI binding (a Worker) or not
-  // (a plain `next dev`), so the screen can be honest before the first send.
-  useEffect(() => {
-    let alive = true;
-    fetch("/api/chat")
-      .then((response) => response.json())
-      .then((data: Runtime) => alive && setRuntime(data))
-      .catch(() => alive && setRuntime({ configured: false, reason: "Rota indisponível." }));
-    return () => {
-      alive = false;
-    };
-  }, []);
 
   useEffect(() => {
     const el = feed.current;
@@ -136,11 +116,6 @@ export function ChatView() {
     setLines((current) => [...current, { id: own, own: true, text: trimmed }]);
     setText("");
 
-    if (!runtime?.configured) {
-      setTimeout(() => setLines((current) => [...current, { id: answer, text: REPLY }]), 700);
-      return;
-    }
-
     setLines((current) => [...current, { id: answer, text: "" }]);
     setStreaming(answer);
 
@@ -150,14 +125,10 @@ export function ChatView() {
           current.map((line) => (line.id === answer ? { ...line, text: line.text + delta } : line)),
         );
       });
-    } catch (error) {
-      const message = error instanceof Error ? error.message : "Workers AI não respondeu.";
+    } catch {
+      // The demo still answers when the endpoint is not running (plain next dev).
       setLines((current) =>
-        current.map((line) =>
-          line.id === answer
-            ? { ...line, text: `Não consegui falar com o Workers AI agora. ${message}` }
-            : line,
-        ),
+        current.map((line) => (line.id === answer ? { ...line, text: REPLY } : line)),
       );
     } finally {
       setStreaming(null);
@@ -281,15 +252,10 @@ export function ChatView() {
               ),
             )}
 
-          {waiting && <AgentThinking label="Pensando" detail="Workers AI" color="sky" />}
+          {waiting && <AgentThinking label="Pensando" color="sky" />}
 
           <p className="tp-chat__intro">
-            <Chip icon="agent">Ada</Chip> está no canal <b>#eng</b> · 12 membros, 3 agentes ·{" "}
-            {runtime === null
-              ? "conectando…"
-              : runtime.configured
-                ? `Workers AI${runtime.model ? ` · ${runtime.model}` : ""}`
-                : "modo demonstração (rode como Worker para o modelo real)"}
+            <Chip icon="agent">Ada</Chip> está no canal <b>#eng</b> · 12 membros, 3 agentes
           </p>
         </div>
       </div>

@@ -46,7 +46,7 @@ export const ENTRIES: CatalogEntry[] = [
     slug: "avatar",
     name: "Avatar",
     group: "Base",
-    summary: "Pessoa ou agente no mesmo tile; o agente vem do motor de retratos.",
+    summary: "Pessoa ou agente no mesmo tile; a cor do agente define o fundo.",
     importPath: "faang-ui/components/Avatar",
     code: `<Avatar kind="agent" name="Ada" appearance={{ color: "sky" }} />`,
     preview: true,

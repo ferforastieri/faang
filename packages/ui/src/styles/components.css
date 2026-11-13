@@ -6334,7 +6334,7 @@ html:not([data-pointer]) .ac-hint:focus-visible {
 }
 /* Agents: the living symbol, drawn by the agent engine on a canvas (Avatar); the box only holds its place. */
 .ac-avatar--agent {
-  background: none;
+  background: linear-gradient(160deg, var(--av-top, var(--agent2)), var(--av-bottom, var(--agent)));
   color: var(--on-agent);
   border-radius: var(--radius-agent);
 }
@@ -6351,15 +6351,18 @@ html:not([data-pointer]) .ac-hint:focus-visible {
   height: 200%;
   pointer-events: none;
 }
-/* The agent is one Toph character: a still PNG that fills the tile (the tile's own sky stays behind it). */
-.ac-avatar__toph {
+/* The agent mark: the kit's agent glyph, centred on the colour tile. */
+.ac-avatar__agentmark {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   pointer-events: none;
-  user-select: none;
+}
+.ac-avatar__agentmark svg {
+  width: 56%;
+  height: 56%;
 }
 /* That room is drawn, never laid out (layout containment makes it ink overflow): a face by a scroll area's edge doesn't
    scroll the area by its accessories' reach. */
@@ -6382,7 +6385,7 @@ html:not([data-pointer]) .ac-hint:focus-visible {
   border-radius: 30%;
 }
 .ac-avatar--framed.ac-avatar--agent {
-  background: color-mix(in srgb, var(--av-top, var(--agent)) 14%, var(--raised));
+  background: linear-gradient(160deg, var(--av-top, var(--agent2)), var(--av-bottom, var(--agent)));
 }
 .ac-avatar--framed::before {
   content: "";

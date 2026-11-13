@@ -1,35 +1,40 @@
-import { FoldRow } from "@ui/components/FoldRow";
+import { Button } from "@ui/components/Button";
 
-const QUESTIONS = [
+import { SectionHeading } from "./section-heading";
+
+const FAQ = [
   {
-    title: "Preciso de Tailwind?",
+    question: "A biblioteca inteira é gratuita?",
     answer:
-      "Não. O kit é CSS próprio, com nomes ac-* e tokens semânticos. O Tailwind saiu do projeto: nada no kit depende de classes utilitárias, de um plugin ou de um passo de build extra.",
+      "Sim. Todos os componentes, tokens, telas e documentação são MIT: sem plano pago, sem chave e sem login.",
   },
   {
-    title: "Dá para usar só uma peça?",
+    question: "Como instalo um componente?",
     answer:
-      "Sim. Cada componente é um arquivo com as classes que ele usa e um export próprio: import { Button } from \"faang-ui/components/Button\". O código-fonte também fica no repositório, se você preferir copiar.",
+      "Com o CLI — npx faang@latest add data-table — ou com npm i faang-ui e o import direto. O CSS entra uma vez no layout.",
   },
   {
-    title: "Como o tema funciona?",
+    question: "O código é meu?",
     answer:
-      "O elemento html carrega data-theme=\"light\" ou \"dark\". Todos os valores de cor vêm de custom properties que trocam com esse atributo; nenhum componente sabe qual tema está ativo, e não existem variantes dark: espalhadas.",
+      "É. O kit vive em packages/ui no seu repositório e o pacote leva o mesmo código-fonte. Você edita e publica como quiser.",
   },
   {
-    title: "E a acessibilidade?",
-    answer:
-      "Os controles interativos — diálogos, menus, selects, abas, popovers, checkbox — usam Radix por baixo: foco preso onde precisa, teclado, ARIA e leitor de tela. O restante segue o mesmo contrato de foco visível e alvos de toque.",
+    question: "Posso usar em projetos comerciais?",
+    answer: "Sim. MIT permite uso comercial, alteração e redistribuição; mantenha o aviso de licença no que redistribuir.",
   },
   {
-    title: "Qual é a licença?",
-    answer:
-      "MIT. O código é aberto e pode ser usado, alterado e publicado como você quiser — inclusive dentro de um produto fechado.",
+    question: "Quais tecnologias o kit usa?",
+    answer: "React 19 e Next.js no site, CSS próprio com tokens semânticos e Radix nos controles interativos.",
   },
   {
-    title: "De onde vêm os retratos?",
+    question: "Tem tema escuro?",
     answer:
-      "São desenhados pelo próprio kit. O motor monta o corpo, os olhos e o acessório em pixel; os PNGs de personagem e o céu em canvas completam a cena, sem banco de imagens.",
+      "Todo componente lê tokens semânticos; data-theme=\"dark\" no html troca os valores. Nada é escrito duas vezes.",
+  },
+  {
+    question: "E a acessibilidade?",
+    answer:
+      "Diálogos, menus, selects, abas e popovers usam Radix: foco preso onde precisa, teclado, ARIA e leitor de tela. O resto segue o mesmo contrato de foco visível.",
   },
 ];
 
@@ -37,16 +42,29 @@ export function FaqSection() {
   return (
     <section id="perguntas" className="tp-section">
       <div className="tp-shell">
-        <div className="tp-section__head">
-          <p className="tp-kicker">Perguntas</p>
-          <h2 className="tp-h2">O que costuma vir antes.</h2>
+        <div className="tp-faq__head">
+          <SectionHeading
+            index="05"
+            eyebrow="Perguntas"
+            title="As perguntas antes do primeiro install."
+            description="Licença, CLI e o que está por baixo dos componentes. O resto fica nas issues do GitHub."
+          />
+          <Button asChild>
+            <a href="https://github.com/ferforastieri/faang/issues" target="_blank" rel="noreferrer">
+              Perguntar no GitHub
+            </a>
+          </Button>
         </div>
 
-        <div className="tp-faq">
-          {QUESTIONS.map((question) => (
-            <FoldRow key={question.title} title={question.title}>
-              <p>{question.answer}</p>
-            </FoldRow>
+        <div className="tp-faq__list">
+          {FAQ.map((item, index) => (
+            <div key={item.question} className="tp-faq__row">
+              <h3>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                {item.question}
+              </h3>
+              <p>{item.answer}</p>
+            </div>
           ))}
         </div>
       </div>

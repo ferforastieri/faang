@@ -8,7 +8,7 @@ export const metadata = {
 const FUNDAMENTALS = [
   { href: "/docs/color", name: "Cor", note: "Tokens semânticos, dois temas por atributo." },
   { href: "/docs/typography", name: "Tipografia", note: "A escala em tokens, sem utilitários compostos." },
-  { href: "/components", name: "Catálogo", note: "As 54 peças com prévia viva." },
+  { href: "/components", name: "Catálogo", note: "As 52 peças com prévia viva." },
 ];
 
 export default function DocsIndexPage() {
@@ -52,7 +52,7 @@ export default function DocsIndexPage() {
         <div className="tp-index-grid" style={{ marginTop: 0 }}>
           <a href="/chat" className="tp-index-card">
             <span className="tp-index-card__name">Chat</span>
-            <span className="tp-index-card__note">Agente, ferramentas, aprovação e o Workers AI no Worker.</span>
+            <span className="tp-index-card__note">Agente, ferramentas, aprovação e o compositor na mesma tela.</span>
           </a>
           <a href="/dashboard" className="tp-index-card">
             <span className="tp-index-card__name">Dashboard</span>

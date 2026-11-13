@@ -41,7 +41,7 @@ export function ThemeToggle() {
     const next: Theme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
     document.documentElement.dataset.theme = next;
     try {
-      localStorage.setItem("tophs:theme", next);
+      localStorage.setItem("faang:theme", next);
     } catch {
       // Private mode: the choice lasts the page.
     }

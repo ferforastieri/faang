@@ -4,7 +4,6 @@ import { Button } from "@ui/components/Button";
 import { CheckboxPill } from "@ui/components/Checkbox";
 import { Chip } from "@ui/components/Chip";
 import { Field, Input } from "@ui/components/Field";
-import { PixelSky, glowOptions } from "@ui/components/PixelSky";
 import { useState, type FormEvent } from "react";
 
 import { BrandLogo } from "@/components/brand/brand-logo";
@@ -27,11 +26,7 @@ export function AuthCard({ mode }: { mode: "login" | "signup" }) {
 
   return (
     <div className="tp-auth">
-      <aside className="tp-auth__aside">
-        <span className="tp-preview__sky" aria-hidden="true">
-          <PixelSky options={glowOptions("sky", "--side")} />
-        </span>
-
+      <aside className="tp-auth__aside tp-auth__aside--brand">
         <a href="/" className="tp-brand" aria-label="Faang, início">
           <BrandLogo height={24} />
         </a>

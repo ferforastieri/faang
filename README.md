@@ -15,7 +15,7 @@ semânticas e o código fica no repositório, editável como qualquer código se
 
 - **101 componentes** em `packages/ui/src/components` — de Button, Input e
   Segmented a Message, ToolBlock, ApprovalCard e PixelSky.
-- **54 peças documentadas com prévia viva** em `/components` e `/docs`.
+- **52 peças documentadas com prévia viva** em `/components` e `/docs`.
 - **Dois temas** por um único atributo (`data-theme` no `<html>`), sem
   variantes `dark:` espalhadas e sem runtime de estilo.
 - **Acessibilidade do Radix** nos controles interativos: foco, teclado, ARIA e
@@ -77,7 +77,7 @@ npm run dev       # http://localhost:3000
 | Rota | O que mostra |
 | --- | --- |
 | `/` | A apresentação do projeto |
-| `/components` | O catálogo, com prévia viva de 54 peças |
+| `/components` | O catálogo, com prévia viva de 52 peças |
 | `/docs` | A documentação: fundamentos, tokens e componentes |
 | `/chat` | O chat de demonstração, com agente, ferramentas e aprovação |
 | `/dashboard` | O dashboard montado com os blocos do kit |

@@ -97,9 +97,9 @@ function KbdPreview() {
 function AvatarPreview() {
   return (
     <>
-      <Avatar kind="agent" name="Ada" appearance={{ color: "sky", accessory: "crown" }} />
-      <Avatar kind="agent" name="Bento" appearance={{ color: "green", accessory: "headphones" }} />
-      <Avatar kind="agent" name="Cora" appearance={{ color: "rose", accessory: "flower" }} />
+      <Avatar kind="agent" name="Ada" appearance={{ color: "sky" }} />
+      <Avatar kind="agent" name="Bento" appearance={{ color: "green" }} />
+      <Avatar kind="agent" name="Cora" appearance={{ color: "rose" }} />
       <Avatar name="Fernando" />
     </>
   );
