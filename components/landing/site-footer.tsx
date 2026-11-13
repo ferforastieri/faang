@@ -1,4 +1,4 @@
-import { LogoMark } from "@ui/components/Logo";
+import { BrandLogo } from "@/components/brand/brand-logo";
 
 const REPOSITORY = "https://github.com/ferforastieri/faang";
 
@@ -7,10 +7,7 @@ export function SiteFooter() {
     <footer className="tp-footer">
       <div className="tp-shell tp-footer__bar">
         <a href="/" className="tp-brand" aria-label="Faang, início">
-          <LogoMark size={22} />
-          <span className="tp-brand__name" aria-hidden="true">
-            <b>Faang</b> <span>UI</span>
-          </span>
+          <BrandLogo height={20} />
         </a>
 
         <p className="tp-footer__note">MIT · feito com o próprio kit</p>

@@ -18,12 +18,19 @@ export const metadata: Metadata = {
   title: "Tophs UI — a interface para produtos de agente",
   description:
     "Um sistema de design em React para produtos de agente: conversa, ferramentas, aprovações e retratos em pixel. Dois temas, tokens semânticos e acessibilidade do Radix.",
-  icons: { icon: "/favicon.svg" },
+  icons: {
+    icon: [{ url: "/brand/faang-icon.png", type: "image/png", sizes: "256x256" }],
+    apple: "/brand/faang-icon.png",
+  },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ef0c0c" },
+    { media: "(prefers-color-scheme: dark)", color: "#100b0b" },
+  ],
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

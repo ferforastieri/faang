@@ -4,9 +4,10 @@ import { Button } from "@ui/components/Button";
 import { CheckboxPill } from "@ui/components/Checkbox";
 import { Chip } from "@ui/components/Chip";
 import { Field, Input } from "@ui/components/Field";
-import { LogoMark } from "@ui/components/Logo";
 import { PixelSky, glowOptions } from "@ui/components/PixelSky";
 import { useState, type FormEvent } from "react";
+
+import { BrandLogo } from "@/components/brand/brand-logo";
 
 /**
  * The two auth screens share one card: a pixel-sky panel on the left, the form
@@ -28,14 +29,11 @@ export function AuthCard({ mode }: { mode: "login" | "signup" }) {
     <div className="tp-auth">
       <aside className="tp-auth__aside">
         <span className="tp-preview__sky" aria-hidden="true">
-          <PixelSky options={glowOptions("violet", "--side")} />
+          <PixelSky options={glowOptions("sky", "--side")} />
         </span>
 
         <a href="/" className="tp-brand" aria-label="Faang, início">
-          <LogoMark size={26} />
-          <span className="tp-brand__name" aria-hidden="true">
-            <b>Faang</b> <span>UI</span>
-          </span>
+          <BrandLogo height={24} />
         </a>
 
         <div className="tp-auth__aside-copy">

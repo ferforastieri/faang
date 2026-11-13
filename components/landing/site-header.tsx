@@ -1,5 +1,6 @@
 import { Button } from "@ui/components/Button";
-import { LogoMark } from "@ui/components/Logo";
+
+import { BrandLogo } from "@/components/brand/brand-logo";
 
 import { ThemeToggle } from "./theme-toggle";
 
@@ -17,10 +18,7 @@ export function SiteHeader() {
     <header className="tp-header">
       <div className="tp-shell tp-header__bar">
         <a href="/" className="tp-brand" aria-label="Faang, início">
-          <LogoMark className="tp-brand__mark" />
-          <span className="tp-brand__name" aria-hidden="true">
-            <b>Faang</b> <span>UI</span>
-          </span>
+          <BrandLogo height={26} />
         </a>
 
         <nav className="tp-nav" aria-label="Navegação">

@@ -31,7 +31,7 @@ const FOLLOW_UP = "Consultei o repositório e o quadro antes de responder.";
 const REPLY =
   "Anotado. Vou abrir a issue no repositório, ligar ao PR #42 e deixar o resumo no canal #eng. Te aviso quando o teste de integração terminar.";
 
-const ADA = { color: "violet" as const };
+const ADA = { color: "sky" as const };
 
 /** The history the model sees, in the UI-message shape the route validates. */
 function history(lines: Line[], pending: string) {
@@ -185,7 +185,7 @@ export function ChatView() {
             </MessageText>
             <ToolBlock
               label="O que a Ada fez"
-              color="violet"
+              color="sky"
               logos={[<Icon key="repo" name="repo" size={14} />]}
               head={{ text: "Usou 3 ferramentas", state: "done", count: "3 passos", time: "6 s" }}
               items={[
@@ -281,7 +281,7 @@ export function ChatView() {
               ),
             )}
 
-          {waiting && <AgentThinking label="Pensando" detail="Workers AI" color="violet" />}
+          {waiting && <AgentThinking label="Pensando" detail="Workers AI" color="sky" />}
 
           <p className="tp-chat__intro">
             <Chip icon="agent">Ada</Chip> está no canal <b>#eng</b> · 12 membros, 3 agentes ·{" "}

@@ -20,10 +20,10 @@ const STATS = [
 ];
 
 const RUNS = [
-  { agent: "Ada", color: "violet" as const, action: "Abriu o PR #42", time: "09:12", state: "Concluído", tone: "done" as const },
+  { agent: "Ada", color: "sky" as const, action: "Abriu o PR #42", time: "09:12", state: "Concluído", tone: "done" as const },
   { agent: "Bento", color: "green" as const, action: "Importou 1.204 pedidos", time: "08:54", state: "Concluído", tone: "done" as const },
   { agent: "Cora", color: "rose" as const, action: "Publicou o relatório", time: "08:31", state: "Aguardando", tone: "waiting" as const },
-  { agent: "Ada", color: "violet" as const, action: "Rodou os testes do parser", time: "08:02", state: "Concluído", tone: "done" as const },
+  { agent: "Ada", color: "sky" as const, action: "Rodou os testes do parser", time: "08:02", state: "Concluído", tone: "done" as const },
 ];
 
 export function DashboardView() {

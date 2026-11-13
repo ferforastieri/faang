@@ -52,7 +52,7 @@ export function ChatDemo() {
   }
 
   const agent = (
-    <Avatar kind="agent" name="Ada" appearance={{ color: "violet", eyes: "round" }} size="sm" />
+    <Avatar kind="agent" name="Ada" appearance={{ color: "sky", eyes: "round" }} size="sm" />
   );
 
   return (
@@ -83,7 +83,7 @@ export function ChatDemo() {
           </MessageText>
           <ToolBlock
             label="O que a Ada fez"
-            color="violet"
+            color="sky"
             logos={[<Icon key="repo" name="repo" size={14} />]}
             head={{ text: "Usou 3 ferramentas", state: "done", count: "3 passos", time: "6 s" }}
             items={[

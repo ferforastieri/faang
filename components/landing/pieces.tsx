@@ -134,7 +134,7 @@ export function Pieces() {
       <Piece title="Ferramentas" note="O que o agente usou, em linhas que abrem no detalhe.">
         <ToolBlock
           label="O que a Ada fez"
-          color="violet"
+          color="sky"
           logos={[<Icon key="repo" name="repo" size={14} />]}
           head={{ text: "Usou 2 ferramentas", state: "done", count: "2 passos", time: "4 s" }}
           items={[

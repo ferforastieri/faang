@@ -2,9 +2,9 @@ import type { ReactNode } from "react";
 
 import { Avatar } from "@ui/components/Avatar";
 import { Chip } from "@ui/components/Chip";
-import { LogoMark } from "@ui/components/Logo";
 import { Icon, type IconName } from "@ui/icons/Icon";
 
+import { BrandLogo } from "@/components/brand/brand-logo";
 import { ThemeToggle } from "@/components/landing/theme-toggle";
 
 const CONVERSATIONS: { href: string; label: string; icon: IconName; count?: number }[] = [
@@ -15,7 +15,7 @@ const CONVERSATIONS: { href: string; label: string; icon: IconName; count?: numb
 ];
 
 const AGENTS = [
-  { name: "Ada", color: "violet" as const, note: "código" },
+  { name: "Ada", color: "sky" as const, note: "código" },
   { name: "Bento", color: "green" as const, note: "dados" },
   { name: "Cora", color: "rose" as const, note: "design" },
 ];
@@ -42,10 +42,7 @@ export function AppShell({
     <div className="tp-app">
       <aside className="tp-app__side">
         <a href="/" className="tp-app__brand" aria-label="Faang, início">
-          <LogoMark size={24} />
-          <span aria-hidden="true">
-            <b>Faang</b>
-          </span>
+          <BrandLogo height={22} />
         </a>
 
         <div className="tp-app__item" aria-hidden="true">
@@ -109,7 +106,7 @@ export function AppShell({
       <div className="tp-app__main">
         <header className="tp-app__top">
           <a className="tp-app__home" href="/" aria-label="Faang, início">
-            <LogoMark size={22} />
+            <BrandLogo height={20} />
           </a>
 
           <span className="tp-app__title">

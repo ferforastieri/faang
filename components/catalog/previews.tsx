@@ -27,9 +27,10 @@ import { StatCard } from "@ui/components/StatCard";
 import { Table, type TableColumn } from "@ui/components/Table";
 import { Textarea } from "@ui/components/Field";
 import { TreeView } from "@ui/components/TreeView";
-import { LogoMark } from "@ui/components/Logo";
 import { Menu, MenuItem, MenuSeparator } from "@ui/components/Menu";
 import { Tip } from "@ui/components/Tip";
+
+import { BrandLogo } from "@/components/brand/brand-logo";
 import { Avatar } from "@ui/components/Avatar";
 import { Button } from "@ui/components/Button";
 import { CheckboxPill } from "@ui/components/Checkbox";
@@ -96,7 +97,7 @@ function KbdPreview() {
 function AvatarPreview() {
   return (
     <>
-      <Avatar kind="agent" name="Ada" appearance={{ color: "violet", accessory: "crown" }} />
+      <Avatar kind="agent" name="Ada" appearance={{ color: "sky", accessory: "crown" }} />
       <Avatar kind="agent" name="Bento" appearance={{ color: "green", accessory: "headphones" }} />
       <Avatar kind="agent" name="Cora" appearance={{ color: "rose", accessory: "flower" }} />
       <Avatar name="Fernando" />
@@ -221,7 +222,7 @@ function MessagePreview() {
   return (
     <Message
       agent
-      avatar={<Avatar kind="agent" name="Ada" appearance={{ color: "violet" }} size="sm" />}
+      avatar={<Avatar kind="agent" name="Ada" appearance={{ color: "sky" }} size="sm" />}
       author="Ada"
       time="09:12"
     >
@@ -251,7 +252,7 @@ function ToolBlockPreview() {
   return (
     <ToolBlock
       label="O que a Ada fez"
-      color="violet"
+      color="sky"
       logos={[<Icon key="repo" name="repo" size={14} />]}
       head={{ text: "Usou 2 ferramentas", state: "done", count: "2 passos", time: "4 s" }}
       items={[
@@ -306,7 +307,7 @@ function ApprovalPreview() {
 function SkyPreview() {
   return (
     <span className="tp-preview__sky">
-      <PixelSky options={glowOptions("violet", "--raised")} />
+      <PixelSky options={glowOptions("sky", "--raised")} />
     </span>
   );
 }
@@ -587,7 +588,7 @@ function TreePreview() {
 }
 
 function ThinkingPreview() {
-  return <AgentThinking label="Lendo o repositório" detail="3 arquivos" color="violet" />;
+  return <AgentThinking label="Lendo o repositório" detail="3 arquivos" color="sky" />;
 }
 
 function LoaderPreview() {
@@ -646,7 +647,7 @@ function NotificationsPreview() {
               description: "2 arquivos, testes passando.",
               time: "09:12",
               unread: true,
-              face: <Avatar kind="agent" name="Ada" appearance={{ color: "violet" }} size="xs" />,
+              face: <Avatar kind="agent" name="Ada" appearance={{ color: "sky" }} size="xs" />,
             },
             {
               id: "n2",
@@ -769,10 +770,7 @@ function SidebarPreview() {
       <Sidebar
         brand={
           <span className="tp-brand">
-            <LogoMark size={24} />
-            <span className="tp-brand__name">
-              <b>Faang</b>
-            </span>
+            <BrandLogo height={22} />
           </span>
         }
         workspace={<span>Acme</span>}
@@ -789,7 +787,7 @@ function SidebarPreview() {
             key: "agents",
             title: "Agentes",
             items: [
-              { key: "ada", label: "Ada", chosen: true, face: <Avatar kind="agent" name="Ada" appearance={{ color: "violet" }} size="xs" />, count: 3 },
+              { key: "ada", label: "Ada", chosen: true, face: <Avatar kind="agent" name="Ada" appearance={{ color: "sky" }} size="xs" />, count: 3 },
               { key: "bento", label: "Bento", face: <Avatar kind="agent" name="Bento" appearance={{ color: "green" }} size="xs" /> },
             ],
           },

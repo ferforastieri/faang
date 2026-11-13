@@ -48,7 +48,7 @@ export const ENTRIES: CatalogEntry[] = [
     group: "Base",
     summary: "Pessoa ou agente no mesmo tile; o agente vem do motor de retratos.",
     importPath: "faang-ui/components/Avatar",
-    code: `<Avatar kind="agent" name="Ada" appearance={{ color: "violet" }} />`,
+    code: `<Avatar kind="agent" name="Ada" appearance={{ color: "sky" }} />`,
     preview: true,
   },
   {
@@ -169,7 +169,7 @@ export const ENTRIES: CatalogEntry[] = [
     summary: "O céu em pixel que acompanha o tema, desenhado em canvas.",
     importPath: "faang-ui/components/PixelSky",
     imports: "{ PixelSky, glowOptions }",
-    code: `<PixelSky options={glowOptions("violet")} />`,
+    code: `<PixelSky options={glowOptions("sky")} />`,
     preview: true,
   },
   {
@@ -393,7 +393,7 @@ export const ENTRIES: CatalogEntry[] = [
     group: "Conversa",
     summary: "O agente antes das palavras: \u00f3rbita na cor dele, o que faz e tr\u00eas pontos.",
     importPath: "faang-ui/components/AgentThinking",
-    code: `<AgentThinking label="Lendo o reposit\u00f3rio" detail="3 arquivos" color="violet" />`,
+    code: `<AgentThinking label="Lendo o reposit\u00f3rio" detail="3 arquivos" color="sky" />`,
     preview: true,
   },
   {

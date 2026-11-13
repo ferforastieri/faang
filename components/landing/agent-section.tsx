@@ -6,7 +6,7 @@ import { PixelSky, glowOptions } from "@ui/components/PixelSky";
 import type { AgentAppearance } from "@ui/components/AgentLook";
 
 const FACES: { name: string; appearance: AgentAppearance }[] = [
-  { name: "Ada", appearance: { color: "violet", eyes: "round", accessory: "crown" } },
+  { name: "Ada", appearance: { color: "sky", eyes: "round", accessory: "crown" } },
   { name: "Bento", appearance: { color: "green", eyes: "dots", accessory: "headphones" } },
   { name: "Cora", appearance: { color: "rose", eyes: "happy", accessory: "flower" } },
   { name: "Dora", appearance: { color: "teal", eyes: "wide", accessory: "cap" } },
@@ -42,7 +42,7 @@ export function AgentSection() {
           </div>
 
           <div className="tp-sky">
-            <PixelSky options={glowOptions("violet", "--raised")} />
+            <PixelSky options={glowOptions("sky", "--raised")} />
             <div className="tp-sky__faces">
               {FACES.map((face, index) => (
                 <span key={face.name} className={`tp-face ${index % 2 === 0 ? "tp-face--up" : "tp-face--down"}`}>
