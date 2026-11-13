@@ -397,6 +397,10 @@
       "path": "components/media-playback"
     },
     {
+      "name": "toph",
+      "path": "components/toph"
+    },
+    {
       "name": "voice-recorder",
       "path": "components/voice-recorder"
     },
