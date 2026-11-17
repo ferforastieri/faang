@@ -1,6 +1,6 @@
 {
   "name": "faang",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Add Faang UI to your project: installs the faang-ui package and prints the imports.",
   "type": "module",
   "bin": {

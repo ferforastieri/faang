@@ -15,7 +15,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 
-const VERSION = "0.2.0";
+const VERSION = "0.2.1";
 const PACKAGE = "faang-ui";
 const ITEMS = JSON.parse(readFileSync(new URL("./components.json", import.meta.url), "utf8")).items;
 
