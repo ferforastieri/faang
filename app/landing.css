@@ -628,21 +628,49 @@
 .tp-footer__bar {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 16px 28px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px 40px;
 }
 
-.tp-footer__links {
+.tp-footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tp-footer__groups {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 18px;
-  margin-inline-start: auto;
+  gap: 20px 48px;
+}
+
+.tp-footer__group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.tp-footer__label {
+  color: var(--faint);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .tp-footer a {
   color: var(--muted);
   font-size: 13px;
   text-decoration: none;
+}
+
+.tp-footer__group a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
 }
 
 .tp-footer a:hover {
@@ -653,6 +681,47 @@
   margin: 0;
   color: var(--faint);
   font-size: 12.5px;
+}
+
+/* A phone: the brand on top, then one row per group — the label above and its
+   links side by side, each a 44px target instead of a 22px line of 13px text. */
+@media (max-width: 640px) {
+  .tp-footer {
+    padding-block: 26px 30px;
+  }
+
+  .tp-footer__bar {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .tp-footer__groups {
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+  }
+
+  .tp-footer__group {
+    flex-flow: row wrap;
+    column-gap: 18px;
+  }
+
+  .tp-footer__group a {
+    min-height: var(--touch-target);
+    font-size: 14px;
+  }
+
+  .tp-footer__label {
+    flex-basis: 100%;
+    padding-block-end: 2px;
+  }
+
+  .tp-footer__group--agents {
+    align-items: center;
+    column-gap: 24px;
+    padding-block-start: 12px;
+    border-top: 1px solid var(--line);
+  }
 }
 
 /* ── Responsive ─────────────────────────────────────────────────────────── */

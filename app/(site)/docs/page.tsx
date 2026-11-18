@@ -83,6 +83,23 @@ import { Button } from "faang-ui/components/Button";`}</code>
           <span>CSS puro</span>
         </p>
       </div>
+
+      <div className="tp-doc__block">
+        <h2>Para agentes</h2>
+        <p className="tp-doc__lead" style={{ marginTop: 0 }}>
+          A mesma documentação em texto puro, do jeito que um modelo lê melhor.
+        </p>
+        <div className="tp-index-grid" style={{ marginTop: 0 }}>
+          <a href="/llms.txt" className="tp-index-card">
+            <span className="tp-index-card__name">llms.txt</span>
+            <span className="tp-index-card__note">O índice do kit: instalação e a lista de componentes com imports.</span>
+          </a>
+          <a href="/docs.md" className="tp-index-card">
+            <span className="tp-index-card__name">docs.md</span>
+            <span className="tp-index-card__note">O índice completo em markdown, com a seção de tokens.</span>
+          </a>
+        </div>
+      </div>
     </>
   );
 }

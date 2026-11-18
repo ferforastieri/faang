@@ -82,6 +82,12 @@ npm run dev       # http://localhost:3000
 | `/chat` | O chat de demonstração, com agente, ferramentas e aprovação |
 | `/dashboard` | O dashboard montado com os blocos do kit |
 | `/login`, `/signup` | As telas de autenticação |
+| `/llms.txt` | O índice da biblioteca para agentes, gerado no build |
+| `/docs.md` | A documentação inteira em markdown, gerada no build |
+
+O `robots.txt` e o `sitemap.xml` são gerados por `app/robots.ts` e
+`app/sitemap.ts`; os dois arquivos de agente também aparecem no rodapé e como
+`<link rel="alternate">` no `<head>`.
 
 ## Publicando a biblioteca
 

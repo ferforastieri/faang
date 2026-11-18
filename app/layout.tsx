@@ -15,9 +15,19 @@ const THEME_SCRIPT = `(() => {
 })();`;
 
 export const metadata: Metadata = {
+  // Crawlers and social cards resolve relative URLs against this origin.
+  metadataBase: new URL("https://faang.fer.tec.br"),
   title: "Faang — a interface para produtos de agente",
   description:
     "Um sistema de design em React para produtos de agente: conversa, ferramentas, aprovações e retratos em pixel. Dois temas, tokens semânticos e acessibilidade do Radix.",
+  // The machine-readable versions of this site: a crawler (or an agent) finds
+  // both from any page through the head, without a link in the header.
+  alternates: {
+    types: {
+      "text/plain": "/llms.txt",
+      "text/markdown": "/docs.md",
+    },
+  },
   icons: {
     icon: [{ url: "/brand/faang-icon.png", type: "image/png", sizes: "256x256" }],
     apple: "/brand/faang-icon.png",
